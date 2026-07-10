@@ -81,32 +81,8 @@ export default function Services() {
               <span className="chip">Daraz Seller</span>
               <span className="chip">Headless</span>
             </div>
-            <div className="shots">
-              <div className="shot">
-                <div className="shotbar">
-                  <span className="tl" style={{ background: "#FF5F57" }} />
-                  <span className="tl" style={{ background: "#FEBC2E" }} />
-                  <span className="tl" style={{ background: "#28C840" }} />
-                  <span className="shoturl">Shopify admin — live client store · built &amp; scaled by ScaleUp</span>
-                </div>
-                <Image
-                  className="shotimg"
-                  src="/uploads/shopify-pkr.jpg"
-                  alt="Client Shopify admin — PKR 3.84M gross sales, up 322%, 1,138 orders"
-                  width={900}
-                  height={560}
-                />
-              </div>
-              <Image
-                className="shotover"
-                src="/uploads/shopify-aud.jpg"
-                alt="Client Shopify sales report — orders, gross and total sales over time"
-                width={500}
-                height={320}
-              />
-            </div>
-            <div className="fstat">Real client dashboards — gross sales +322% YoY · orders +287%</div>
-            <Link className="clink" href="/services/ecommerce" style={{ marginTop: "auto", paddingTop: 16 }}>
+            <div className="fstat">Real client results — gross sales +322% YoY · orders +287%</div>
+            <Link className="clink" href="/services/ecommerce" style={{ paddingTop: 16 }}>
               Explore Ecommerce Development →
             </Link>
           </div>

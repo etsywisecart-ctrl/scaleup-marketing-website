@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import SubHero from "@/components/SubHero";
 import FeatureList from "@/components/FeatureList";
@@ -66,37 +65,10 @@ export default function EcommercePage() {
       <section className="sec softband">
         <div className="wrap">
           <div className="rv" style={{ maxWidth: 640 }}>
-            <p className="eyebrow">Real client work</p>
+            <p className="eyebrow">Pricing &amp; timeline</p>
             <h2 className="h2" style={{ fontSize: "clamp(28px,3.4vw,40px)" }}>
-              Not a mockup — a live admin panel.
+              Fixed quote. No hourly surprises.
             </h2>
-          </div>
-          <div className="rv" style={{ maxWidth: 760, marginTop: 40 }}>
-            <div className="shots">
-              <div className="shot">
-                <div className="shotbar">
-                  <span className="tl" style={{ background: "#FF5F57" }} />
-                  <span className="tl" style={{ background: "#FEBC2E" }} />
-                  <span className="tl" style={{ background: "#28C840" }} />
-                  <span className="shoturl">Shopify admin — live client store · built &amp; scaled by ScaleUp</span>
-                </div>
-                <Image
-                  className="shotimg"
-                  src="/uploads/shopify-pkr.jpg"
-                  alt="Client Shopify admin — PKR 3.84M gross sales, up 322%, 1,138 orders"
-                  width={900}
-                  height={560}
-                />
-              </div>
-              <Image
-                className="shotover"
-                src="/uploads/shopify-aud.jpg"
-                alt="Client Shopify sales report — orders, gross and total sales over time"
-                width={500}
-                height={320}
-              />
-            </div>
-            <div className="fstat">Real client dashboards — gross sales +322% YoY · orders +287%</div>
           </div>
           <div className="priceband rv" id="pricing" style={{ maxWidth: 760 }}>
             <span className="pricev">Ecommerce builds start from $2.5K</span>
