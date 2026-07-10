@@ -1,5 +1,6 @@
 import Hero from "@/components/Hero";
 import About from "@/components/About";
+import ClientLogos from "@/components/ClientLogos";
 import Services from "@/components/Services";
 import Showreel from "@/components/Showreel";
 import Academy from "@/components/Academy";
@@ -15,6 +16,7 @@ export default function Home() {
     <>
       <Hero />
       <About />
+      <ClientLogos />
       <Services />
       <Showreel />
       <Academy />

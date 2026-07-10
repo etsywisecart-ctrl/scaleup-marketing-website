@@ -509,6 +509,55 @@ a:hover {
 .softband {
   background: #f7fafa;
 }
+.lwall {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1px;
+  margin-top: 48px;
+  background: #eef4f3;
+  border: 1px solid #e7f0ee;
+  border-radius: 20px;
+  overflow: hidden;
+}
+.lcell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 34px 18px;
+  background: #fff;
+  color: #9aaab0;
+  transition:
+    color 0.2s,
+    background 0.2s;
+}
+.lcell:hover {
+  color: #0e3b52;
+  background: #f7fafa;
+}
+.lname {
+  font-size: 16px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+@media (max-width: 1020px) {
+  .lwall {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 640px) {
+  .lwall {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .lcell {
+    padding: 26px 10px;
+    gap: 7px;
+  }
+  .lname {
+    font-size: 14.5px;
+  }
+}
 .split {
   display: grid;
   grid-template-columns: 1.15fr 0.85fr;
