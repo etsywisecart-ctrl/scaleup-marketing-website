@@ -4,8 +4,17 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-const NAV_LINKS = [
-  { href: "/#services", label: "Services" },
+const SERVICE_LINKS = [
+  { href: "/services/ecommerce", label: "Ecommerce Development", sub: "Shopify, WooCommerce & marketplaces" },
+  { href: "/services/software-development", label: "Web, SaaS & App Dev", sub: "Sites, platforms & mobile apps" },
+  { href: "/#services", label: "AI Automation", sub: "Workflows that run themselves" },
+  { href: "/#services", label: "CRM / ERP", sub: "One source of truth" },
+  { href: "/#services", label: "UI / UX Design", sub: "Research, flows & interfaces" },
+  { href: "/#services", label: "Digital Marketing", sub: "Ads, funnels & retention" },
+  { href: "/#services", label: "Business Consulting", sub: "Strategy before code" },
+];
+
+const MAIN_LINKS = [
   { href: "/academy", label: "Academy" },
   { href: "/#process", label: "Process" },
   { href: "/#work", label: "Work" },
@@ -15,6 +24,7 @@ const NAV_LINKS = [
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [mServicesOpen, setMServicesOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -22,6 +32,11 @@ export default function Header() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  const closeMenu = () => {
+    setMenuOpen(false);
+    setMServicesOpen(false);
+  };
 
   return (
     <>
@@ -39,7 +54,23 @@ export default function Header() {
             />
           </Link>
           <nav className="nav">
-            {NAV_LINKS.map((l) => (
+            <div className="navdd">
+              <Link className="nlink navddtrigger" href="/#services">
+                Services
+                <svg className="navddcaret" width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M2.5 4.5 6 8l3.5-3.5" />
+                </svg>
+              </Link>
+              <div className="navddmenu">
+                {SERVICE_LINKS.map((l) => (
+                  <Link key={l.label} className="navddlink" href={l.href}>
+                    {l.label}
+                    <span className="navddsub">{l.sub}</span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+            {MAIN_LINKS.map((l) => (
               <Link key={l.href} className="nlink" href={l.href}>
                 {l.label}
               </Link>
@@ -60,12 +91,29 @@ export default function Header() {
         </div>
       </header>
       <div className={`mm${menuOpen ? " on" : ""}`}>
-        {NAV_LINKS.map((l) => (
-          <Link key={l.href} className="mlink" href={l.href} onClick={() => setMenuOpen(false)}>
+        <button
+          className="mlink mgroup"
+          onClick={() => setMServicesOpen((v) => !v)}
+          aria-expanded={mServicesOpen}
+        >
+          Services
+          <span className={`mgcaret${mServicesOpen ? " open" : ""}`}>+</span>
+        </button>
+        {mServicesOpen && (
+          <div className="msub">
+            {SERVICE_LINKS.map((l) => (
+              <Link key={l.label} className="msublink" href={l.href} onClick={closeMenu}>
+                {l.label}
+              </Link>
+            ))}
+          </div>
+        )}
+        {MAIN_LINKS.map((l) => (
+          <Link key={l.href} className="mlink" href={l.href} onClick={closeMenu}>
             {l.label}
           </Link>
         ))}
-        <Link className="btn btnG" href="/#contact" onClick={() => setMenuOpen(false)} style={{ marginTop: 14 }}>
+        <Link className="btn btnG" href="/#contact" onClick={closeMenu} style={{ marginTop: 14 }}>
           Book a Strategy Call
         </Link>
       </div>

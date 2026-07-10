@@ -177,6 +177,83 @@ a:hover {
   font-weight: 700;
   color: #0e2a38;
 }
+.navdd {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.navddtrigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.navddcaret {
+  transition: transform 0.2s;
+  color: #8a9ba2;
+}
+.navdd:hover .navddcaret,
+.navdd:focus-within .navddcaret {
+  transform: rotate(180deg);
+  color: #2fbf9e;
+}
+.navddmenu {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  min-width: 288px;
+  background: #fff;
+  border: 1px solid #e7f0ee;
+  border-radius: 16px;
+  box-shadow: 0 28px 56px -28px rgba(14, 42, 56, 0.32);
+  padding: 8px;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.2s,
+    transform 0.2s,
+    visibility 0.2s;
+  z-index: 61;
+}
+.navddmenu::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 0;
+  right: 0;
+  height: 12px;
+}
+.navdd:hover .navddmenu,
+.navdd:focus-within .navddmenu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(7px);
+}
+.navddlink {
+  display: block;
+  padding: 11px 14px;
+  border-radius: 11px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #0e2a38;
+  white-space: nowrap;
+  transition:
+    background 0.16s,
+    color 0.16s;
+}
+.navddlink:hover {
+  background: #f1f7f6;
+  color: #14806f;
+}
+.navddsub {
+  display: block;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 10px;
+  font-weight: 500;
+  color: #8a9ba2;
+  margin-top: 3px;
+  letter-spacing: 0.01em;
+}
 .burger {
   display: none;
   background: none;
@@ -211,6 +288,45 @@ a:hover {
   font-weight: 700;
   padding: 11px 4px;
   border-bottom: 1px solid #f0f5f4;
+}
+.mgroup {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background: none;
+  border: none;
+  border-bottom: 1px solid #f0f5f4;
+  font-family: "Satoshi", sans-serif;
+  color: #0e2a38;
+  text-align: left;
+  cursor: pointer;
+}
+.mgcaret {
+  font-size: 22px;
+  font-weight: 900;
+  color: #2fbf9e;
+  line-height: 1;
+  transition: transform 0.2s;
+}
+.mgcaret.open {
+  transform: rotate(45deg);
+}
+.msub {
+  display: flex;
+  flex-direction: column;
+  padding: 4px 0 8px 14px;
+  border-left: 2px solid #e6f7f3;
+  margin: 2px 0 2px 4px;
+}
+.msublink {
+  font-size: 15px;
+  font-weight: 700;
+  color: #3e5560;
+  padding: 9px 4px;
+}
+.msublink:hover {
+  color: #14806f;
 }
 .hero {
   position: relative;
