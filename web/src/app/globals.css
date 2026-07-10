@@ -526,13 +526,10 @@ a:hover {
   gap: 9px;
   padding: 34px 18px;
   background: #fff;
-  color: #9aaab0;
-  transition:
-    color 0.2s,
-    background 0.2s;
+  color: #5b6b72;
+  transition: background 0.2s;
 }
 .lcell:hover {
-  color: #0e3b52;
   background: #f7fafa;
 }
 .lname {
