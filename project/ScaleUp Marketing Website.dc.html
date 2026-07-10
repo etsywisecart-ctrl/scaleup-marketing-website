@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<title>ScaleUp Marketing — Learn. Launch. Scale.</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://api.fontshare.com"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@500,700,900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#fff}
+a{color:#0E3B52;text-decoration:none;transition:color .18s}
+a:hover{color:#2FBF9E}
+.site{font-family:'Satoshi',ui-sans-serif,system-ui,sans-serif;color:#0E2A38;background:#fff;overflow-x:clip}
+.mono{font-family:'JetBrains Mono',ui-monospace,monospace}
+.wrap{max-width:1204px;margin:0 auto;padding:0 32px}
+.sec{padding:112px 0;scroll-margin-top:74px;position:relative}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#179A87;margin:0 0 18px}
+.h2{font-size:clamp(34px,4.2vw,54px);font-weight:900;letter-spacing:-.03em;line-height:1.04;margin:0}
+.lead{font-size:17px;line-height:1.65;color:#5B6B72;font-weight:500;margin:0}
+.grad{background:linear-gradient(115deg,#2FBF9E 5%,#179A87 45%,#0E3B52 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;height:52px;padding:0 27px;border-radius:13px;font-family:'Satoshi',sans-serif;font-weight:700;font-size:15.5px;cursor:pointer;border:none;transition:transform .18s,box-shadow .18s,background .18s;white-space:nowrap}
+.btnG{background:linear-gradient(115deg,#2FBF9E,#14806F 55%,#0E3B52);color:#fff;box-shadow:0 8px 22px -8px rgba(20,128,111,.55)}
+.btnG:hover{transform:translateY(-2px);box-shadow:0 14px 30px -10px rgba(20,128,111,.6);color:#fff}
+.btnO{background:#fff;color:#0E2A38;border:1.5px solid #D8E5E2}
+.btnO:hover{border-color:#2FBF9E;color:#0E2A38}
+.sm{height:42px;padding:0 20px;font-size:14px;border-radius:11px}
+.chip{display:inline-flex;align-items:center;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;color:#3E5560;background:#F1F7F6;border:1px solid #E0EBE8;border-radius:7px;padding:4px 9px;white-space:nowrap}
+.rv{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.2,.6,.2,1),transform .7s cubic-bezier(.2,.6,.2,1)}
+.rv.in{opacity:1;transform:none}
+.nomotion .rv{opacity:1;transform:none;transition:none}
+.hd{position:fixed;top:0;left:0;right:0;z-index:60;transition:background .25s,box-shadow .25s,border-color .25s;border-bottom:1px solid transparent}
+.hd.sc{background:rgba(255,255,255,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid #E7F0EE}
+.hdr{display:flex;align-items:center;justify-content:space-between;height:74px}
+.lg{height:46px;display:block;mix-blend-mode:multiply}
+.nav{display:flex;align-items:center;gap:30px}
+.nlink{font-size:14.5px;font-weight:700;color:#0E2A38}
+.burger{display:none;background:none;border:1.5px solid #D8E5E2;border-radius:10px;width:42px;height:42px;cursor:pointer;color:#0E2A38;align-items:center;justify-content:center}
+.mm{display:none}
+.mm.on{display:flex;flex-direction:column;gap:4px;position:fixed;top:74px;left:0;right:0;z-index:59;background:#fff;border-bottom:1px solid #E7F0EE;padding:14px 24px 22px;box-shadow:0 24px 40px -24px rgba(14,42,56,.25)}
+.mlink{font-size:17px;font-weight:700;padding:11px 4px;border-bottom:1px solid #F0F5F4}
+.hero{position:relative;padding:196px 0 0;overflow:clip}
+.gridbg{position:absolute;inset:0;background-image:linear-gradient(rgba(14,59,82,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(14,59,82,.045) 1px,transparent 1px);background-size:54px 54px;-webkit-mask-image:radial-gradient(900px 620px at 62% 8%,#000 30%,transparent 78%);mask-image:radial-gradient(900px 620px at 62% 8%,#000 30%,transparent 78%);pointer-events:none}
+.blob{position:absolute;border-radius:50%;filter:blur(70px);pointer-events:none;animation:drift 14s ease-in-out infinite alternate}
+.blob1{width:520px;height:520px;right:-140px;top:-180px;background:radial-gradient(circle at 35% 35%,rgba(47,191,158,.28),rgba(14,59,82,.10) 65%,transparent 75%)}
+.blob2{width:380px;height:380px;left:-160px;top:340px;background:radial-gradient(circle at 60% 40%,rgba(47,191,158,.16),transparent 70%);animation-delay:-6s}
+.nomotion .blob{animation:none}
+@keyframes drift{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(-28px,30px,0) scale(1.06)}}
+.h1{font-size:clamp(56px,9vw,124px);font-weight:900;letter-spacing:-.045em;line-height:.98;margin:26px 0 0}
+.hsub{max-width:640px;font-size:clamp(17px,1.6vw,20px);line-height:1.6;color:#5B6B72;font-weight:500;margin:30px 0 0}
+.hcta{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:40px}
+.hnote{display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#7A8B92;margin-top:22px}
+.dot{width:7px;height:7px;border-radius:50%;background:#2FBF9E;box-shadow:0 0 0 4px rgba(47,191,158,.18)}
+.stats{margin-top:88px;border-top:1px solid #E7F0EE;border-bottom:1px solid #E7F0EE;background:linear-gradient(180deg,rgba(247,250,250,.7),rgba(255,255,255,0))}
+.strip{display:grid;grid-template-columns:repeat(4,1fr)}
+.stat{padding:30px 34px;border-left:1px solid #E7F0EE}
+.stat.first{border-left:none;padding-left:0}
+.num{font-family:'JetBrains Mono',monospace;font-size:clamp(26px,2.6vw,36px);font-weight:600;color:#0E2A38;letter-spacing:-.02em}
+.slab{font-size:13px;font-weight:700;color:#7A8B92;margin-top:6px}
+.mq{overflow:hidden;padding:34px 0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+.mqt{display:flex;width:max-content;animation:mqs 34s linear infinite}
+.nomotion .mqt{animation:none}
+@keyframes mqs{to{transform:translateX(-50%)}}
+.mqg{display:flex;align-items:center;gap:74px;padding-right:74px}
+.pl{display:flex;align-items:center;gap:9px;opacity:.92;filter:saturate(.92)}
+.plt{font-size:24px;font-weight:900;letter-spacing:-.02em;line-height:1}
+.woob{font-style:italic;font-weight:900;font-size:19px;color:#fff;background:#7F54B3;border-radius:12px;padding:3px 12px 4px}
+.mqlab{text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#8A9BA2;padding-top:44px}
+.softband{background:#F7FAFA}
+.split{display:grid;grid-template-columns:1.15fr .85fr;gap:72px;align-items:start}
+.bigsay{font-size:clamp(28px,3.2vw,44px);font-weight:900;letter-spacing:-.028em;line-height:1.14;margin:0}
+.paths{display:grid;gap:16px;margin-top:8px}
+.pathc{display:flex;gap:18px;align-items:flex-start;background:#fff;border:1px solid #E3EDEA;border-radius:18px;padding:24px 26px;transition:transform .2s,box-shadow .2s,border-color .2s}
+.pathc:hover{transform:translateY(-3px);box-shadow:0 18px 36px -20px rgba(14,42,56,.22);border-color:#BFE5DA;color:inherit}
+.pico{width:44px;height:44px;flex:none;border-radius:12px;display:flex;align-items:center;justify-content:center;background:#E6F7F3;color:#14806F}
+.pico.navy{background:#EAF1F4;color:#0E3B52}
+.pt{font-size:17px;font-weight:900;margin:0}
+.pd{font-size:14px;line-height:1.55;color:#5B6B72;margin:5px 0 0;font-weight:500}
+.parr{margin-left:auto;color:#2FBF9E;font-weight:900;font-size:18px;flex:none}
+.bento{display:grid;grid-template-columns:repeat(12,1fr);gap:18px;margin-top:56px}
+.orbit{position:relative;margin:52px auto 20px;aspect-ratio:1.9/1;overflow:clip;container-type:inline-size}
+.oc{position:absolute;inset:0;margin:auto;border:1.5px dashed #CBDDD8;border-radius:50%;aspect-ratio:1;pointer-events:none}
+.oc1{width:46%;animation:orot 120s linear infinite}
+.oc2{width:82%;animation:orot 200s linear infinite reverse}
+.nomotion .oc{animation:none}
+@keyframes orot{to{transform:rotate(360deg)}}
+.oax{position:absolute;left:9%;right:9%;top:50%;border-top:2px dotted #C4D6D1}
+.oaxl{position:absolute;top:50%;transform:translateY(-50%);font-weight:900;font-size:clamp(12px,1.4cqw,16px);color:#0E2A38;display:flex;align-items:center;gap:9px;letter-spacing:-.01em}
+.oaxd{width:7px;height:7px;border-radius:50%;background:#0E2A38;flex:none}
+.omast{position:absolute;left:50%;top:7%;transform:translateX(-50%);text-align:center;font-weight:900;font-size:clamp(13px,1.5cqw,17px);line-height:1.3;color:#0E2A38;letter-spacing:-.01em}
+.opos{position:absolute;transform:translate(-50%,-50%);z-index:2}
+.obob{animation:obob 6s ease-in-out infinite alternate}
+.nomotion .obob{animation:none}
+@keyframes obob{from{transform:translateY(-4px)}to{transform:translateY(5px)}}
+.opill{display:flex;align-items:center;gap:clamp(5px,.8cqw,9px);background:#0E2A38;color:#fff;border-radius:99px;padding:clamp(6px,.9cqw,10px) clamp(11px,1.6cqw,18px);font-size:clamp(10.5px,1.28cqw,14.5px);font-weight:900;white-space:nowrap;box-shadow:0 14px 30px -14px rgba(14,42,56,.5);border:1px solid transparent;transition:box-shadow .2s,background .2s,border-color .2s;cursor:default}
+.opill:hover{background:#0E3B52;border-color:rgba(47,191,158,.65);box-shadow:0 18px 42px -14px rgba(47,191,158,.55)}
+.oico{width:clamp(7px,1cqw,11px);height:clamp(7px,1cqw,11px);flex:none}
+.ofaint{display:inline-block;background:#fff;border:1.5px solid #E6EEEC;color:#AEBDBA;border-radius:99px;padding:clamp(5px,.8cqw,9px) clamp(10px,1.4cqw,16px);font-size:clamp(10px,1.2cqw,13.5px);font-weight:700;white-space:nowrap;transition:color .2s,border-color .2s;cursor:default}
+.ofaint:hover{color:#14806F;border-color:#BFE5DA}
+@media(max-width:700px){.orbit{aspect-ratio:auto;display:flex;flex-wrap:wrap;gap:10px;justify-content:center;padding:6px 0;overflow:visible}.opos{position:static;transform:none}.obob{animation:none}.oc,.oax,.oaxl,.omast{display:none}.opill{font-size:13px;padding:9px 15px}.ofaint{font-size:12.5px;padding:8px 13px}}
+.bcard{position:relative;background:#fff;border:1px solid #E3EDEA;border-radius:20px;padding:28px;overflow:hidden;display:flex;flex-direction:column;transition:transform .22s,box-shadow .22s,border-color .22s}
+.bcard:hover{transform:translateY(-4px);box-shadow:0 22px 44px -22px rgba(14,42,56,.24);border-color:#B8E2D6}
+.glt{position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#2FBF9E,#0E3B52)}
+.b7{grid-column:span 7}.b5{grid-column:span 5}.b4{grid-column:span 4}
+.bic{width:40px;height:40px;flex:none;border-radius:11px;background:#E6F7F3;color:#14806F;display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.bt{font-size:18.5px;font-weight:900;letter-spacing:-.01em;margin:0}
+.bs{font-size:14px;line-height:1.55;color:#5B6B72;font-weight:500;margin:7px 0 0}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:16px}
+.dash{margin-top:22px;background:#fff;border:1px solid #E3EDEA;border-radius:14px;overflow:hidden;display:grid;grid-template-columns:128px 1fr;box-shadow:0 14px 34px -20px rgba(14,42,56,.18);font-size:11px}
+.drail{background:#F7FAFA;border-right:1px solid #EDF3F2;padding:12px 0}
+.dbrand{display:flex;align-items:center;gap:7px;font-weight:900;font-size:11px;padding:2px 14px 10px;color:#0E2A38}
+.ddot{width:14px;height:14px;border-radius:5px;background:linear-gradient(135deg,#2FBF9E,#0E3B52);flex:none}
+.ditem{padding:6.5px 14px;color:#5B6B72;font-weight:700;font-size:11px;display:flex;justify-content:space-between;align-items:center}
+.ditem.on{background:#E6F7F3;color:#0E3B52;border-right:2px solid #2FBF9E}
+.dbadge{font-family:'JetBrains Mono',monospace;font-size:9px;background:#DFF3EE;color:#14806F;border-radius:5px;padding:1px 5px}
+.dmain{padding:14px 16px}
+.dtop{display:flex;align-items:baseline;justify-content:space-between}
+.dlab{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:#8A9BA2}
+.dval{font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:600;color:#0E2A38;margin-top:3px}
+.dup{font-family:'JetBrains Mono',monospace;font-size:10px;color:#14806F;background:#E6F7F3;border-radius:6px;padding:2px 7px;font-weight:600}
+.bars{display:flex;align-items:flex-end;gap:5px;height:56px;margin-top:12px}
+.bar{flex:1;border-radius:3px 3px 0 0;background:linear-gradient(180deg,#2FBF9E,#63cfb4);min-height:6px}
+.bar.mut{background:#E0EBE8}
+.baxis{display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:8.5px;color:#A5B4BA;margin-top:5px}
+.dorders{margin-top:12px;border-top:1px solid #EDF3F2;padding-top:9px}
+.dorow{display:flex;align-items:center;justify-content:space-between;padding:4.5px 0;color:#3E5560;font-weight:500}
+.dono{font-family:'JetBrains Mono',monospace;color:#8A9BA2;font-size:10px}
+.dpaid{font-family:'JetBrains Mono',monospace;font-size:9px;color:#14806F;background:#E6F7F3;border-radius:5px;padding:1px 6px}
+.dprice{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#0E2A38;font-weight:600}
+.flow{margin-top:22px;display:flex;flex-direction:column;gap:0}
+.fnode{display:flex;align-items:center;gap:10px;background:#F7FAFA;border:1px solid #E3EDEA;border-radius:11px;padding:10px 13px;font-size:12px;font-weight:700;color:#0E2A38}
+.fdot{width:8px;height:8px;border-radius:50%;background:#2FBF9E;flex:none}
+.fdot.pulse{animation:pulse 1.8s ease-in-out infinite}
+.nomotion .fdot{animation:none}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(47,191,158,.5)}50%{box-shadow:0 0 0 6px rgba(47,191,158,0)}}
+.ftag{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#8A9BA2}
+.fline{width:2px;height:14px;background:#CFE3DE;margin-left:24px}
+.fstat{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#7A8B92;margin-top:14px}
+.shots{position:relative;margin-bottom:22px}
+.shotover{position:absolute;right:6px;bottom:-16px;width:56%;border:1px solid #E3EDEA;border-radius:10px;box-shadow:0 18px 40px -16px rgba(14,42,56,.38);display:block;background:#fff}
+.shot{margin-top:20px;border:1px solid #E3EDEA;border-radius:14px;overflow:hidden;box-shadow:0 14px 34px -20px rgba(14,42,56,.18)}
+.shotbar{display:flex;align-items:center;gap:6px;padding:9px 12px;background:#F7FAFA;border-bottom:1px solid #EDF3F2}
+.shotbar .tl{width:9px;height:9px}
+.shoturl{margin-left:6px;font-family:'JetBrains Mono',monospace;font-size:10px;color:#8A9BA2}
+.shotimg{display:block;width:100%}
+.plans{margin-top:20px;display:flex;flex-direction:column;gap:7px}
+.plan{display:flex;align-items:center;justify-content:space-between;border:1px solid #E3EDEA;border-radius:10px;padding:9px 13px;font-size:12.5px;font-weight:700;color:#3E5560}
+.plan.on{border-color:#2FBF9E;background:#F2FBF8;color:#0E2A38;box-shadow:0 6px 16px -10px rgba(47,191,158,.5)}
+.plamt{font-family:'JetBrains Mono',monospace;font-size:11px;color:#14806F}
+.secta{margin-top:44px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.softline{font-size:14px;color:#7A8B92;font-weight:500}
+.vidsec{background:#0E2A38;color:#fff}
+.vidwrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:64px;align-items:center}
+.vidsec .h2{color:#fff}
+.vidsec .lead{color:#9DB4BE}
+.vwin{background:#0B2230;border:1px solid #1D4054;border-radius:18px;overflow:hidden;box-shadow:0 40px 80px -40px rgba(0,0,0,.6);position:relative}
+.vbar{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid #1D4054}
+.tl{width:10px;height:10px;border-radius:50%}
+.vurl{margin-left:10px;flex:1;background:#0E2A38;border:1px solid #1D4054;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#7FA3B2;padding:5px 12px}
+.vbody{position:relative;padding:22px;display:flex;flex-direction:column;gap:12px;min-height:300px}
+.sk{border-radius:8px;background:linear-gradient(100deg,#153549 30%,#1D4558 50%,#153549 70%);background-size:200% 100%;animation:shim 2.6s linear infinite}
+.nomotion .sk{animation:none}
+@keyframes shim{to{background-position:-200% 0}}
+.skhero{height:110px;border-radius:12px}
+.skrow{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.skcard{height:92px;opacity:0;animation:build 7s ease infinite}
+.skcard.d2{animation-delay:.7s}
+.skcard.d3{animation-delay:1.4s}
+.nomotion .skcard{opacity:1;animation:none}
+@keyframes build{0%{opacity:0;transform:translateY(10px)}12%,86%{opacity:1;transform:none}97%,100%{opacity:0}}
+.vplay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transition:opacity .3s}
+.vplay.off{opacity:0;pointer-events:none}
+.vbody{cursor:pointer}
+.vstore{background:#fff;border-radius:12px;padding:12px 14px 14px;position:relative;min-height:266px;box-sizing:border-box}
+.va{opacity:0;animation-duration:14.5s;animation-timing-function:linear;animation-iteration-count:infinite;animation-play-state:paused}
+.vwin.go .va{animation-play-state:running}
+.nomotion .va{animation:none;opacity:1}
+.vsnav{display:flex;align-items:center;justify-content:space-between;padding:4px 2px 10px;border-bottom:1px solid #EDF3F2;animation-name:vNav}
+.vsb{font-size:10.5px;font-weight:900;letter-spacing:.06em;color:#0E2A38}
+.vslinks{font-size:9.5px;font-weight:700;color:#5B6B72}
+.vshero{margin-top:10px;border-radius:10px;background:linear-gradient(115deg,#2FBF9E,#14806F 60%,#0E3B52);padding:16px 16px 14px;animation-name:vHero}
+.vsh1{font-size:17px;font-weight:900;letter-spacing:-.02em;color:#fff}
+.vsh2{font-size:9.5px;font-weight:500;color:rgba(255,255,255,.85);margin-top:3px}
+.vsbtn{display:inline-block;margin-top:9px;background:#fff;color:#0E3B52;font-size:9px;font-weight:900;border-radius:6px;padding:4px 10px}
+.vsprods{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;margin-top:10px}
+.vsp{border:1px solid #EDF3F2;border-radius:9px;padding:7px}
+.aC1{animation-name:vC1}.aC2{animation-name:vC2}.aC3{animation-name:vC3}
+.vsimg{height:44px;border-radius:6px}
+.g1{background:linear-gradient(135deg,#FFD9A0,#F2A65A)}.g2{background:linear-gradient(135deg,#28607e,#0E3B52)}.g3{background:linear-gradient(135deg,#F6C9D8,#E58FB1)}
+.vspn{font-size:9px;font-weight:900;color:#0E2A38;margin-top:6px}
+.vspp{display:flex;align-items:center;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:9px;color:#14806F;margin-top:3px;font-weight:600}
+.vsbuy{background:#0E3B52;color:#fff;font-family:'Satoshi',sans-serif;font-size:8px;font-weight:900;border-radius:5px;padding:2px 8px}
+.vschips{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.vsc{font-family:'JetBrains Mono',monospace;font-size:8.5px;color:#14806F;background:#E6F7F3;border-radius:6px;padding:3px 7px}
+.aCh1{animation-name:vCh1}.aCh2{animation-name:vCh2}.aCh3{animation-name:vCh3}
+.vsc.pix{background:#EAF1F4;color:#0E3B52}
+.vstoast{position:absolute;right:10px;bottom:10px;background:#0E2A38;color:#5FD6BC;font-family:'JetBrains Mono',monospace;font-size:9px;border-radius:8px;padding:7px 11px;box-shadow:0 10px 24px -8px rgba(0,0,0,.4);animation-name:vToast;z-index:2}
+.vscur{position:absolute;left:24%;top:61%;width:16px;height:16px;animation-name:vCur;z-index:3}
+.vprog{position:absolute;left:0;right:0;bottom:0;height:3px;background:rgba(255,255,255,.07)}
+.vprogf{height:100%;width:0;background:linear-gradient(90deg,#2FBF9E,#5FD6BC);animation-name:vBar}
+@keyframes vNav{0%,2%{opacity:0;transform:translateY(-6px)}6%,92%{opacity:1;transform:none}97%,100%{opacity:0}}
+@keyframes vHero{0%,5%{opacity:0;transform:translateY(10px)}11%,92%{opacity:1;transform:none}97%,100%{opacity:0}}
+@keyframes vC1{0%,26%{opacity:0;transform:translateY(10px) scale(.96)}31%,92%{opacity:1;transform:none}97%,100%{opacity:0}}
+@keyframes vC2{0%,30%{opacity:0;transform:translateY(10px) scale(.96)}35%,92%{opacity:1;transform:none}97%,100%{opacity:0}}
+@keyframes vC3{0%,34%{opacity:0;transform:translateY(10px) scale(.96)}39%,92%{opacity:1;transform:none}97%,100%{opacity:0}}
+@keyframes vCh1{0%,42%{opacity:0;transform:translateX(-8px)}46%,92%{opacity:1;transform:none}97%,100%{opacity:0}}
+@keyframes vCh2{0%,47%{opacity:0;transform:translateX(-8px)}51%,92%{opacity:1;transform:none}97%,100%{opacity:0}}
+@keyframes vCh3{0%,64%{opacity:0;transform:translateX(-8px)}68%,92%{opacity:1;transform:none}97%,100%{opacity:0}}
+@keyframes vToast{0%,72%{opacity:0;transform:translateY(14px)}76%,90%{opacity:1;transform:none}94%,100%{opacity:0}}
+@keyframes vCur{0%,58%{opacity:0;transform:translate(170px,100px)}62%{opacity:1;transform:translate(170px,100px)}69%{opacity:1;transform:translate(0,0)}71%{opacity:1;transform:translate(0,0) scale(.8)}73%,77%{opacity:1;transform:translate(0,0)}82%,100%{opacity:0}}
+@keyframes vBar{0%{width:0}100%{width:100%}}
+.pbtn{width:76px;height:76px;border-radius:50%;background:linear-gradient(135deg,#2FBF9E,#14806F);display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 18px 44px -10px rgba(47,191,158,.55),0 0 0 10px rgba(47,191,158,.14);cursor:pointer;transition:transform .2s}
+.pbtn:hover{transform:scale(1.07)}
+.vtag{position:absolute;top:14px;right:14px;font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.1em;color:#7FA3B2;background:rgba(11,34,48,.8);border:1px dashed #2C5A72;border-radius:7px;padding:5px 9px}
+.vtime{position:absolute;left:16px;bottom:14px;display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#9DB4BE;background:rgba(11,34,48,.8);border-radius:7px;padding:5px 10px}
+.vlist{display:flex;flex-direction:column;gap:15px;margin-top:34px}
+.vli{display:flex;gap:13px;align-items:flex-start;font-size:15px;font-weight:500;color:#C3D3DA;line-height:1.5}
+.vnum{font-family:'JetBrains Mono',monospace;font-size:11px;color:#2FBF9E;border:1px solid #235066;border-radius:7px;padding:3px 7px;flex:none;margin-top:1px}
+.acad{background:#0E3B52;color:#fff}
+.acad .eyebrow{color:#5FD6BC}
+.acad .h2{color:#fff}
+.acad .lead{color:#A9C4CE}
+.acadT{background:#E6F7F3;color:#0E2A38}
+.acadT .eyebrow{color:#14806F}
+.acadT .h2{color:#0E2A38}
+.acadT .lead{color:#4E6A70}
+.ahead{display:flex;align-items:flex-end;justify-content:space-between;gap:32px;flex-wrap:wrap}
+.seg{display:flex;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:12px;padding:4px;gap:4px}
+.acadT .seg{background:#fff;border-color:#CBE8DF}
+.segb{border:none;background:transparent;color:#A9C4CE;font-family:'Satoshi',sans-serif;font-size:13.5px;font-weight:700;padding:9px 18px;border-radius:9px;cursor:pointer;transition:background .18s,color .18s}
+.segb.on{background:#fff;color:#0E3B52;box-shadow:0 4px 12px -4px rgba(0,0,0,.3)}
+.acadT .segb{color:#5B6B72}
+.acadT .segb.on{background:#0E3B52;color:#fff}
+.fmtline{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px;justify-content:flex-end}
+.fchip{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#BFE5DA;border:1px solid rgba(255,255,255,.2);border-radius:8px;padding:5px 10px}
+.acadT .fchip{color:#14806F;border-color:#BFE5DA;background:#fff}
+.crow{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:52px}
+.ccard{background:#fff;color:#0E2A38;border-radius:18px;padding:22px 20px;display:flex;flex-direction:column;box-shadow:0 24px 48px -28px rgba(0,0,0,.45);transition:transform .2s}
+.ccard:hover{transform:translateY(-5px)}
+.ctag{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.12em;color:#14806F;background:#E6F7F3;border-radius:6px;padding:3px 8px;align-self:flex-start}
+.cbadge{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;color:#fff;background:linear-gradient(115deg,#2FBF9E,#0E3B52);border-radius:6px;padding:3px 8px}
+.ct{font-size:16.5px;font-weight:900;letter-spacing:-.01em;margin:12px 0 0;line-height:1.2}
+.cs{font-size:12.5px;color:#5B6B72;font-weight:500;margin:5px 0 0;line-height:1.45}
+.cmods{margin-top:14px;border-top:1px solid #EDF3F2;padding-top:11px;display:flex;flex-direction:column;gap:7px}
+.cmod{display:flex;gap:8px;font-size:11.5px;font-weight:700;color:#3E5560;line-height:1.35}
+.cmn{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#2FBF9E;flex:none;margin-top:1px}
+.cmore{font-family:'JetBrains Mono',monospace;font-size:10px;color:#8A9BA2;margin-top:9px}
+.cmeta{display:flex;gap:7px;flex-wrap:wrap;margin-top:auto;padding-top:16px}
+.cpill{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#5B6B72;background:#F1F7F6;border-radius:6px;padding:3px 7px}
+.clink{font-size:12.5px;font-weight:900;color:#0E3B52;margin-top:13px}
+.models{display:flex;flex-wrap:wrap;gap:9px;margin-top:44px}
+.model{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#DCEDF2;border:1px solid rgba(255,255,255,.18);border-radius:99px;padding:9px 16px}
+.acadT .model{color:#0E3B52;border-color:#BFE5DA;background:#fff}
+.mtick{color:#2FBF9E;font-weight:900}
+.demo{margin-top:52px;border-radius:20px;background:linear-gradient(115deg,#2FBF9E,#14806F 55%,#0d5a68);padding:34px 38px;display:flex;align-items:center;gap:28px;flex-wrap:wrap;box-shadow:0 30px 60px -30px rgba(47,191,158,.5)}
+.demot{font-size:clamp(20px,2.2vw,27px);font-weight:900;letter-spacing:-.02em;color:#fff;margin:0;line-height:1.25}
+.demod{font-size:14px;color:rgba(255,255,255,.85);font-weight:500;margin:7px 0 0}
+.btnW{background:#fff;color:#0E3B52}
+.btnW:hover{color:#0E3B52;transform:translateY(-2px)}
+.curr{margin-top:52px;background:#fff;color:#0E2A38;border-radius:20px;padding:10px 26px;box-shadow:0 24px 48px -28px rgba(0,0,0,.45)}
+.currh{display:flex;align-items:baseline;justify-content:space-between;gap:20px;padding:20px 4px 14px;border-bottom:1px solid #EDF3F2;flex-wrap:wrap}
+.currt{font-size:19px;font-weight:900;margin:0}
+.currs{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#8A9BA2}
+.mrow{border-bottom:1px solid #F0F5F4}
+.mrow.last{border-bottom:none}
+.mbtn{width:100%;display:flex;align-items:center;gap:16px;background:none;border:none;font-family:'Satoshi',sans-serif;text-align:left;padding:15px 4px;cursor:pointer;color:#0E2A38}
+.mn{font-family:'JetBrains Mono',monospace;font-size:11px;color:#2FBF9E;flex:none;width:22px}
+.mt{font-size:15px;font-weight:900;flex:1}
+.mchev{color:#8A9BA2;font-weight:900;transition:transform .25s;flex:none}
+.mrow.on .mchev{transform:rotate(45deg);color:#2FBF9E}
+.mbody{display:grid;grid-template-rows:0fr;transition:grid-template-rows .3s ease}
+.mrow.on .mbody{grid-template-rows:1fr}
+.mbin{overflow:hidden}
+.mdesc{font-size:13.5px;line-height:1.6;color:#5B6B72;font-weight:500;margin:0;padding:0 4px 16px 38px}
+.steps{display:grid;grid-template-columns:repeat(6,1fr);gap:0;margin-top:60px;position:relative}
+.stline{position:absolute;top:19px;left:3%;right:3%;height:2px;background:linear-gradient(90deg,#2FBF9E,#0E3B52);opacity:.25}
+.step{position:relative;padding:0 18px 0 0}
+.stdot{width:38px;height:38px;border-radius:50%;background:#fff;border:2px solid #2FBF9E;color:#14806F;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;position:relative;z-index:1}
+.stt{font-size:16.5px;font-weight:900;margin:16px 0 0}
+.std{font-size:13px;line-height:1.5;color:#5B6B72;font-weight:500;margin:6px 0 0}
+.whyg{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:56px}
+.whyc{background:#fff;border:1px solid #E3EDEA;border-radius:18px;padding:26px}
+.wt{font-size:16.5px;font-weight:900;margin:14px 0 0}
+.wd{font-size:13.5px;line-height:1.55;color:#5B6B72;font-weight:500;margin:7px 0 0}
+.inds{display:flex;flex-wrap:wrap;gap:10px;margin-top:36px}
+.ind{font-size:14px;font-weight:700;color:#0E3B52;background:#fff;border:1px solid #DCE8E5;border-radius:99px;padding:10px 20px;transition:border-color .18s,background .18s}
+.ind:hover{border-color:#2FBF9E;background:#F2FBF8}
+.rgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:56px}
+.rtile{position:relative;background:#fff;border:1px solid #E3EDEA;border-radius:18px;padding:24px;overflow:hidden;transition:transform .2s,box-shadow .2s,border-color .2s;color:#0E2A38}
+.rtile:hover{transform:translateY(-4px);box-shadow:0 22px 44px -22px rgba(14,42,56,.24);border-color:#B8E2D6;color:#0E2A38}
+.rhead{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.rname{font-size:16px;font-weight:900;margin:0}
+.rtag{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;color:#5B6B72;background:#F1F7F6;border-radius:6px;padding:3px 7px;flex:none}
+.rline{font-size:14.5px;font-weight:700;color:#14806F;margin:9px 0 0;line-height:1.4}
+.spark{margin-top:16px;width:100%;height:52px;display:block}
+.rfoot{display:flex;align-items:center;justify-content:space-between;margin-top:12px}
+.rdelta{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:#14806F;background:#E6F7F3;border-radius:7px;padding:3px 9px}
+.rmore{font-size:12px;color:#8A9BA2;font-weight:500;opacity:0;transform:translateY(4px);transition:opacity .2s,transform .2s}
+.rtile:hover .rmore{opacity:1;transform:none}
+.trow{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding:8px 4px 26px;margin-top:48px}
+.tcard{flex:0 0 350px;scroll-snap-align:start;background:#fff;border:1px solid #E3EDEA;border-radius:18px;padding:26px;display:flex;flex-direction:column}
+.tq{font-size:15.5px;line-height:1.6;font-weight:500;color:#233C48;margin:0;flex:1}
+.tfoot{display:flex;align-items:center;gap:13px;margin-top:22px}
+.av{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#fff;flex:none}
+.avA{background:linear-gradient(135deg,#2FBF9E,#14806F)}
+.avB{background:linear-gradient(135deg,#28607e,#0E3B52)}
+.tn{font-size:14px;font-weight:900;margin:0}
+.tr{font-size:12px;color:#7A8B92;font-weight:500;margin:2px 0 0}
+.tmetric{font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:600;color:#14806F;background:#E6F7F3;border-radius:7px;padding:4px 9px;align-self:flex-start;margin-bottom:16px}
+.faqw{max-width:840px;margin:52px auto 0}
+.facc{border-bottom:1px solid #E7F0EE}
+.fqbtn{width:100%;display:flex;align-items:center;gap:16px;background:none;border:none;font-family:'Satoshi',sans-serif;text-align:left;padding:22px 4px;cursor:pointer;color:#0E2A38}
+.fqt{font-size:17px;font-weight:900;flex:1;letter-spacing:-.01em}
+.fqc{color:#2FBF9E;font-weight:900;font-size:20px;transition:transform .25s;flex:none}
+.facc.on .fqc{transform:rotate(45deg)}
+.fqbody{display:grid;grid-template-rows:0fr;transition:grid-template-rows .3s ease}
+.facc.on .fqbody{grid-template-rows:1fr}
+.fqin{overflow:hidden}
+.fqa{font-size:15px;line-height:1.65;color:#5B6B72;font-weight:500;margin:0;padding:0 40px 22px 4px}
+.cta{background:linear-gradient(135deg,#0E3B52,#0E2A38 70%);border-radius:28px;padding:64px;color:#fff;position:relative;overflow:hidden}
+.ctablob{position:absolute;width:480px;height:480px;border-radius:50%;right:-120px;top:-200px;background:radial-gradient(circle,rgba(47,191,158,.25),transparent 65%);filter:blur(50px);pointer-events:none}
+.ctagrid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;position:relative}
+.ctah{font-size:clamp(30px,3.6vw,46px);font-weight:900;letter-spacing:-.03em;line-height:1.06;margin:14px 0 0;color:#fff}
+.ctad{font-size:15.5px;line-height:1.6;color:#A9C4CE;font-weight:500;margin:20px 0 0;max-width:440px}
+.cways{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:36px}
+.cway{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:13px;padding:14px 16px;color:#fff;transition:background .18s,border-color .18s}
+.cway:hover{background:rgba(47,191,158,.14);border-color:rgba(47,191,158,.5);color:#fff}
+.cwico{width:34px;height:34px;border-radius:9px;background:rgba(47,191,158,.18);color:#5FD6BC;display:flex;align-items:center;justify-content:center;flex:none}
+.cwt{font-size:13.5px;font-weight:900;margin:0}
+.cwd{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#9DB4BE;margin:3px 0 0}
+.form{background:#fff;border-radius:18px;padding:30px;color:#0E2A38;box-shadow:0 40px 80px -40px rgba(0,0,0,.5);display:flex;flex-direction:column;gap:14px}
+.ft{font-size:18px;font-weight:900;margin:0}
+.fd{font-size:13px;color:#7A8B92;font-weight:500;margin:-8px 0 4px}
+.inp{width:100%;box-sizing:border-box;border:1.5px solid #DCE8E5;border-radius:11px;background:#FBFDFD;padding:13px 15px;font-family:'Satoshi',sans-serif;font-size:14.5px;font-weight:500;color:#0E2A38;outline:none;transition:border-color .18s}
+.inp:focus{border-color:#2FBF9E}
+.lab{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#7A8B92;margin:0 0 6px}
+.fnote{font-family:'JetBrains Mono',monospace;font-size:10px;color:#A5B4BA;text-align:center;margin:2px 0 0}
+.sent{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:40px 10px}
+.sentt{font-size:20px;font-weight:900;margin:0}
+.sentd{font-size:14px;color:#5B6B72;font-weight:500;margin:0;line-height:1.6}
+.foot{background:#F7FAFA;border-top:1px solid #E7F0EE;padding:72px 0 0;margin-top:112px}
+.fgrid{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr 1.1fr;gap:44px}
+.fcol{display:flex;flex-direction:column;gap:11px}
+.fh{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#8A9BA2;margin:0 0 6px}
+.flink{font-size:14px;font-weight:700;color:#3E5560}
+.ftag2{font-size:14px;color:#5B6B72;font-weight:500;line-height:1.6;margin:16px 0 0;max-width:250px}
+.fbot{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;border-top:1px solid #E7F0EE;margin-top:56px;padding:24px 0 28px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#8A9BA2}
+.fsoc{display:flex;gap:18px}
+.up{position:fixed;right:26px;bottom:26px;z-index:55;width:46px;height:46px;border-radius:13px;background:#fff;border:1px solid #DCE8E5;color:#0E3B52;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 26px -10px rgba(14,42,56,.3)}
+@media(max-width:1020px){.strip{grid-template-columns:1fr 1fr}.stat{padding:24px}.stat.first{padding-left:24px;border-left:none}.stat.nb{border-left:none}.split{grid-template-columns:1fr;gap:40px}.b7{grid-column:span 12}.b5{grid-column:span 12}.b4{grid-column:span 6}.vidwrap{grid-template-columns:1fr;gap:44px}.crow{grid-template-columns:repeat(2,1fr)}.steps{grid-template-columns:repeat(3,1fr);gap:36px 18px}.stline{display:none}.whyg{grid-template-columns:1fr 1fr}.rgrid{grid-template-columns:1fr 1fr}.ctagrid{grid-template-columns:1fr}.fgrid{grid-template-columns:1fr 1fr}.nav{display:none}.burger{display:flex}}
+@media(max-width:640px){.wrap{padding:0 20px}.sec{padding:76px 0}.hero{padding-top:150px}.hcta{gap:10px}.btn{height:48px;padding:0 20px;font-size:14.5px}.strip{grid-template-columns:1fr 1fr}.b4{grid-column:span 12}.crow{grid-template-columns:1fr}.steps{grid-template-columns:1fr 1fr}.whyg{grid-template-columns:1fr}.rgrid{grid-template-columns:1fr}.cways{grid-template-columns:1fr}.cta{padding:40px 26px}.fgrid{grid-template-columns:1fr}.tcard{flex-basis:300px}.demo{padding:28px 24px}.lg{height:38px}}
+</style>
+</helmet>
+<div class="site {{motionMod}}">
+<header class="hd {{hdMod}}" data-screen-label="Header"><div class="wrap hdr"><a href="#top"><img class="lg" src="uploads/logo.png" alt="ScaleUp Marketing — Learn. Launch. Scale."></a><nav class="nav"><a class="nlink" href="#services">Services</a><a class="nlink" href="#academy">Academy</a><a class="nlink" href="#process">Process</a><a class="nlink" href="#work">Work</a><a class="nlink" href="#faq">FAQ</a><a class="btn btnG sm" href="#contact">Book a Call</a></nav><button class="burger" onClick="{{toggleMenu}}" aria-label="Menu"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h14M3 10h14M3 14h14"></path></svg></button></div></header>
+<div class="mm {{menuMod}}"><a class="mlink" href="#services" onClick="{{closeMenu}}">Services</a><a class="mlink" href="#academy" onClick="{{closeMenu}}">Academy</a><a class="mlink" href="#process" onClick="{{closeMenu}}">Process</a><a class="mlink" href="#work" onClick="{{closeMenu}}">Work</a><a class="mlink" href="#faq" onClick="{{closeMenu}}">FAQ</a><a class="btn btnG" href="#contact" onClick="{{closeMenu}}" style="margin-top:14px">Book a Strategy Call</a></div>
+<section class="hero" id="top" data-screen-label="Hero"><div class="gridbg"></div><div class="blob blob1"></div><div class="blob blob2"></div><div class="wrap"><div class="rv"><span class="chip mono" style="background:#fff;border-color:#CBE8DF;color:#14806F;font-size:11px;letter-spacing:.14em">DIGITAL AGENCY × TRAINING ACADEMY</span><h1 class="h1">Build. Automate.<br><span class="grad">Scale.</span></h1><p class="hsub">We engineer digital businesses through Ecommerce, AI, Software, and Growth Strategy — and train the next generation of digital entrepreneurs.</p><div class="hcta"><a class="btn btnG" href="#contact">Book a Strategy Call<svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"></path></svg></a><a class="btn btnO" href="#services">Explore Solutions</a></div><div class="hnote"><span class="dot"></span>Learn. Launch. Scale. — free consultation, no retainer required</div></div></div>
+<div class="stats rv"><div class="wrap strip"><div class="stat first"><div class="num" data-to="2400" data-suf="+">2,400+</div><div class="slab">Students trained</div></div><div class="stat nb"><div class="num" data-to="340" data-suf="+">340+</div><div class="slab">Stores &amp; products launched</div></div><div class="stat"><div class="num" data-pre="$" data-to="12" data-suf="M+">$12M+</div><div class="slab">Client revenue tracked</div></div><div class="stat"><div class="num" data-to="8" data-suf="">8</div><div class="slab">Years shipping &amp; teaching</div></div></div></div>
+<div class="mqlab">Platforms we build on, sell on, and teach</div><div class="mq" data-screen-label="Platforms"><div class="mqt"><sc-for list="{{two}}" as="g" hint-placeholder-count="2"><div class="mqg"><span class="pl"><svg viewBox="0 0 24 26" width="22" height="24"><path d="M5.8 6.7 4 22l9.5 2.5L21 22 19.2 6.7c0-.4-.4-.7-.8-.7h-2.1C16.1 3.7 14.3 2 12.5 2S8.9 3.7 8.7 6H6.6c-.4 0-.7.3-.8.7Z" fill="#95BF47"></path><path d="M12.5 3.6c1 0 2 1 2.2 2.4h-4.4c.2-1.4 1.2-2.4 2.2-2.4Z" fill="#5E8E3E"></path><path d="m13.9 10.2-1 2.1s-.7-.4-1.6-.4c-1.3 0-1.4.8-1.4 1 0 1.1 2.9 1.5 2.9 4.1 0 2-1.3 3.3-3 3.3-2 0-3.1-1.3-3.1-1.3l.6-1.8s1.1 1 2 1c.6 0 .9-.5.9-.9 0-1.5-2.4-1.6-2.4-4 0-2 1.4-3.9 4.3-3.9 1.1 0 1.8.8 1.8.8Z" fill="#fff"></path></svg><span class="plt" style="color:#5E8E3E">shopify</span></span><span class="pl"><svg viewBox="0 0 24 28" width="20" height="24"><path d="M16.5 4c.4 2.4 2 4.3 4.5 4.6v3.3c-1.7 0-3.2-.5-4.5-1.4v6.6c0 4-2.7 6.9-6.6 6.9C6.3 24 4 21.6 4 18.5c0-3.4 2.9-5.8 6.5-5.5v3.4c-1.7-.4-3.2.6-3.2 2.1 0 1.4 1.1 2.4 2.5 2.4 1.7 0 2.9-1.2 2.9-3.4V4h3.8Z" fill="#25F4EE" transform="translate(-1.2,-.8)"></path><path d="M16.5 4c.4 2.4 2 4.3 4.5 4.6v3.3c-1.7 0-3.2-.5-4.5-1.4v6.6c0 4-2.7 6.9-6.6 6.9C6.3 24 4 21.6 4 18.5c0-3.4 2.9-5.8 6.5-5.5v3.4c-1.7-.4-3.2.6-3.2 2.1 0 1.4 1.1 2.4 2.5 2.4 1.7 0 2.9-1.2 2.9-3.4V4h3.8Z" fill="#FE2C55" transform="translate(1,.8)"></path><path d="M16.5 4c.4 2.4 2 4.3 4.5 4.6v3.3c-1.7 0-3.2-.5-4.5-1.4v6.6c0 4-2.7 6.9-6.6 6.9C6.3 24 4 21.6 4 18.5c0-3.4 2.9-5.8 6.5-5.5v3.4c-1.7-.4-3.2.6-3.2 2.1 0 1.4 1.1 2.4 2.5 2.4 1.7 0 2.9-1.2 2.9-3.4V4h3.8Z" fill="#161823"></path></svg><span class="plt" style="color:#161823;font-size:21px">TikTok Shop</span></span><span class="pl" style="letter-spacing:-1.5px"><span class="plt" style="color:#E53238">e</span><span class="plt" style="color:#0064D2">b</span><span class="plt" style="color:#F5AF02">a</span><span class="plt" style="color:#86B817">y</span></span><span class="pl"><span class="plt" style="color:#F1641E;font-family:Georgia,serif;font-weight:700">Etsy</span></span><span class="pl" style="flex-direction:column;align-items:flex-start;gap:0"><span class="plt" style="color:#232F3E;font-size:23px;letter-spacing:-.5px">amazon</span><svg viewBox="0 0 60 12" width="54" height="11" style="margin-top:-3px;margin-left:2px"><path d="M2 2.5c10 6.5 30 7.5 45 1.5" stroke="#FF9900" stroke-width="2.6" fill="none" stroke-linecap="round"></path><path d="m44.2.8 6.3 2.4-4.9 4.4z" fill="#FF9900"></path></svg></span><span class="pl"><span class="plt" style="color:#F85606">daraz</span></span><span class="pl"><span class="woob">Woo</span><span class="plt" style="color:#7F54B3;font-size:20px">Commerce</span></span><span class="pl"><svg viewBox="0 0 36 22" width="32" height="20" fill="none" stroke="#0081FB" stroke-width="3.4" stroke-linecap="round"><path d="M3 16.8C3 9.5 5.9 4.5 9.7 4.5c5.6 0 7.8 12.3 13 12.3 3.3 0 4.9-3.4 4.9-6.6"></path><path d="M33 16.8C33 9.5 30.1 4.5 26.3 4.5c-2.6 0-4.5 2.7-6 5.7"></path></svg><span class="plt" style="color:#1C2B33;font-size:21px">Meta</span></span></div></sc-for></div></div>
+</section>
+<section class="sec softband" id="about" data-screen-label="About"><div class="wrap split"><div class="rv"><p class="eyebrow">One ecosystem, two engines</p><h2 class="bigsay">Most agencies build. Most academies teach. We do both — <span class="grad">and each makes the other better.</span></h2><p class="lead" style="margin-top:26px;max-width:520px">ScaleUp Marketing is an engineering-grade digital agency and a hands-on training institute under one roof. The stores, software, and automations we ship for clients become the playbooks we teach — and our best graduates feed the talent pipeline that builds the next round of client work. No recycled theory. Just what is working in live businesses, right now.</p></div><div class="paths rv"><a class="pathc" href="#services"><div class="pico"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21h16M6 21V9l6-5 6 5v12M10 21v-6h4v6"></path></svg></div><div><h3 class="pt">The Agency — we build it for you</h3><p class="pd">Stores, apps, SaaS, automations, and growth systems delivered end-to-end by a senior team.</p></div><span class="parr">→</span></a><a class="pathc" href="#academy"><div class="pico navy"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8.5 12 4l10 4.5L12 13 2 8.5Z"></path><path d="M6 10.5V16c0 1.5 2.7 3 6 3s6-1.5 6-3v-5.5M22 8.5V14"></path></svg></div><div><h3 class="pt">The Academy — we teach you to build</h3><p class="pd">Live online and on-campus tracks in Shopify, TikTok Shop, eBay, Etsy, Daraz, and AI marketing.</p></div><span class="parr">→</span></a><div class="hnote" style="margin-top:6px"><span class="dot"></span>Same team. Same playbooks. Pick your path.</div></div></div></section>
+<section class="sec" id="services" data-screen-label="Services"><div class="wrap"><div class="rv" style="max-width:660px"><p class="eyebrow">Agency — what we build</p><h2 class="h2">A full product team, <span class="grad">on demand.</span></h2><p class="lead" style="margin-top:20px">Nine capabilities, one accountable partner — from your first store to your own SaaS platform.</p></div><div class="orbit rv"><div class="oc oc1"></div><div class="oc oc2"></div><div class="oax"></div><span class="oaxl" style="left:0"><span>Commerce</span><span class="oaxd"></span></span><span class="oaxl" style="right:0"><span class="oaxd"></span><span>Software</span></span><div class="omast">Mastery<br>Area</div><sc-for list="{{core}}" as="s" hint-placeholder-count="9"><div class="opos" style="{{s.st}}"><div class="obob" style="{{s.bs}}"><div class="opill"><span class="oico" style="{{s.ic}}"></span>{{s.t}}</div></div></div></sc-for><sc-for list="{{orbitals}}" as="s" hint-placeholder-count="8"><div class="opos" style="{{s.st}}"><div class="obob" style="{{s.bs}}"><span class="ofaint">{{s.t}}</span></div></div></sc-for></div><div class="bento">
+<div class="bcard b7 rv"><div class="glt"></div><div class="bic"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l-1.2 12.2a1 1 0 0 1-1 .8H8.2a1 1 0 0 1-1-.8L6 8Z"></path><path d="M9 10V6a3 3 0 0 1 6 0v4"></path></svg></div><h3 class="bt">Ecommerce Development</h3><p class="bs">Shopify, WooCommerce &amp; custom storefronts engineered to convert — theme speed, checkout flow, and the ops behind them.</p><div class="chips"><span class="chip">Shopify Plus</span><span class="chip">WooCommerce</span><span class="chip">Daraz Seller</span><span class="chip">Headless</span></div><div class="shots"><div class="shot"><div class="shotbar"><span class="tl" style="background:#FF5F57"></span><span class="tl" style="background:#FEBC2E"></span><span class="tl" style="background:#28C840"></span><span class="shoturl">Shopify admin — live client store · built &amp; scaled by ScaleUp</span></div><img class="shotimg" src="uploads/shopify-pkr.jpg" alt="Client Shopify admin — PKR 3.84M gross sales, up 322%, 1,138 orders"></div><img class="shotover" src="uploads/shopify-aud.jpg" alt="Client Shopify sales report — orders, gross and total sales over time"></div><div class="fstat">Real client dashboards — gross sales +322% YoY · orders +287%</div></div>
+<div class="bcard b5 rv"><div class="glt"></div><div class="bic"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M3 12h3M18 12h3"></path><circle cx="12" cy="12" r="4"></circle></svg></div><h3 class="bt">AI Automation</h3><p class="bs">Workflows that answer, tag, route, and follow up — so revenue ops run while you sleep.</p><div class="chips"><span class="chip">n8n</span><span class="chip">OpenAI</span><span class="chip">WhatsApp API</span></div><div class="flow"><div class="fnode"><span class="fdot pulse"></span>New order — Daraz store<span class="ftag">TRIGGER</span></div><div class="fline"></div><div class="fnode"><span class="fdot"></span>AI tags customer intent &amp; value<span class="ftag">GPT-4o</span></div><div class="fline"></div><div class="fnode"><span class="fdot"></span>VIP → WhatsApp voucher · else e-receipt<span class="ftag">BRANCH</span></div></div><div class="fstat">Ran 1,284× this week · 99.2% success · 0 human minutes</div></div>
+<div class="bcard b5 rv"><div class="glt"></div><div class="bic"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 9 5-9 5-9-5 9-5Z"></path><path d="m5.5 11.6-2.5 1.4 9 5 9-5-2.5-1.4"></path></svg></div><h3 class="bt">SaaS Product Development</h3><p class="bs">MVP to full launch — auth, billing, cloud infra, and the dashboard your users log into.</p><div class="chips"><span class="chip">MVP in 8–12 wks</span><span class="chip">Stripe billing</span><span class="chip">AWS</span></div><div class="shot"><div class="shotbar"><span class="tl" style="background:#FF5F57"></span><span class="tl" style="background:#FEBC2E"></span><span class="tl" style="background:#28C840"></span><span class="shoturl">RGM Stone — Workflow OS · built &amp; delivered by ScaleUp</span></div><img class="shotimg" src="uploads/rgm-dashboard.png" alt="RGM Stone Workflow OS dashboard — a SaaS product built by ScaleUp Marketing"></div><div class="fstat">Live in production — jobs, factory pipeline &amp; billing in one dashboard</div></div>
+<div class="bcard b4 rv"><div class="glt"></div><div class="bic"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m8 8-4 4 4 4M16 8l4 4-4 4M13.5 5l-3 14"></path></svg></div><h3 class="bt">Web Development</h3><p class="bs">Business sites and web platforms that load fast and rank — built on modern stacks.</p><div class="chips"><span class="chip">React</span><span class="chip">Next.js</span><span class="chip">Laravel</span></div></div>
+<div class="bcard b4 rv"><div class="glt"></div><div class="bic"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="3" width="10" height="18" rx="2.5"></rect><path d="M11 17.5h2"></path></svg></div><h3 class="bt">Mobile App Development</h3><p class="bs">iOS &amp; Android from one codebase — commerce apps, booking apps, internal tools.</p><div class="chips"><span class="chip">Flutter</span><span class="chip">React Native</span></div></div>
+<div class="bcard b4 rv"><div class="glt"></div><div class="bic"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6" rx="7" ry="3"></ellipse><path d="M5 6v12c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 12c0 1.7 3.1 3 7 3s7-1.3 7-3"></path></svg></div><h3 class="bt">CRM / ERP Solutions</h3><p class="bs">Sales pipelines, inventory, HR, and accounts — one source of truth for the whole business.</p><div class="chips"><span class="chip">Odoo</span><span class="chip">Custom</span><span class="chip">Zoho</span></div></div>
+<div class="bcard b4 rv"><div class="glt"></div><div class="bic"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19 7-7-3-3-7 7-1.2 4.2L12 19Z"></path><path d="m14 8 3 3M5 21h3"></path></svg></div><h3 class="bt">UI / UX Design</h3><p class="bs">Research, flows, and interfaces that make complex products feel obvious.</p><div class="chips"><span class="chip">Design systems</span><span class="chip">Prototyping</span></div></div>
+<div class="bcard b4 rv"><div class="glt"></div><div class="bic"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-9"></path><path d="M21 6v5h-5"></path></svg></div><h3 class="bt">Digital Marketing</h3><p class="bs">Performance ads, funnels, and retention flows measured on revenue — not likes.</p><div class="chips"><span class="chip">Meta</span><span class="chip">TikTok</span><span class="chip">ROAS 4.6× avg</span></div></div>
+<div class="bcard b4 rv"><div class="glt"></div><div class="bic"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="m15.5 8.5-2 5-5 2 2-5 5-2Z"></path></svg></div><h3 class="bt">Business Consulting</h3><p class="bs">Pricing, positioning, and digital roadmaps before a single line of code is written.</p><div class="chips"><span class="chip">Free first session</span></div></div>
+</div><div class="secta rv"><a class="btn btnG" href="#contact">Book a free scoping call</a><span class="softline">Not sure which service fits? That is exactly what the call is for.</span></div></div></section>
+<section class="sec vidsec" id="showreel" data-screen-label="Showreel"><div class="wrap vidwrap"><div class="rv"><p class="eyebrow">See it in action</p><h2 class="h2">Watch a store go from zero to checkout.</h2><p class="lead" style="margin-top:20px">A 58-second build reel: theme engineering, catalog import, payment routing, and the first live order — condensed from a real client sprint.</p><div class="vlist"><div class="vli"><span class="vnum">0:04</span>Theme scaffold and brand system applied</div><div class="vli"><span class="vnum">0:19</span>Catalog, shipping zones &amp; payment gateways wired</div><div class="vli"><span class="vnum">0:41</span>Meta pixel firing — first test order placed</div></div></div><div class="rv"><div class="vwin {{vgoMod}}"><div class="vbar"><span class="tl" style="background:#FF5F57"></span><span class="tl" style="background:#FEBC2E"></span><span class="tl" style="background:#28C840"></span><span class="vurl">aurelia-skin.myshopify.com — build in progress…</span></div><div class="vbody" onClick="{{toggleVid}}"><div class="vstore"><div class="vsnav va"><span class="fx ac" style="gap:6px"><span class="ddot" style="width:12px;height:12px"></span><span class="vsb">AURELIA SKIN</span></span><span class="vslinks">Shop&nbsp;&nbsp;&nbsp;Bestsellers&nbsp;&nbsp;&nbsp;About</span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#0E2A38" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l-1.2 12H7.2L6 8Z"></path><path d="M9 10V6a3 3 0 0 1 6 0v4"></path></svg></div><div class="vshero va"><div class="vsh1">Glow, naturally.</div><div class="vsh2">Clean skincare, shipped nationwide in 48h</div><span class="vsbtn">Shop now</span></div><div class="vsprods"><div class="vsp va aC1"><div class="vsimg g1"></div><div class="vspn">Vitamin C Serum</div><div class="vspp">$43.00<span class="vsbuy">Buy</span></div></div><div class="vsp va aC2"><div class="vsimg g2"></div><div class="vspn">Night Repair Set</div><div class="vspp">$129.00</div></div><div class="vsp va aC3"><div class="vsimg g3"></div><div class="vspn">Rose Cleanser</div><div class="vspp">$24.50</div></div></div><div class="vschips"><span class="vsc va aCh1">✓ Shipping zones set</span><span class="vsc va aCh2">✓ Payments: Cards + COD</span><span class="vsc pix va aCh3">● Meta Pixel live</span></div><div class="vstoast va">✓ Test order #1001 — Vitamin C Serum · $43.00 paid</div><svg class="vscur va" viewBox="0 0 20 20"><path d="M3 1.5 15.5 13l-5.8.9L12.6 20l-3 1.2-2.8-6L3 18.5Z" fill="#0E2A38" stroke="#fff" stroke-width="1.4"></path></svg></div><div class="vplay {{vplayMod}}"><div class="pbtn"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5-11-6.5Z"></path></svg></div></div><span class="vtag">VIDEO PLACEHOLDER · AI-GENERATED BUILD REEL</span><span class="vtime"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5-11-6.5Z"></path></svg><span class="vtc">0:00</span>&nbsp;/ 0:58 · Store build time-lapse</span><div class="vprog"><div class="vprogf va"></div></div></div></div></div></div></section>
+<section class="sec acad {{acadMod}}" id="academy" data-screen-label="Academy"><div class="wrap"><div class="ahead rv"><div style="max-width:620px"><p class="eyebrow">Academy — learn to build</p><h2 class="h2">The institute behind the agency.</h2><p class="lead" style="margin-top:18px">Live cohorts taught by the same people running client stores. Choose your format — the curriculum, mentors, and certification are identical.</p></div><div><div class="seg"><button class="segb {{onlineMod}}" onClick="{{setOnline}}">Live Online</button><button class="segb {{offlineMod}}" onClick="{{setOffline}}">Lahore Campus</button></div><div class="fmtline"><span class="fchip">{{fmtA}}</span><span class="fchip">{{fmtB}}</span><span class="fchip">{{fmtC}}</span></div></div></div>
+<div class="crow"><sc-for list="{{courses}}" as="c" hint-placeholder-count="5"><div class="ccard rv"><div class="fx ac jb"><span class="ctag">{{c.tag}}</span><sc-if value="{{c.badge}}" hint-placeholder-val="{{false}}"><span class="cbadge">{{c.badge}}</span></sc-if></div><h3 class="ct">{{c.title}}</h3><p class="cs">{{c.sub}}</p><div class="cmods"><sc-for list="{{c.mods}}" as="m" hint-placeholder-count="3"><div class="cmod"><span class="cmn">{{m.n}}</span>{{m.t}}</div></sc-for></div><div class="cmore">{{c.more}}</div><div class="cmeta"><span class="cpill">{{c.dur}}</span><span class="cpill">{{c.level}}</span></div><a class="clink" href="#contact">Get the syllabus →</a></div></sc-for></div>
+<div class="models rv"><span class="model"><span class="mtick">✓</span>Regular Classes</span><span class="model"><span class="mtick">✓</span>Advanced Masterclasses</span><span class="model"><span class="mtick">✓</span>1:1 Mentorship</span><span class="model"><span class="mtick">✓</span>Hands-on Workshops</span><span class="model"><span class="mtick">✓</span>Weekly Q&amp;A</span><span class="model"><span class="mtick">✓</span>Certification</span><span class="model"><span class="mtick">✓</span>Corporate Training</span></div>
+<sc-if value="{{showDemo}}" hint-placeholder-val="{{true}}"><div class="demo rv"><div style="flex:1;min-width:260px"><h3 class="demot">Sit in free for 3 days before you spend a rupee.</h3><p class="demod">Every track starts with a free 3-day demo class and a 1:1 consultation — so you enroll knowing exactly what you will build.</p></div><a class="btn btnW" href="#contact">Reserve a demo seat</a></div></sc-if>
+<div class="curr rv"><div class="currh"><h3 class="currt">Inside the flagship: Shopify Mastery</h3><span class="currs">11 MODULES · 12 WEEKS · TAP TO EXPAND</span></div><sc-for list="{{mods}}" as="md" hint-placeholder-count="11"><div class="{{md.cls}}"><button class="mbtn" onClick="{{md.toggle}}"><span class="mn">{{md.n}}</span><span class="mt">{{md.t}}</span><span class="mchev">+</span></button><div class="mbody"><div class="mbin"><p class="mdesc">{{md.d}}</p></div></div></div></sc-for></div>
+</div></section>
+<section class="sec" id="process" data-screen-label="Process"><div class="wrap"><div class="rv" style="max-width:640px"><p class="eyebrow">How engagements run</p><h2 class="h2">Six steps. <span class="grad">Zero mystery.</span></h2></div><div class="steps"><div class="stline"></div><sc-for list="{{steps}}" as="s" hint-placeholder-count="6"><div class="step rv"><div class="stdot">{{s.n}}</div><h3 class="stt">{{s.t}}</h3><p class="std">{{s.d}}</p></div></sc-for></div><div class="secta rv"><a class="btn btnO" href="#contact">Start at step one — it is free</a></div></div></section>
+<section class="sec softband" id="why" data-screen-label="Why Us"><div class="wrap"><div class="rv" style="max-width:640px"><p class="eyebrow">Why teams stay</p><h2 class="h2">Built like partners, <span class="grad">not vendors.</span></h2></div><div class="whyg"><div class="whyc rv"><div class="bic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-9M21 6v5h-5"></path></svg></div><h3 class="wt">Business-first strategy</h3><p class="wd">Every build starts from your unit economics — revenue targets before pixels or frameworks.</p></div><div class="whyc rv"><div class="bic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"></circle><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M16.5 4.8a3.5 3.5 0 0 1 0 6.4M18 14.5c2 .8 3 2.5 3 5.5"></path></svg></div><h3 class="wt">The people who teach it, build it</h3><p class="wd">Senior engineers and sellers on every project — the same team that trains 2,400+ students.</p></div><div class="whyc rv"><div class="bic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M3 12h18M5.5 5.5l13 13M18.5 5.5l-13 13"></path></svg></div><h3 class="wt">Architecture that scales</h3><p class="wd">Stacks chosen for year three, not week one — boring, proven, and cheap to grow on.</p></div><div class="whyc rv"><div class="bic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="15" rx="2"></rect><path d="M3 9h18M8 14h5"></path></svg></div><h3 class="wt">Transparent delivery</h3><p class="wd">Weekly demos, shared dashboards, fixed quotes. You always know what shipped and what is next.</p></div></div><div class="rv" style="margin-top:44px"><p class="eyebrow" style="margin-bottom:14px">Industries served</p><div class="inds" style="margin-top:0"><span class="ind">Retail &amp; Ecommerce</span><span class="ind">Healthcare</span><span class="ind">Education</span><span class="ind">Real Estate</span><span class="ind">Manufacturing</span><span class="ind">Construction</span><span class="ind">Hospitality</span><span class="ind">Startups</span></div></div></div></section>
+<section class="sec" id="work" data-screen-label="Results"><div class="wrap"><div class="rv" style="max-width:660px"><p class="eyebrow">Client &amp; student outcomes</p><h2 class="h2">Proof, <span class="grad">not promises.</span></h2><p class="lead" style="margin-top:20px">A mix of agency builds and academy graduates — because both sides of the house ship results.</p></div><div class="rgrid"><sc-for list="{{results}}" as="r" hint-placeholder-count="6"><div class="rtile rv"><div class="rhead"><h3 class="rname">{{r.name}}</h3><span class="rtag">{{r.tag}}</span></div><p class="rline">{{r.line}}</p><svg class="spark" viewBox="0 0 100 40" preserveAspectRatio="none"><polyline points="{{r.pts}}" fill="none" stroke="#2FBF9E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></polyline><polyline points="{{r.base}}" fill="none" stroke="#E0EBE8" stroke-width="1.5" stroke-dasharray="3 4"></polyline></svg><div class="rfoot"><span class="rdelta">{{r.delta}}</span><span class="rmore">{{r.more}}</span></div></div></sc-for></div><div class="secta rv"><a class="btn btnG" href="#contact">Make your store tile #7</a><span class="softline">Full case studies shared on your strategy call.</span></div></div></section>
+<section class="sec softband" id="voices" style="padding-bottom:80px" data-screen-label="Testimonials"><div class="wrap"><div class="rv" style="max-width:640px"><p class="eyebrow">In their words</p><h2 class="h2">Clients and students, <span class="grad">same verdict.</span></h2></div><div class="trow"><sc-for list="{{tests}}" as="t" hint-placeholder-count="5"><div class="tcard rv"><span class="tmetric">{{t.metric}}</span><p class="tq">“{{t.q}}”</p><div class="tfoot"><div class="av {{t.av}}">{{t.ini}}</div><div><p class="tn">{{t.name}}</p><p class="tr">{{t.role}}</p></div></div></div></sc-for></div></div></section>
+<section class="sec" id="faq" style="padding-top:96px" data-screen-label="FAQ"><div class="wrap"><div class="rv" style="max-width:640px;margin:0 auto;text-align:center"><p class="eyebrow">Before you ask</p><h2 class="h2">Questions, answered straight.</h2></div><div class="faqw"><sc-for list="{{faqs}}" as="f" hint-placeholder-count="6"><div class="{{f.cls}}"><button class="fqbtn" onClick="{{f.toggle}}"><span class="fqt">{{f.q}}</span><span class="fqc">+</span></button><div class="fqbody"><div class="fqin"><p class="fqa">{{f.a}}</p></div></div></div></sc-for></div><div class="secta rv" style="justify-content:center"><span class="softline">Still deciding?</span><a class="btn btnO sm" href="https://wa.me/923005550148">WhatsApp us — replies in minutes</a></div></div></section>
+<section class="sec" id="contact" style="padding-top:0" data-screen-label="Contact"><div class="wrap"><div class="cta rv"><div class="ctablob"></div><div class="ctagrid"><div><p class="eyebrow" style="color:#5FD6BC">Final boarding call</p><h2 class="ctah">Ready to build something that scales?</h2><p class="ctad">One call. We map your goal, quote it straight, and you leave with a plan — whether or not you hire us or enroll.</p><div class="cways"><a class="cway" href="tel:+923005550148"><span class="cwico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a12 12 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"></path></svg></span><div><p class="cwt">Call us</p><p class="cwd">+92 300 555 0148</p></div></a><a class="cway" href="mailto:hello@scaleupmarketing.co"><span class="cwico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3 7 9 6 9-6"></path></svg></span><div><p class="cwt">Email</p><p class="cwd">hello@scaleupmarketing.co</p></div></a><a class="cway" href="https://wa.me/923005550148"><span class="cwico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.7-1.2A9 9 0 1 0 12 3Z"></path><path d="M8.5 9.5c0 4 6 6.5 7 5.5l.8-1.3-2.3-1.2-1 .7a6 6 0 0 1-2.7-2.7l.7-1-1.2-2.3-1.3.8Z"></path></svg></span><div><p class="cwt">WhatsApp</p><p class="cwd">Fastest — replies in minutes</p></div></a><a class="cway" href="#contact"><span class="cwico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11Z"></path><circle cx="12" cy="10" r="2.5"></circle></svg></span><div><p class="cwt">Visit the campus</p><p class="cwd">Gulberg III, Lahore · Mon–Sat</p></div></a></div></div><div class="form"><sc-if value="{{notSent}}" hint-placeholder-val="{{true}}"><h3 class="ft">Request a call back</h3><p class="fd">Tell us where you are headed — we reply within 24 hours.</p><div><p class="lab">Your name</p><input class="inp" type="text" placeholder="Ayesha Khan"></div><div><p class="lab">Your business or goal</p><input class="inp" type="text" placeholder="e.g. Launching a skincare brand on Shopify"></div><div><p class="lab">Interested in</p><select class="inp"><option>Ecommerce store</option><option>Web or SaaS product</option><option>Mobile app</option><option>AI automation</option><option>Training &amp; courses</option><option>Not sure yet — advise me</option></select></div><button class="btn btnG" onClick="{{submit}}" style="width:100%">Book my strategy call</button><p class="fnote">NO SPAM · NO OBLIGATION · FREE CONSULTATION</p></sc-if><sc-if value="{{sent}}" hint-placeholder-val="{{false}}"><div class="sent"><div class="pico" style="width:56px;height:56px;border-radius:16px"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 12.5 5 5 10-11"></path></svg></div><h3 class="sentt">Got it — talk soon.</h3><p class="sentd">Your request is in. A strategist (not a salesperson) will reach out within 24 hours. Want it faster? WhatsApp us now.</p><a class="btn btnO sm" href="https://wa.me/923005550148">Open WhatsApp</a></div></sc-if></div></div></div></div></section>
+<footer class="foot" data-screen-label="Footer"><div class="wrap"><div class="fgrid"><div><img class="lg" src="uploads/logo.png" alt="ScaleUp Marketing" style="height:52px"><p class="ftag2">One ecosystem for digital growth — an agency that builds and an academy that teaches. Learn. Launch. Scale.</p></div><div class="fcol"><p class="fh">Services</p><a class="flink" href="#services">Ecommerce Development</a><a class="flink" href="#services">Web Development</a><a class="flink" href="#services">Mobile Apps</a><a class="flink" href="#services">SaaS Products</a><a class="flink" href="#services">AI Automation</a><a class="flink" href="#services">CRM / ERP</a><a class="flink" href="#services">Digital Marketing</a></div><div class="fcol"><p class="fh">Academy</p><a class="flink" href="#academy">Shopify Mastery</a><a class="flink" href="#academy">TikTok Shop</a><a class="flink" href="#academy">eBay &amp; Etsy International</a><a class="flink" href="#academy">Daraz Local Commerce</a><a class="flink" href="#academy">AI &amp; Digital Marketing</a><a class="flink" href="#academy">Free 3-Day Demo</a></div><div class="fcol"><p class="fh">Company</p><a class="flink" href="#about">About</a><a class="flink" href="#process">Process</a><a class="flink" href="#work">Results</a><a class="flink" href="#voices">Testimonials</a><a class="flink" href="#faq">FAQ</a><a class="flink" href="#contact">Book a Call</a></div><div class="fcol"><p class="fh">Contact</p><a class="flink" href="tel:+923005550148">+92 300 555 0148</a><a class="flink" href="mailto:hello@scaleupmarketing.co">hello@scaleupmarketing.co</a><a class="flink" href="https://wa.me/923005550148">WhatsApp Business</a><span class="flink" style="font-weight:500;color:#7A8B92">2nd Floor, Liberty Plaza,<br>Gulberg III, Lahore</span><span class="flink" style="font-weight:500;color:#7A8B92">Mon–Sat · 10:00–19:00</span></div></div><div class="fbot"><span>© 2026 SCALEUP MARKETING — LEARN. LAUNCH. SCALE.</span><div class="fsoc"><a href="#top">LINKEDIN</a><a href="#top">INSTAGRAM</a><a href="#top">YOUTUBE</a><a href="#top">FACEBOOK</a></div></div></div></footer>
+<a class="up" href="#top" aria-label="Back to top"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"></path></svg></a>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;academyBand&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;navy&quot;,&quot;teal-tint&quot;],&quot;default&quot;:&quot;navy&quot;,&quot;tsType&quot;:&quot;'navy'|'teal-tint'&quot;,&quot;section&quot;:&quot;Theme&quot;},&quot;motion&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Behavior&quot;},&quot;showDemoBanner&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Academy&quot;}}">
+class Component extends DCLogic {
+  state = { menu: false, sc: false, fmt: 'online', mod: 0, faq: 0, sent: false, vgo: false };
+
+  componentDidMount() {
+    const motion = this.props.motion ?? true;
+    this._onScroll = () => {
+      const s = window.scrollY > 12;
+      if (s !== this.state.sc) this.setState({ sc: s });
+    };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+    this._onScroll();
+    if (motion) {
+      this._io = new IntersectionObserver((es) => {
+        es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); this._io.unobserve(e.target); } });
+      }, { threshold: 0.1, rootMargin: '0px 0px -6% 0px' });
+      document.querySelectorAll('.rv').forEach((el) => this._io.observe(el));
+      this._cio = new IntersectionObserver((es) => {
+        es.forEach((e) => { if (e.isIntersecting) { this.countUp(e.target); this._cio.unobserve(e.target); } });
+      }, { threshold: 0.5 });
+      document.querySelectorAll('.num').forEach((el) => this._cio.observe(el));
+      this._vio = new IntersectionObserver((es) => {
+        es.forEach((e) => { if (e.isIntersecting) { this.setState({ vgo: true }); this._vio.unobserve(e.target); } });
+      }, { threshold: 0.45 });
+      document.querySelectorAll('.vwin').forEach((el) => this._vio.observe(el));
+    }
+    this._vt = 0;
+    this._vtimer = setInterval(() => {
+      if (!this.state.vgo) return;
+      this._vt = (this._vt + 0.2) % 14.5;
+      const el = document.querySelector('.vtc');
+      if (el) el.textContent = '0:' + String(Math.min(58, Math.round(this._vt / 14.5 * 58))).padStart(2, '0');
+    }, 200);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this._onScroll);
+    if (this._io) this._io.disconnect();
+    if (this._cio) this._cio.disconnect();
+    if (this._vio) this._vio.disconnect();
+    clearInterval(this._vtimer);
+  }
+
+  countUp(el) {
+    const to = parseFloat(el.dataset.to || '0');
+    const pre = el.dataset.pre || '';
+    const suf = el.dataset.suf || '';
+    const t0 = performance.now();
+    const dur = 1500;
+    const step = (t) => {
+      const p = Math.min(1, (t - t0) / dur);
+      const e = 1 - Math.pow(1 - p, 3);
+      el.textContent = pre + Math.round(to * e).toLocaleString('en-US') + suf;
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+
+  renderVals() {
+    const band = this.props.academyBand ?? 'navy';
+    const motion = this.props.motion ?? true;
+    const showDemo = this.props.showDemoBanner ?? true;
+    const online = this.state.fmt === 'online';
+
+    const courses = [
+      { tag: 'SHOPIFY', badge: 'FLAGSHIP', title: 'Shopify Mastery', sub: 'Zero to a live, selling store in 12 weeks.', mods: [{ n: '01', t: 'Store setup & theme engineering' }, { n: '06', t: 'Product hunting & China sourcing' }, { n: '08', t: 'Meta ads & order operations' }], more: '+ 8 more modules below ↓', dur: '12 WEEKS', level: 'BEGINNER → ADV' },
+      { tag: 'TIKTOK SHOP', badge: '', title: 'TikTok Shop Accelerator', sub: 'Short-form commerce, engineered for virality.', mods: [{ n: '01', t: 'Shop setup & compliance' }, { n: '03', t: 'Viral product frameworks' }, { n: '05', t: 'Affiliate & live selling' }], more: '+ 5 more modules', dur: '6 WEEKS', level: 'BEGINNER' },
+      { tag: 'EBAY · ETSY', badge: '', title: 'International Selling', sub: 'Cross-border stores that get paid from anywhere.', mods: [{ n: '01', t: 'Account health & listings' }, { n: '04', t: 'Ranking & marketplace SEO' }, { n: '07', t: 'Payoneer & logistics' }], more: '+ 6 more modules', dur: '8 WEEKS', level: 'INTERMEDIATE' },
+      { tag: 'DARAZ', badge: '', title: 'Daraz Local Commerce', sub: 'Win the region\u2019s biggest marketplace.', mods: [{ n: '01', t: 'Store & catalog setup' }, { n: '03', t: 'Campaign calendar (11.11)' }, { n: '05', t: 'Fulfilment & returns ops' }], more: '+ 4 more modules', dur: '5 WEEKS', level: 'BEGINNER' },
+      { tag: 'AI × MARKETING', badge: 'NEW', title: 'AI & Digital Marketing', sub: 'An automation-first growth stack, hands-on.', mods: [{ n: '02', t: 'AI content systems' }, { n: '05', t: 'Meta & TikTok performance ads' }, { n: '08', t: 'Funnels, CRO & analytics' }], more: '+ 7 more modules', dur: '8 WEEKS', level: 'ALL LEVELS' }
+    ];
+
+    const modData = [
+      { n: '01', t: 'E-commerce Foundations', d: 'Business models, margins, and how marketplaces actually rank and reward products — the math before the store.' },
+      { n: '02', t: 'Shopify Setup', d: 'Domain, theme selection, essential apps, and a conversion-ready storefront built live in class.' },
+      { n: '03', t: 'Products & Listings', d: 'Catalog structure, variants, copywriting, and photography standards that earn the click.' },
+      { n: '04', t: 'Shipping Setup', d: 'Zones, rates, fulfilment partners, and delivery promises you can actually keep.' },
+      { n: '05', t: 'Payments Setup', d: 'Gateways, Payoneer routing, cards and COD — getting paid reliably across borders.' },
+      { n: '06', t: 'Product Hunting', d: 'Winning-product frameworks, demand signals, and the spy tools we use on live client stores.' },
+      { n: '07', t: 'Sourcing from China', d: 'Alibaba and 1688, sampling, negotiation scripts, QC, and freight without the horror stories.' },
+      { n: '08', t: 'Meta & Ads Setup', d: 'Pixel, catalog, and campaign structures that survive platform updates and scale on data.' },
+      { n: '09', t: 'Digital Marketing', d: 'Creative testing, retargeting, and email + WhatsApp flows that turn one order into four.' },
+      { n: '10', t: 'Order Management', d: 'Daily ops, returns, customer service, and the cash-flow discipline most sellers learn too late.' },
+      { n: '11', t: 'Case Studies', d: 'Tear-downs of real student and client stores — what worked, what died, and why.' }
+    ];
+
+    const steps = [
+      { n: '01', t: 'Discover', d: 'Audit your business, market, and numbers — the baseline.' },
+      { n: '02', t: 'Strategy', d: 'Roadmap, stack, and budget — quoted fixed, in writing.' },
+      { n: '03', t: 'Design', d: 'Flows, UI system, and a clickable prototype you approve.' },
+      { n: '04', t: 'Develop', d: 'Weekly sprints with a working demo every Friday.' },
+      { n: '05', t: 'Launch', d: 'QA, deployment, tracking — and a real first order.' },
+      { n: '06', t: 'Scale', d: 'Ads, automation, and iteration on live revenue data.' }
+    ];
+
+    const results = [
+      { name: 'Retail Shopify Store', tag: 'SHOPIFY BUILD', line: 'PKR 3.84M gross sales in 7 months — up 322%', pts: '0,36 12,33 24,34 36,28 48,25 60,20 72,15 84,9 100,3', base: '0,36 100,36', delta: '1,138 orders · +287%', more: '34.2K sessions — see live dashboard above' },
+      { name: 'TrimTech Tools', tag: 'EBAY ACCOUNT', line: '1,847 orders shipped last quarter', pts: '0,34 14,30 28,31 42,24 56,22 70,16 84,12 100,5', base: '0,34 100,34', delta: '99.1% positive', more: 'Listing overhaul + repricing automation' },
+      { name: 'Karachi Kart', tag: 'DARAZ STORE', line: '#1 in Home & Living, 11.11 campaign', pts: '0,35 15,32 30,33 45,26 60,27 75,14 88,10 100,2', base: '0,35 100,35', delta: '6.2× campaign ROAS', more: 'Flash-sale calendar + fulfilment SLA fix' },
+      { name: 'FitFuel', tag: 'FLUTTER APP', line: '40K downloads in the first 90 days', pts: '0,37 14,35 28,30 42,28 56,22 70,18 84,10 100,4', base: '0,37 100,37', delta: '4.7★ store rating', more: 'MVP in 10 weeks, referral loop built in' },
+      { name: 'RGM Stone', tag: 'SAAS — WORKFLOW OS', line: 'Quote-to-install factory pipeline, digitised end-to-end', pts: '0,38 16,36 32,34 48,26 64,24 80,12 100,6', base: '0,38 100,38', delta: 'Live in production', more: 'Jobs, warnings & billing in one dashboard' },
+      { name: 'Areeba K. — graduate', tag: 'ACADEMY', line: 'First $1K month, 60 days after demo class', pts: '0,38 15,37 30,35 45,30 60,28 75,20 90,10 100,5', base: '0,38 100,38', delta: 'Etsy · 312 sales', more: 'Started in the free 3-day demo cohort' }
+    ];
+
+    const tests = [
+      { ini: 'HR', av: 'avA', name: 'Hamza Raza', role: 'Founder, Aurelia Skincare', metric: '3.4× REVENUE IN ONE QUARTER', q: 'They rebuilt our store and our ad account in the same month. Revenue tripled before the quarter ended — and I finally understand my own dashboard.' },
+      { ini: 'SI', av: 'avB', name: 'Sana Iqbal', role: 'Ops Lead, TrimTech Tools', metric: 'ERP SHIPPED ON THE DATE PROMISED', q: 'The ERP rollout was the first project in years that shipped on the date we were promised. Weekly demos meant zero surprises.' },
+      { ini: 'BA', av: 'avA', name: 'Bilal Ahmed', role: 'Academy graduate → eBay seller', metric: 'FIRST INTL ORDER: DAY 54', q: 'I joined the free demo class fully skeptical. Eight weeks later I had my first international order. The mentors sell on these platforms daily — it shows.' },
+      { ini: 'MS', av: 'avB', name: 'Maryam Shah', role: 'CEO, FitFuel', metric: '40K DOWNLOADS IN 90 DAYS', q: 'ScaleUp acted like a product team, not a vendor. They pushed back where it mattered and the app is better for it.' },
+      { ini: 'UT', av: 'avA', name: 'Usman Tariq', role: 'HR Director, corporate client', metric: '38 STAFF CERTIFIED IN 2 DAYS', q: 'Their AI workshop retrained our entire marketing floor in two days. Practical from the first hour — no slideware.' }
+    ];
+
+    const faqData = [
+      { q: 'What does a project cost?', a: 'Business sites start around $1.5K, ecommerce builds from $2.5K, SaaS MVPs from $8K. Every engagement begins with a free scoping call and a fixed, line-itemed quote — no hourly surprises.' },
+      { q: 'How long until launch?', a: 'A Shopify store ships in 2–4 weeks, business sites in 3–6, SaaS MVPs in 8–12. You see a working build every Friday from week one.' },
+      { q: 'Is training online, in-person, or both?', a: 'Both. Every course runs live online and at our Lahore campus in parallel batches. Recordings, materials, and weekly Q&A are included either way — start with the free 3-day demo.' },
+      { q: 'What happens after launch?', a: '30 days of included support, then optional care plans covering hosting, security, updates, and a monthly growth review with real numbers.' },
+      { q: 'What technologies do you build on?', a: 'Shopify and WooCommerce for commerce; React, Next.js, and Laravel for web; Flutter for mobile; n8n and OpenAI for automation. We pick boring, scalable stacks — not trends.' },
+      { q: 'Do students get certified?', a: 'Yes — every track ends with a project review and a verifiable ScaleUp certificate. Top graduates get referred into client projects and our hiring network.' }
+    ];
+
+    const mods = modData.map((m, i) => ({
+      ...m,
+      cls: 'mrow' + (this.state.mod === i ? ' on' : '') + (i === modData.length - 1 ? ' last' : ''),
+      toggle: () => this.setState({ mod: this.state.mod === i ? -1 : i })
+    }));
+
+    const faqs = faqData.map((f, i) => ({
+      ...f,
+      cls: 'facc' + (this.state.faq === i ? ' on' : ''),
+      toggle: () => this.setState({ faq: this.state.faq === i ? -1 : i })
+    }));
+
+    const core = [
+      { t: 'ai automation', x: 50, y: 20, c: '#5FD6BC', r: '50%' },
+      { t: 'ecommerce dev', x: 36, y: 36, c: '#7FE0C3', r: '3px' },
+      { t: 'saas products', x: 64, y: 36, c: '#F2C94C', r: '50%' },
+      { t: 'digital marketing', x: 29, y: 52, c: '#FFB86B', r: '3px' },
+      { t: 'ui/ux design', x: 50, y: 52, c: '#F7A8D8', r: '50%' },
+      { t: 'crm / erp', x: 70, y: 52, c: '#F09A9A', r: '3px' },
+      { t: 'web development', x: 39, y: 68, c: '#7FC3F0', r: '50%' },
+      { t: 'mobile apps', x: 62, y: 68, c: '#B8A7F0', r: '3px' },
+      { t: 'business consulting', x: 50, y: 84, c: '#C9E265', r: '50%' }
+    ].map((s, i) => ({
+      t: s.t,
+      st: { left: s.x + '%', top: s.y + '%' },
+      bs: { animationDelay: (-i * 0.7) + 's' },
+      ic: { background: s.c, borderRadius: s.r }
+    }));
+
+    const orbitals = [
+      { t: 'store migrations', x: 17, y: 28 },
+      { t: 'product photography', x: 13, y: 42 },
+      { t: 'marketplace audits', x: 16, y: 61 },
+      { t: 'dropshipping setup', x: 19, y: 79 },
+      { t: 'seo & content', x: 81, y: 30 },
+      { t: 'email automation', x: 86, y: 42 },
+      { t: 'corporate training', x: 84, y: 61 },
+      { t: 'analytics setup', x: 81, y: 79 }
+    ].map((s, i) => ({
+      t: s.t,
+      st: { left: s.x + '%', top: s.y + '%' },
+      bs: { animationDelay: (-i * 0.9 - 0.4) + 's' }
+    }));
+
+    return {
+      two: [1, 2],
+      core, orbitals,
+      motionMod: motion ? '' : 'nomotion',
+      acadMod: band === 'teal-tint' ? 'acadT' : '',
+      showDemo,
+      hdMod: this.state.sc ? 'sc' : '',
+      vgoMod: this.state.vgo ? 'go' : '',
+      vplayMod: this.state.vgo ? 'off' : '',
+      toggleVid: () => this.setState({ vgo: !this.state.vgo }),
+      menuMod: this.state.menu ? 'on' : '',
+      toggleMenu: () => this.setState({ menu: !this.state.menu }),
+      closeMenu: () => this.setState({ menu: false }),
+      onlineMod: online ? 'on' : '',
+      offlineMod: online ? '' : 'on',
+      setOnline: () => this.setState({ fmt: 'online' }),
+      setOffline: () => this.setState({ fmt: 'offline' }),
+      fmtA: online ? 'EVENING BATCHES · ZOOM LIVE' : 'GULBERG III CAMPUS',
+      fmtB: online ? 'RECORDINGS INCLUDED' : 'MON–SAT BATCHES',
+      fmtC: online ? 'WEEKLY LIVE Q&A' : 'LABS + CO-WORKING',
+      courses, mods, steps, results, tests, faqs,
+      sent: this.state.sent,
+      notSent: !this.state.sent,
+      submit: (e) => { e.preventDefault(); this.setState({ sent: true }); }
+    };
+  }
+}
+</script>
+</body>
+</html>
