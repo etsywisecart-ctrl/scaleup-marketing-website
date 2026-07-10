@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { coreServices, orbitalServices } from "@/data/content";
 
@@ -145,23 +144,8 @@ export default function Services() {
               <span className="chip">Stripe billing</span>
               <span className="chip">AWS</span>
             </div>
-            <div className="shot">
-              <div className="shotbar">
-                <span className="tl" style={{ background: "#FF5F57" }} />
-                <span className="tl" style={{ background: "#FEBC2E" }} />
-                <span className="tl" style={{ background: "#28C840" }} />
-                <span className="shoturl">RGM Stone — Workflow OS · built &amp; delivered by ScaleUp</span>
-              </div>
-              <Image
-                className="shotimg"
-                src="/uploads/rgm-dashboard.png"
-                alt="RGM Stone Workflow OS dashboard — a SaaS product built by ScaleUp Marketing"
-                width={900}
-                height={560}
-              />
-            </div>
-            <div className="fstat">Live in production — jobs, factory pipeline &amp; billing in one dashboard</div>
-            <Link className="clink" href="/services/software-development" style={{ marginTop: "auto", paddingTop: 16 }}>
+            <div className="fstat">RGM Stone Workflow OS — live in production, built &amp; delivered by ScaleUp</div>
+            <Link className="clink" href="/services/software-development" style={{ paddingTop: 16 }}>
               Explore Web, SaaS &amp; App Development →
             </Link>
           </div>

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import SubHero from "@/components/SubHero";
 import FeatureList from "@/components/FeatureList";
@@ -78,24 +77,6 @@ export default function SoftwareDevelopmentPage() {
             </h2>
           </div>
           <FeatureList items={saasFeatures} />
-          <div className="rv" style={{ maxWidth: 760, marginTop: 32 }}>
-            <div className="shot">
-              <div className="shotbar">
-                <span className="tl" style={{ background: "#FF5F57" }} />
-                <span className="tl" style={{ background: "#FEBC2E" }} />
-                <span className="tl" style={{ background: "#28C840" }} />
-                <span className="shoturl">RGM Stone — Workflow OS · built &amp; delivered by ScaleUp</span>
-              </div>
-              <Image
-                className="shotimg"
-                src="/uploads/rgm-dashboard.png"
-                alt="RGM Stone Workflow OS dashboard — a SaaS product built by ScaleUp Marketing"
-                width={900}
-                height={560}
-              />
-            </div>
-            <div className="fstat">Live in production — jobs, factory pipeline &amp; billing in one dashboard</div>
-          </div>
           <div className="priceband rv" id="pricing" style={{ maxWidth: 760 }}>
             <span className="pricev">Business sites from $1.5K · SaaS MVPs from $8K</span>
             <span className="softline">Fixed quote after a free scoping call · working demo every Friday</span>
