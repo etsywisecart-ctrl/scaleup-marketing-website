@@ -1,5 +1,15 @@
 import Link from "next/link";
 import { coreServices, orbitalServices } from "@/data/content";
+import {
+  StoreMock,
+  DashMock,
+  CodeMock,
+  PhoneMock,
+  KanbanMock,
+  DesignMock,
+  AdsMock,
+  GrowthMock,
+} from "@/components/ServiceMockups";
 
 function Icon({ children }: { children: React.ReactNode }) {
   return (
@@ -80,6 +90,7 @@ export default function Services() {
               <span className="chip">Daraz Seller</span>
               <span className="chip">Headless</span>
             </div>
+            <StoreMock />
             <div className="fstat">Real client results — gross sales +322% YoY · orders +287%</div>
             <Link className="clink" href="/services/ecommerce" style={{ paddingTop: 16 }}>
               Explore Ecommerce Development →
@@ -144,6 +155,7 @@ export default function Services() {
               <span className="chip">Stripe billing</span>
               <span className="chip">AWS</span>
             </div>
+            <DashMock />
             <div className="fstat">RGM Stone Workflow OS — live in production, built &amp; delivered by ScaleUp</div>
             <Link className="clink" href="/services/software-development" style={{ paddingTop: 16 }}>
               Explore Web, SaaS &amp; App Development →
@@ -164,6 +176,7 @@ export default function Services() {
               <span className="chip">Next.js</span>
               <span className="chip">Laravel</span>
             </div>
+            <CodeMock />
             <Link className="clink" href="/services/software-development" style={{ marginTop: "auto", paddingTop: 16 }}>
               Learn more →
             </Link>
@@ -183,6 +196,7 @@ export default function Services() {
               <span className="chip">Flutter</span>
               <span className="chip">React Native</span>
             </div>
+            <PhoneMock />
             <Link className="clink" href="/services/software-development" style={{ marginTop: "auto", paddingTop: 16 }}>
               Learn more →
             </Link>
@@ -203,6 +217,7 @@ export default function Services() {
               <span className="chip">Custom</span>
               <span className="chip">Zoho</span>
             </div>
+            <KanbanMock />
           </div>
 
           <div className="bcard b4 rv">
@@ -219,6 +234,7 @@ export default function Services() {
               <span className="chip">Design systems</span>
               <span className="chip">Prototyping</span>
             </div>
+            <DesignMock />
           </div>
 
           <div className="bcard b4 rv">
@@ -236,6 +252,7 @@ export default function Services() {
               <span className="chip">TikTok</span>
               <span className="chip">ROAS 4.6× avg</span>
             </div>
+            <AdsMock />
           </div>
 
           <div className="bcard b4 rv">
@@ -251,6 +268,7 @@ export default function Services() {
             <div className="chips">
               <span className="chip">Free first session</span>
             </div>
+            <GrowthMock />
           </div>
         </div>
 
