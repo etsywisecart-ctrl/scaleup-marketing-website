@@ -4,18 +4,28 @@ import { useState } from "react";
 import { siteConfig } from "@/config/site";
 import { faqs } from "@/data/content";
 
-export default function Faq() {
+type FaqItem = { q: string; a: string };
+
+export default function Faq({
+  items = faqs,
+  eyebrow = "Before you ask",
+  title = "Questions, answered straight.",
+}: {
+  items?: FaqItem[];
+  eyebrow?: string;
+  title?: string;
+}) {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
     <section className="sec" id="faq" style={{ paddingTop: 96 }}>
       <div className="wrap">
         <div className="rv" style={{ maxWidth: 640, margin: "0 auto", textAlign: "center" }}>
-          <p className="eyebrow">Before you ask</p>
-          <h2 className="h2">Questions, answered straight.</h2>
+          <p className="eyebrow">{eyebrow}</p>
+          <h2 className="h2">{title}</h2>
         </div>
         <div className="faqw">
-          {faqs.map((f, i) => {
+          {items.map((f, i) => {
             const isOpen = open === i;
             return (
               <div key={f.q} className={`facc${isOpen ? " on" : ""}`}>

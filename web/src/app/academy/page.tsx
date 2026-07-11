@@ -3,8 +3,16 @@ import Link from "next/link";
 import SubHero from "@/components/SubHero";
 import FormatToggle from "@/components/FormatToggle";
 import PlatformMark from "@/components/PlatformMark";
+import Faq from "@/components/Faq";
 import { siteConfig } from "@/config/site";
-import { courses, results, testimonials, faqs } from "@/data/content";
+import {
+  courses,
+  results,
+  testimonials,
+  gradResults,
+  gradTestimonials,
+  academyFaqs,
+} from "@/data/content";
 
 export const metadata: Metadata = {
   title: "Academy — ScaleUp Marketing",
@@ -12,11 +20,12 @@ export const metadata: Metadata = {
     "Live online and Lahore-campus training in Shopify, TikTok Shop, eBay & Etsy, Daraz, and AI & Digital Marketing — taught by the team running client stores.",
 };
 
-const academyFaqs = faqs.filter((f) =>
-  ["Is training online, in-person, or both?", "Do students get certified?"].includes(f.q)
-);
-const academyResults = results.filter((r) => r.tag === "ACADEMY");
-const academyTestimonials = testimonials.filter((t) => t.role.toLowerCase().includes("graduate"));
+// Areeba's Etsy outcome (homepage results) + academy-only graduate cases
+const academyResults = [...results.filter((r) => r.tag === "ACADEMY"), ...gradResults];
+const academyTestimonials = [
+  ...testimonials.filter((t) => t.role.toLowerCase().includes("graduate")),
+  ...gradTestimonials,
+];
 
 export default function AcademyPage() {
   return (
@@ -45,6 +54,23 @@ export default function AcademyPage() {
 
       <section className="sec" style={{ paddingTop: 0 }} id="tracks">
         <div className="wrap">
+          <div className="stats rv" style={{ border: "1px solid #E7F0EE", marginBottom: 64 }}>
+            <div className="wrap strip">
+              <div className="stat first">
+                <div className="num" data-to="500" data-suf="+">500+</div>
+                <div className="slab">Students trained</div>
+              </div>
+              <div className="stat nb">
+                <div className="num" data-to="5" data-suf="">5</div>
+                <div className="slab">Live training tracks</div>
+              </div>
+              <div className="stat">
+                <div className="num" data-to="3" data-suf="">3</div>
+                <div className="slab">Days of free demo class</div>
+              </div>
+            </div>
+          </div>
+
           <div className="ahead rv">
             <div style={{ maxWidth: 620 }}>
               <p className="eyebrow">Choose your format</p>
@@ -94,7 +120,7 @@ export default function AcademyPage() {
                       <span className="cpill">CERTIFICATE</span>
                     </div>
                     <Link className="vclink" href={`/academy/${c.slug}`}>
-                      View full curriculum &amp; pricing →
+                      View full curriculum →
                     </Link>
                   </div>
                 </div>
@@ -143,91 +169,111 @@ export default function AcademyPage() {
         </div>
       </section>
 
-      {academyResults.length > 0 && (
-        <section className="sec softband">
-          <div className="wrap">
-            <div className="rv" style={{ maxWidth: 640 }}>
-              <p className="eyebrow">Graduate outcomes</p>
-              <h2 className="h2">
-                Students who <span className="grad">shipped.</span>
-              </h2>
-            </div>
-            <div className="rgrid">
-              {academyResults.map((r) => (
+      <section className="sec softband">
+        <div className="wrap">
+          <div className="rv" style={{ maxWidth: 660 }}>
+            <p className="eyebrow">Graduate outcomes</p>
+            <h2 className="h2">
+              Students who <span className="grad">shipped.</span>
+            </h2>
+            <p className="lead" style={{ marginTop: 20 }}>
+              Not certificates on a shelf — live stores, real orders, and the specific work each
+              graduate did to get there.
+            </p>
+          </div>
+          <div className="rgrid">
+            {academyResults.map((r) => {
+              const peak = Math.max(...r.bars);
+              return (
                 <div key={r.name} className="rtile rv">
                   <div className="rhead">
                     <h3 className="rname">{r.name}</h3>
                     <span className="rtag">{r.tag}</span>
                   </div>
                   <p className="rline">{r.line}</p>
-                  <svg className="spark" viewBox="0 0 100 40" preserveAspectRatio="none">
-                    <polyline points={r.pts} fill="none" stroke="#2FBF9E" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                    <polyline points={r.base} fill="none" stroke="#E0EBE8" strokeWidth="1.5" strokeDasharray="3 4" />
-                  </svg>
+                  <div className="rkpis">
+                    {r.kpis.map((k) => (
+                      <div key={k.l} className="rkpi">
+                        <span className="rkpv">{k.v}</span>
+                        <span className="rkpl">{k.l}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="rchart" aria-hidden="true">
+                    <div className="rclabel">{r.unit}</div>
+                    <div className="rbars">
+                      {r.bars.map((h, i) => (
+                        <span
+                          key={i}
+                          className={`rbar${h === peak ? " peak" : ""}`}
+                          style={{ height: h + "%", transitionDelay: i * 70 + "ms" }}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                  <div className="rwork">
+                    {r.work.map((w) => (
+                      <span key={w} className="rwchip">
+                        {w}
+                      </span>
+                    ))}
+                  </div>
                   <div className="rfoot">
                     <span className="rdelta">{r.delta}</span>
                     <span className="rmore">{r.more}</span>
                   </div>
                 </div>
-              ))}
-            </div>
+              );
+            })}
           </div>
-        </section>
-      )}
+          <div className="secta rv">
+            <Link className="btn btnG" href="/#contact">
+              Start where they started — the free demo
+            </Link>
+            <span className="softline">Outcomes vary with effort — no income promises, ever.</span>
+          </div>
+        </div>
+      </section>
 
-      {academyTestimonials.length > 0 && (
-        <section className="sec">
-          <div className="wrap">
-            <div className="rv" style={{ maxWidth: 640 }}>
-              <p className="eyebrow">In their words</p>
-              <h2 className="h2">
-                From the free demo class <span className="grad">to a real business.</span>
-              </h2>
-            </div>
-            <div className="trow">
-              {academyTestimonials.map((t) => (
-                <div key={t.name} className="tcard rv">
-                  <span className="tmetric">{t.metric}</span>
-                  <p className="tq">&ldquo;{t.q}&rdquo;</p>
-                  <div className="tfoot">
-                    <div className={`av ${t.av}`}>{t.ini}</div>
-                    <div>
-                      <p className="tn">{t.name}</p>
-                      <p className="tr">{t.role}</p>
-                    </div>
+      <section className="sec">
+        <div className="wrap">
+          <div className="rv" style={{ maxWidth: 640 }}>
+            <p className="eyebrow">In their words</p>
+            <h2 className="h2">
+              From the free demo class <span className="grad">to a real business.</span>
+            </h2>
+          </div>
+          <div className="trow">
+            {academyTestimonials.map((t) => (
+              <div key={t.name} className="tcard rv">
+                <span className="tmetric">{t.metric}</span>
+                <p className="tq">&ldquo;{t.q}&rdquo;</p>
+                <div className="tfoot">
+                  <div className={`av ${t.av}`}>{t.ini}</div>
+                  <div>
+                    <p className="tn">{t.name}</p>
+                    <p className="tr">{t.role}</p>
                   </div>
                 </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      <section className="sec softband">
-        <div className="wrap">
-          <div className="rv" style={{ maxWidth: 640, margin: "0 auto", textAlign: "center" }}>
-            <p className="eyebrow">Before you enroll</p>
-            <h2 className="h2">Training questions, answered.</h2>
-          </div>
-          <div className="faqw">
-            {academyFaqs.map((f) => (
-              <div key={f.q} className="facc" style={{ padding: "22px 4px" }}>
-                <p className="fqt" style={{ margin: 0 }}>
-                  {f.q}
-                </p>
-                <p className="fqa" style={{ padding: "10px 40px 0 0" }}>
-                  {f.a}
-                </p>
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      <Faq
+        items={academyFaqs}
+        eyebrow="Before you enroll"
+        title="Course questions, answered straight."
+      />
+
+      <section className="sec" style={{ paddingTop: 0 }}>
+        <div className="wrap">
           <div className="secta rv" style={{ justifyContent: "center" }}>
             <Link className="btn btnG" href="/#contact">
               Book a free consultation
             </Link>
-            <a className="btn btnO sm" href={siteConfig.contact.whatsappHref}>
-              WhatsApp us — replies in minutes
-            </a>
+            <span className="softline">Or sit in free for 3 days — no card required.</span>
           </div>
         </div>
       </section>

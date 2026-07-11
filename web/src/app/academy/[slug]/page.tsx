@@ -45,7 +45,7 @@ export default async function CoursePage({ params }: { params: Promise<{ slug: s
         ctas={
           <>
             <Link className="btn btnG" href="/#contact">
-              Get the syllabus &amp; pricing
+              Get the full syllabus
             </Link>
             <Link className="btn btnO" href="/#contact">
               Reserve a free demo seat
