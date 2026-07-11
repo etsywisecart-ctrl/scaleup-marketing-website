@@ -16,7 +16,7 @@ const SERVICE_LINKS = [
 
 const MAIN_LINKS = [
   { href: "/academy", label: "Academy" },
-  { href: "/#process", label: "Process" },
+  { href: "/about", label: "About Us" },
   { href: "/#work", label: "Work" },
   { href: "/#faq", label: "FAQ" },
 ];
@@ -56,7 +56,7 @@ export default function Header() {
           <nav className="nav">
             <div className="navdd">
               <Link className="nlink navddtrigger" href="/#services">
-                Services
+                Solutions
                 <svg className="navddcaret" width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M2.5 4.5 6 8l3.5-3.5" />
                 </svg>
@@ -76,7 +76,7 @@ export default function Header() {
               </Link>
             ))}
             <Link className="btn btnG sm" href="/#contact">
-              Book a Call
+              Free Consultation
             </Link>
           </nav>
           <button
@@ -96,7 +96,7 @@ export default function Header() {
           onClick={() => setMServicesOpen((v) => !v)}
           aria-expanded={mServicesOpen}
         >
-          Services
+          Solutions
           <span className={`mgcaret${mServicesOpen ? " open" : ""}`}>+</span>
         </button>
         {mServicesOpen && (
@@ -114,7 +114,7 @@ export default function Header() {
           </Link>
         ))}
         <Link className="btn btnG" href="/#contact" onClick={closeMenu} style={{ marginTop: 14 }}>
-          Book a Strategy Call
+          Free Consultation
         </Link>
       </div>
     </>

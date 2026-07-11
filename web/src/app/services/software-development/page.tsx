@@ -36,8 +36,8 @@ export default function SoftwareDevelopmentPage() {
   return (
     <>
       <SubHero
-        crumbs={[{ label: "Services" }, { label: "Web, SaaS & App Development" }]}
-        eyebrow="Services — Software"
+        crumbs={[{ label: "Solutions" }, { label: "Web, SaaS & App Development" }]}
+        eyebrow="Solutions — Software"
         title={
           <>
             One product team. <span className="grad">Three ways to ship.</span>

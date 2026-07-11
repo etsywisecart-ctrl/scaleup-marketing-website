@@ -30,8 +30,8 @@ export default function EcommercePage() {
   return (
     <>
       <SubHero
-        crumbs={[{ label: "Services" }, { label: "Ecommerce Development" }]}
-        eyebrow="Services — Ecommerce"
+        crumbs={[{ label: "Solutions" }, { label: "Ecommerce Development" }]}
+        eyebrow="Solutions — Ecommerce"
         title={
           <>
             Stores engineered <span className="grad">to convert.</span>

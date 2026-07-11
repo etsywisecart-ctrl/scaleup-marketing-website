@@ -24,7 +24,7 @@ export default function Footer() {
             </p>
           </div>
           <div className="fcol">
-            <p className="fh">Services</p>
+            <p className="fh">Solutions</p>
             <Link className="flink" href="/services/ecommerce">Ecommerce Development</Link>
             <Link className="flink" href="/services/software-development">Web Development</Link>
             <Link className="flink" href="/services/software-development">Mobile Apps</Link>
@@ -44,12 +44,11 @@ export default function Footer() {
           </div>
           <div className="fcol">
             <p className="fh">Company</p>
-            <Link className="flink" href="/about">About</Link>
-            <Link className="flink" href="/#process">Process</Link>
+            <Link className="flink" href="/about">About Us</Link>
             <Link className="flink" href="/#work">Results</Link>
             <Link className="flink" href="/#voices">Testimonials</Link>
             <Link className="flink" href="/#faq">FAQ</Link>
-            <Link className="flink" href="/#contact">Book a Call</Link>
+            <Link className="flink" href="/#contact">Free Consultation</Link>
           </div>
           <div className="fcol">
             <p className="fh">Contact</p>

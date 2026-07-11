@@ -13,7 +13,7 @@ export default function AboutPage() {
   return (
     <>
       <SubHero
-        crumbs={[{ label: "About" }]}
+        crumbs={[{ label: "About Us" }]}
         eyebrow="About ScaleUp Marketing"
         title={
           <>
