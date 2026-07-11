@@ -1,20 +1,71 @@
 /* Right-side hero promo — glassmorphism card over a CSS/SVG animated
-   football scene: a colorful ball curls into the top corner of the goal,
-   ripples the net and pops a GOAL! celebration, then loops. Pure CSS,
-   autoplays, silent, no controls, respects reduced-motion (.nomotion). */
+   night-match stadium: floodlights, twinkling crowd camera-flashes, a
+   colorful ball curling into the top corner, net ripple + GOAL! burst.
+   Pure CSS, autoplays, silent, loops, respects reduced-motion (.nomotion). */
 
 import Link from "next/link";
+
+// crowd camera flashes twinkling across the stands
+const CROWD_FLASHES = [
+  { left: "5%", top: "52%", delay: "-0.2s" },
+  { left: "12%", top: "38%", delay: "-1.7s" },
+  { left: "19%", top: "50%", delay: "-0.9s" },
+  { left: "27%", top: "32%", delay: "-2.3s" },
+  { left: "34%", top: "44%", delay: "-1.2s" },
+  { left: "42%", top: "28%", delay: "-0.5s" },
+  { left: "50%", top: "40%", delay: "-1.9s" },
+  { left: "58%", top: "30%", delay: "-2.6s" },
+  { left: "66%", top: "42%", delay: "-0.7s" },
+  { left: "74%", top: "34%", delay: "-1.4s" },
+  { left: "84%", top: "46%", delay: "-2.1s" },
+  { left: "92%", top: "54%", delay: "-0.4s" },
+];
+
+const STARS = [
+  { left: "10%", top: "6%", delay: "0s" },
+  { left: "30%", top: "12%", delay: "-1.1s" },
+  { left: "48%", top: "5%", delay: "-2.2s" },
+  { left: "62%", top: "14%", delay: "-0.6s" },
+  { left: "88%", top: "8%", delay: "-1.6s" },
+];
 
 export default function HeroPromo() {
   return (
     <div className="promowrap">
       <div className="promo">
-        {/* animated football scene */}
+        {/* animated stadium scene */}
         <div className="promopitch" aria-hidden="true">
           <div className="ppstripes" />
           <div className="ppcircle" />
           <div className="ppflare ppflare1" />
           <div className="ppflare ppflare2" />
+
+          {/* night-sky stars */}
+          {STARS.map((s, i) => (
+            <span key={i} className="pstar" style={{ left: s.left, top: s.top, animationDelay: s.delay }} />
+          ))}
+
+          {/* stadium stands on the horizon + crowd camera flashes */}
+          <div className="pstands">
+            <svg className="pstandsvg" viewBox="0 0 520 80" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="standg" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stopColor="#123448" />
+                  <stop offset="1" stopColor="#0a2233" />
+                </linearGradient>
+              </defs>
+              <path d="M0,46 Q260,8 520,46 L520,80 L0,80 Z" fill="url(#standg)" />
+              <path d="M0,46 Q260,8 520,46" fill="none" stroke="rgba(127,231,207,.25)" strokeWidth="1.5" />
+            </svg>
+            {CROWD_FLASHES.map((f, i) => (
+              <span key={i} className="pcf" style={{ left: f.left, top: f.top, animationDelay: f.delay }} />
+            ))}
+          </div>
+
+          {/* stadium light shaft, top-left */}
+          <div className="pflood">
+            <span className="pfbeam" />
+          </div>
 
           {/* goal net, top-right — the target */}
           <svg className="pgoal" viewBox="0 0 150 108">
@@ -31,7 +82,7 @@ export default function HeroPromo() {
               <path d="M136 24 V98" />
             </g>
             {/* net ripple flash on score */}
-            <circle className="pripple" cx="30" cy="34" r="10"
+            <circle className="pripple" cx="32" cy="36" r="10"
                     fill="none" stroke="#7fe7cf" strokeWidth="4" />
           </svg>
 
@@ -45,12 +96,15 @@ export default function HeroPromo() {
           <span className="pconf pconf4" />
           <span className="pconf pconf5" />
 
-          <div className="pscene">
-            {/* travelling ball with comet trail */}
+          {/* kick-off flash at the launch spot */}
+          <span className="pkickflash" />
+
+          {/* curling shot: % -based flight container so it scales with the card */}
+          <div className="pflight">
             <div className="pshot">
-              <div className="ptailpivot">
+              <span className="ptailpivot">
                 <span className="ptail" />
-              </div>
+              </span>
               <span className="pball">
                 <span className="pballspin">
                   <svg className="pballsvg" viewBox="0 0 100 100">
@@ -84,6 +138,7 @@ export default function HeroPromo() {
               </span>
             </div>
           </div>
+
           <span className="pdot pdot1" />
           <span className="pdot pdot2" />
           <span className="pdot pdot3" />

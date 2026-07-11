@@ -3462,9 +3462,10 @@ a:hover {
   position: absolute;
   inset: 0;
   z-index: 0;
+  /* night sky -> stadium horizon -> floodlit pitch */
   background:
-    radial-gradient(120% 80% at 50% -10%, #14506a 0%, transparent 55%),
-    linear-gradient(180deg, #0e3b52 0%, #0e3b52 42%, #10462f 60%, #0c7a44 100%);
+    radial-gradient(130% 70% at 50% -12%, #16506b 0%, transparent 50%),
+    linear-gradient(180deg, #0b2438 0%, #0e3a54 28%, #0e4a44 38%, #0c6b3e 56%, #0c7a44 100%);
   overflow: hidden;
 }
 .ppstripes {
@@ -3472,7 +3473,7 @@ a:hover {
   left: -10%;
   right: -10%;
   bottom: 0;
-  height: 58%;
+  height: 63%;
   background: repeating-linear-gradient(
     90deg,
     rgba(255, 255, 255, 0.06) 0 26px,
@@ -3520,6 +3521,82 @@ a:hover {
   0%, 100% { opacity: 0.5; }
   50% { opacity: 0.95; }
 }
+
+/* night-sky stars */
+.pstar {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 0 6px 1px rgba(255, 255, 255, 0.4);
+  animation: pstart 3.4s ease-in-out infinite;
+}
+.nomotion .pstar { animation: none; opacity: 0.5; }
+@keyframes pstart {
+  0%, 100% { opacity: 0.25; transform: scale(0.8); }
+  50% { opacity: 0.9; transform: scale(1.15); }
+}
+
+/* stadium stands on the horizon */
+.pstands {
+  position: absolute;
+  left: -2%;
+  right: -2%;
+  top: 23%;
+  height: 74px;
+}
+.pstandsvg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+/* crowd camera flashes */
+.pcf {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.55);
+  opacity: 0;
+  animation: pcflash 2.8s linear infinite;
+}
+.nomotion .pcf { animation: none; opacity: 0.35; box-shadow: none; }
+@keyframes pcflash {
+  0%, 100% { opacity: 0; }
+  4% { opacity: 1; }
+  9% { opacity: 0; }
+}
+
+/* stadium light shaft falling from the top-left corner */
+.pflood {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.pfbeam {
+  position: absolute;
+  inset: 0;
+  background: conic-gradient(
+    from 108deg at 1% -4%,
+    rgba(220, 255, 244, 0.16) 0deg,
+    rgba(220, 255, 244, 0.09) 22deg,
+    transparent 34deg
+  );
+  filter: blur(7px);
+  /* fade the shaft with distance from the source so it has no hard edges */
+  -webkit-mask-image: radial-gradient(130% 130% at 2% -2%, #000 34%, transparent 74%);
+  mask-image: radial-gradient(130% 130% at 2% -2%, #000 34%, transparent 74%);
+  animation: pfbeamp 5s ease-in-out infinite;
+}
+.nomotion .pfbeam { animation: none; }
+@keyframes pfbeamp {
+  0%, 100% { opacity: 0.65; }
+  50% { opacity: 1; }
+}
+
 .pscene {
   position: absolute;
   inset: 0;
@@ -3529,12 +3606,22 @@ a:hover {
 /* goal net (top-right target) */
 .pgoal {
   position: absolute;
-  top: 7%;
+  top: 15%;
   right: 4%;
-  width: 148px;
+  width: clamp(116px, 28%, 158px);
   height: auto;
   z-index: 1;
   filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.3));
+  animation: pgoalshake 4.6s linear infinite;
+}
+.nomotion .pgoal { animation: none; }
+@keyframes pgoalshake {
+  0%, 37% { transform: translate(0, 0) rotate(0deg); }
+  38.5% { transform: translate(2px, -1px) rotate(0.5deg); }
+  40% { transform: translate(-2px, 1px) rotate(-0.4deg); }
+  42% { transform: translate(1.5px, -0.5px) rotate(0.3deg); }
+  44% { transform: translate(-1px, 0.5px) rotate(-0.2deg); }
+  46%, 100% { transform: translate(0, 0) rotate(0deg); }
 }
 .pnet { animation: pnetsway 4s ease-in-out infinite; transform-origin: top center; }
 .nomotion .pnet { animation: none; }
@@ -3546,23 +3633,24 @@ a:hover {
   transform-box: fill-box;
   transform-origin: center;
   opacity: 0;
-  animation: pripplea 3.6s ease-out infinite;
+  animation: pripplea 4.6s ease-out infinite;
 }
 .nomotion .pripple { animation: none; }
 @keyframes pripplea {
-  0%, 42% { opacity: 0; transform: scale(0.2); }
-  46% { opacity: 0.95; transform: scale(0.6); }
-  56% { opacity: 0; transform: scale(2); }
+  0%, 36.5% { opacity: 0; transform: scale(0.2); }
+  40% { opacity: 0.95; transform: scale(0.6); }
+  50% { opacity: 0; transform: scale(2); }
   100% { opacity: 0; transform: scale(2); }
 }
 
 /* GOAL! celebration text */
 .pgoaltxt {
   position: absolute;
-  top: 30%;
-  left: 50%;
+  top: 24%;
+  left: 40%;
   z-index: 1;
   font-family: "Satoshi", sans-serif;
+  font-style: italic;
   font-weight: 900;
   font-size: 30px;
   letter-spacing: 0.02em;
@@ -3570,15 +3658,15 @@ a:hover {
   text-shadow: 0 2px 0 #17a78c, 0 10px 22px rgba(47, 191, 158, 0.6);
   opacity: 0;
   transform: translate(-50%, -50%) scale(0.4);
-  animation: pgoalpop 3.6s cubic-bezier(0.34, 1.56, 0.64, 1) infinite;
+  animation: pgoalpop 4.6s cubic-bezier(0.34, 1.56, 0.64, 1) infinite;
 }
 .nomotion .pgoaltxt { animation: none; }
 @keyframes pgoalpop {
-  0%, 42% { opacity: 0; transform: translate(-50%, -50%) scale(0.4) rotate(-9deg); }
-  47% { opacity: 1; transform: translate(-50%, -50%) scale(1.18) rotate(-9deg); }
-  54% { transform: translate(-50%, -50%) scale(1) rotate(-9deg); }
-  70% { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(-9deg); }
-  82%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(1.06) rotate(-9deg); }
+  0%, 37.5% { opacity: 0; transform: translate(-50%, -50%) scale(0.4) rotate(-8deg); }
+  42% { opacity: 1; transform: translate(-50%, -50%) scale(1.18) rotate(-8deg); }
+  47% { transform: translate(-50%, -50%) scale(1) rotate(-8deg); }
+  66% { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(-8deg); }
+  78%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(1.06) rotate(-8deg); }
 }
 
 /* confetti burst near the net */
@@ -3589,66 +3677,110 @@ a:hover {
   height: 7px;
   border-radius: 2px;
   opacity: 0;
-  animation: pconfb 3.6s ease-out infinite;
+  animation: pconfb 4.6s ease-out infinite;
 }
 .nomotion .pconf { animation: none; }
 @keyframes pconfb {
-  0%, 43% { opacity: 0; transform: translate(0, 0) scale(0.4) rotate(0deg); }
-  48% { opacity: 1; transform: translate(calc(var(--cx) * 0.4), calc(var(--cy) * 0.35)) scale(1) rotate(60deg); }
-  70% { opacity: 0.95; transform: translate(var(--cx), var(--cy)) scale(1) rotate(160deg); }
-  86%, 100% { opacity: 0; transform: translate(calc(var(--cx) * 1.1), calc(var(--cy) * 1.4)) scale(0.85) rotate(220deg); }
+  0%, 38% { opacity: 0; transform: translate(0, 0) scale(0.4) rotate(0deg); }
+  43% { opacity: 1; transform: translate(calc(var(--cx) * 0.4), calc(var(--cy) * 0.35)) scale(1) rotate(60deg); }
+  62% { opacity: 0.95; transform: translate(var(--cx), var(--cy)) scale(1) rotate(160deg); }
+  78%, 100% { opacity: 0; transform: translate(calc(var(--cx) * 1.1), calc(var(--cy) * 1.4)) scale(0.85) rotate(220deg); }
 }
-.pconf1 { top: 20%; right: 20%; background: #F5A623; --cx: -44px; --cy: -26px; }
-.pconf2 { top: 18%; right: 14%; background: #FF6B6B; --cx: 30px; --cy: -34px; }
-.pconf3 { top: 24%; right: 26%; background: #5FD6BC; --cx: -58px; --cy: 8px; }
-.pconf4 { top: 22%; right: 12%; background: #3B82F6; --cx: 40px; --cy: -8px; }
-.pconf5 { top: 26%; right: 22%; background: #7C5CFC; --cx: -20px; --cy: 30px; }
+.pconf1 { top: 22%; right: 24%; background: #F5A623; --cx: -44px; --cy: -26px; }
+.pconf2 { top: 24%; right: 19%; background: #FF6B6B; --cx: 30px; --cy: -34px; }
+.pconf3 { top: 27%; right: 29%; background: #5FD6BC; --cx: -58px; --cy: 8px; }
+.pconf4 { top: 21%; right: 16%; background: #3B82F6; --cx: 44px; --cy: -8px; }
+.pconf5 { top: 30%; right: 26%; background: #7C5CFC; --cx: -20px; --cy: 32px; }
 
-/* travelling ball + comet trail */
+/* kick-off flash where the shot launches */
+.pkickflash {
+  position: absolute;
+  left: 5%;
+  top: 38%;
+  width: 64px;
+  height: 64px;
+  z-index: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.95), rgba(127, 231, 207, 0.5) 40%, transparent 70%);
+  filter: blur(1px);
+  opacity: 0;
+  animation: pkickf 4.6s linear infinite;
+}
+.nomotion .pkickflash { animation: none; }
+@keyframes pkickf {
+  0%, 9% { opacity: 0; transform: scale(0.3); }
+  12% { opacity: 0.9; transform: scale(0.75); }
+  19% { opacity: 0; transform: scale(1.5); }
+  100% { opacity: 0; transform: scale(1.5); }
+}
+
+/* curling shot: the flight container is the full card, translated in %
+   so the trajectory scales with the card and always meets the goal */
+.pflight {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  animation: pflightmove 4.6s linear infinite;
+}
+.nomotion .pflight { animation: none; }
+@keyframes pflightmove {
+  0%, 10% { transform: translate(0, 0); }
+  12% { transform: translate(1.5%, -0.5%); }
+  19% { transform: translate(15%, -3%); }
+  26% { transform: translate(32%, -8%); }
+  32% { transform: translate(48%, -15%); }
+  37%, 88% { transform: translate(60%, -21%); }
+  92%, 100% { transform: translate(0, 0); }
+}
 .pshot {
   position: absolute;
-  left: 15%;
-  top: 56%;
-  width: 50px;
-  height: 50px;
-  z-index: 1;
-  animation: pshot 3.6s cubic-bezier(0.28, 0, 0.4, 1) infinite;
+  left: 7%;
+  top: 40%;
+  width: clamp(38px, 10%, 52px);
+  aspect-ratio: 1;
+  animation: pshotpose 4.6s linear infinite;
 }
 .nomotion .pshot { animation: none; }
-@keyframes pshot {
-  0%, 6% { transform: translate(0, 0) scale(1); opacity: 1; }
-  11% { transform: translate(-9px, 5px) scale(1); opacity: 1; }
-  40% { transform: translate(196px, -120px) scale(0.84); opacity: 1; }
-  45% { transform: translate(236px, -150px) scale(0.66); opacity: 0; }
-  46% { transform: translate(0, 0) scale(1); opacity: 0; }
-  92% { transform: translate(0, 0) scale(1); opacity: 0; }
-  97%, 100% { transform: translate(0, 0) scale(1); opacity: 1; }
+@keyframes pshotpose {
+  0%, 7% { transform: scale(1); opacity: 1; }
+  9% { transform: scale(1.1, 0.88); opacity: 1; }
+  11% { transform: scale(0.97, 1.06); opacity: 1; }
+  37% { transform: scale(0.64); opacity: 1; }
+  38.5% { transform: scale(0.64); opacity: 0; }
+  90% { transform: scale(0.64); opacity: 0; }
+  91% { transform: scale(1); opacity: 0; }
+  96%, 100% { transform: scale(1); opacity: 1; }
 }
 .ptailpivot {
   position: absolute;
   left: 50%;
   top: 50%;
-  /* trail streams down-left, behind the ball's up-right flight path */
-  transform: rotate(-31deg);
+  animation: ptailturn 4.6s linear infinite;
+}
+.nomotion .ptailpivot { animation: none; transform: rotate(-26deg); }
+@keyframes ptailturn {
+  0%, 12% { transform: rotate(-8deg); }
+  26% { transform: rotate(-15deg); }
+  37%, 100% { transform: rotate(-22deg); }
 }
 .ptail {
   position: absolute;
-  right: 0;
-  top: -5px;
-  width: 104px;
-  height: 10px;
+  right: 6px;
+  top: -4px;
+  width: 96px;
+  height: 9px;
   border-radius: 10px;
   background: linear-gradient(to left, rgba(95, 214, 188, 0.95), rgba(47, 191, 158, 0));
   filter: blur(2px);
   opacity: 0;
-  animation: ptailfade 3.6s cubic-bezier(0.28, 0, 0.4, 1) infinite;
+  animation: ptailfade 4.6s linear infinite;
 }
 .nomotion .ptail { animation: none; }
 @keyframes ptailfade {
-  0%, 9% { opacity: 0; }
-  18% { opacity: 0.85; }
-  40% { opacity: 0.85; }
-  45%, 100% { opacity: 0; }
+  0%, 11% { opacity: 0; }
+  16% { opacity: 0.9; }
+  35% { opacity: 0.8; }
+  38%, 100% { opacity: 0; }
 }
 .pball {
   position: absolute;
@@ -3819,18 +3951,14 @@ a:hover {
     min-height: 400px;
     padding: 20px;
   }
-  .pgoal {
-    width: 120px;
-    top: 9%;
-  }
-  .pshot {
-    width: 44px;
-    height: 44px;
-    left: 16%;
-    top: 54%;
-  }
   .pgoaltxt {
     font-size: 25px;
+  }
+  .pstands {
+    height: 60px;
+  }
+  .ptail {
+    width: 74px;
   }
 }
 
