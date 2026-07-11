@@ -413,8 +413,8 @@ export const teamPods = [
 export const milestones = [
   { y: "Year 1–2", t: "Agency founded", d: "Started delivering Shopify and WooCommerce stores for local SMEs in Lahore." },
   { y: "Year 3", t: "Academy launched", d: "Opened the first live cohort to turn client playbooks into a teachable curriculum." },
-  { y: "Year 4–6", t: "Software & AI added", d: "Expanded into SaaS product development, CRM/ERP, and AI automation for client operations." },
-  { y: "Year 7–8", t: "One ecosystem", d: "500+ students trained and 100+ projects delivered under one team." },
+  { y: "Year 4", t: "Software & AI added", d: "Expanded into SaaS product development, CRM/ERP, and AI automation for client operations." },
+  { y: "Year 5", t: "One ecosystem", d: "500+ students trained and 100+ projects delivered under one team." },
 ];
 
 export const coursesBySlug = Object.fromEntries(courses.map((c) => [c.slug, c]));

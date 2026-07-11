@@ -436,7 +436,7 @@ a:hover {
 }
 .strip {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
 }
 .stat {
   padding: 30px 34px;
@@ -2601,6 +2601,12 @@ a:hover {
 @media (max-width: 1020px) {
   .strip {
     grid-template-columns: 1fr 1fr;
+  }
+  /* with 3 stats, the last one spans the full row */
+  .strip .stat:last-child {
+    grid-column: 1 / -1;
+    border-left: none;
+    border-top: 1px solid #e7f0ee;
   }
   .stat {
     padding: 24px;

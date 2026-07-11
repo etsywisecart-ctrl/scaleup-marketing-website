@@ -59,14 +59,8 @@ export default function Hero() {
             <div className="slab">Projects delivered</div>
           </div>
           <div className="stat">
-            <div className="num" data-pre="$" data-to="12" data-suf="M+">
-              $12M+
-            </div>
-            <div className="slab">Client revenue tracked</div>
-          </div>
-          <div className="stat">
-            <div className="num" data-to="8" data-suf="">
-              8
+            <div className="num" data-to="5" data-suf="">
+              5
             </div>
             <div className="slab">Years shipping &amp; teaching</div>
           </div>
