@@ -2118,6 +2118,45 @@ a:hover {
   border-radius: 6px;
   padding: 3px 8px;
 }
+/* dashed invitation tile — the "your result goes here" slot */
+.rinvite {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 10px;
+  background: transparent;
+  border: 1.5px dashed #bcd4cd;
+  min-height: 260px;
+}
+.rinvplus {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1.5px dashed #bcd4cd;
+  color: #2fbf9e;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1;
+}
+.rinvt {
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: #0e2a38;
+  margin: 0;
+}
+.rinvd {
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: #4e6a70;
+  max-width: 260px;
+  margin: 0 0 6px;
+}
 .spark {
   margin-top: 16px;
   width: 100%;
@@ -4086,6 +4125,10 @@ body { transition: background 0.3s ease; }
 [data-theme="dark"] .form,
 [data-theme="dark"] .curr,
 [data-theme="dark"] .vccard { background: #11242f; border-color: #22414f; }
+[data-theme="dark"] .rinvite { background: transparent; border: 1.5px dashed #2c4d5c; }
+[data-theme="dark"] .rinvplus { border-color: #2c4d5c; }
+[data-theme="dark"] .rinvt { color: #e6eef0; }
+[data-theme="dark"] .rinvd { color: #a9bcc2; }
 [data-theme="dark"] .currh { border-bottom-color: #22414f; }
 [data-theme="dark"] .mrow { border-bottom-color: #1b3543; }
 [data-theme="dark"] .mbtn { color: #e6eef0; }

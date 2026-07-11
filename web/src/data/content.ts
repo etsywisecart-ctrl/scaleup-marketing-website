@@ -364,64 +364,7 @@ export const faqs = [
   },
 ];
 
-/* Academy-only content: graduate outcomes, student voices, and
-   course-specific FAQs shown on /academy. */
-
-export const gradResults = [
-  {
-    name: "Hassan M. — Shopify Mastery",
-    tag: "SHOPIFY GRAD",
-    line: "PKR 480K in sales in his first quarter after graduating",
-    pts: "0,38 14,36 28,33 42,29 56,24 70,18 84,10 100,4",
-    base: "0,38 100,38",
-    delta: "First sale: week 6",
-    more: "Now runs the store full-time",
-    unit: "Sales / month (PKR)",
-    kpis: [
-      { v: "PKR 480K", l: "First-quarter sales" },
-      { v: "214", l: "Orders" },
-      { v: "Wk 6", l: "First sale" },
-    ],
-    bars: [10, 18, 30, 42, 58, 74, 88, 100],
-    work: ["Own store build", "Product hunting", "Meta ads"],
-  },
-  {
-    name: "Fatima Z. — TikTok Shop",
-    tag: "TIKTOK GRAD",
-    line: "First viral product — 96K views and 430 orders in one month",
-    pts: "0,37 14,36 28,34 42,33 56,26 70,20 84,9 100,3",
-    base: "0,37 100,37",
-    delta: "Started from zero",
-    more: "Affiliate creators now sell for her",
-    unit: "Orders / week",
-    kpis: [
-      { v: "96K", l: "Video views" },
-      { v: "430", l: "Orders" },
-      { v: "0→28K", l: "Followers" },
-    ],
-    bars: [6, 12, 16, 22, 38, 55, 80, 100],
-    work: ["Shop setup", "UGC hooks", "Live selling"],
-  },
-];
-
-export const gradTestimonials = [
-  {
-    ini: "AK",
-    av: "avB",
-    name: "Areeba Khan",
-    role: "International Selling graduate → Etsy seller",
-    metric: "FIRST $1K MONTH: DAY 60",
-    q: "I enrolled during the free demo days with zero experience. Sixty days later I crossed my first $1K month on Etsy — the listing SEO module alone paid for the course.",
-  },
-  {
-    ini: "HM",
-    av: "avA",
-    name: "Hassan Mahmood",
-    role: "Shopify Mastery graduate → store owner",
-    metric: "PKR 480K FIRST QUARTER",
-    q: "The class built a live store, not slides. I launched my own store in week six with the exact theme, sourcing, and ads playbook we practised — and quit my job that quarter.",
-  },
-];
+/* Academy-only content: course-specific FAQs shown on /academy. */
 
 export const academyFaqs = [
   {

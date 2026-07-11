@@ -5,14 +5,7 @@ import FormatToggle from "@/components/FormatToggle";
 import PlatformMark from "@/components/PlatformMark";
 import Faq from "@/components/Faq";
 import { siteConfig } from "@/config/site";
-import {
-  courses,
-  results,
-  testimonials,
-  gradResults,
-  gradTestimonials,
-  academyFaqs,
-} from "@/data/content";
+import { courses, results, testimonials, academyFaqs } from "@/data/content";
 
 export const metadata: Metadata = {
   title: "Academy — ScaleUp Marketing",
@@ -20,12 +13,11 @@ export const metadata: Metadata = {
     "Live online and Lahore-campus training in Shopify, TikTok Shop, eBay & Etsy, Daraz, and AI & Digital Marketing — taught by the team running client stores.",
 };
 
-// Areeba's Etsy outcome (homepage results) + academy-only graduate cases
-const academyResults = [...results.filter((r) => r.tag === "ACADEMY"), ...gradResults];
-const academyTestimonials = [
-  ...testimonials.filter((t) => t.role.toLowerCase().includes("graduate")),
-  ...gradTestimonials,
-];
+// Only real graduate outcomes and voices — extend as new results come in
+const academyResults = results.filter((r) => r.tag === "ACADEMY");
+const academyTestimonials = testimonials.filter((t) =>
+  t.role.toLowerCase().includes("graduate")
+);
 
 export default function AcademyPage() {
   return (
@@ -225,25 +217,6 @@ export default function AcademyPage() {
                 </div>
               );
             })}
-          </div>
-          <div className="secta rv">
-            <Link className="btn btnG" href="/#contact">
-              Start where they started — the free demo
-            </Link>
-            <span className="softline">Outcomes vary with effort — no income promises, ever.</span>
-          </div>
-        </div>
-      </section>
-
-      <section className="sec">
-        <div className="wrap">
-          <div className="rv" style={{ maxWidth: 640 }}>
-            <p className="eyebrow">In their words</p>
-            <h2 className="h2">
-              From the free demo class <span className="grad">to a real business.</span>
-            </h2>
-          </div>
-          <div className="trow">
             {academyTestimonials.map((t) => (
               <div key={t.name} className="tcard rv">
                 <span className="tmetric">{t.metric}</span>
@@ -257,6 +230,19 @@ export default function AcademyPage() {
                 </div>
               </div>
             ))}
+            <div className="rtile rinvite rv">
+              <span className="rinvplus">+</span>
+              <h3 className="rinvt">This tile is reserved.</h3>
+              <p className="rinvd">
+                Start in the free 3-day demo, ship your store, and your result goes here.
+              </p>
+              <Link className="btn btnG sm" href="/#contact">
+                Reserve a demo seat
+              </Link>
+            </div>
+          </div>
+          <div className="secta rv">
+            <span className="softline">Outcomes vary with effort — no income promises, ever.</span>
           </div>
         </div>
       </section>
