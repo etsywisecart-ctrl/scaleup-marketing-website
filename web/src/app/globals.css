@@ -3273,3 +3273,17 @@ a:hover {
     padding: 20px 22px 22px;
   }
 }
+
+/* ---- Framed screenshot figure ---- */
+.shotcap {
+  max-width: 940px;
+  margin: 42px auto 0;
+}
+.shotcaption {
+  text-align: center;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: #8a9ba2;
+  margin-top: 16px;
+}

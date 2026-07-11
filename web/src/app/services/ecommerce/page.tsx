@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import SubHero from "@/components/SubHero";
 import FeatureList from "@/components/FeatureList";
@@ -89,6 +90,45 @@ export default function EcommercePage() {
           <div className="rv">
             <LiveBuildPlayer />
           </div>
+        </div>
+      </section>
+
+      <section className="sec">
+        <div className="wrap">
+          <div className="rv" style={{ maxWidth: 660 }}>
+            <p className="eyebrow">Straight from the Shopify admin</p>
+            <h2 className="h2" style={{ fontSize: "clamp(28px,3.4vw,40px)" }}>
+              Real client numbers — not a mockup.
+            </h2>
+            <p className="lead" style={{ marginTop: 20 }}>
+              An actual &ldquo;Total sales over time&rdquo; report from a live client store we
+              built and scale — 1,138 orders and A$19,815.60 in gross sales, pulled straight from
+              the Shopify admin.
+            </p>
+          </div>
+          <figure className="shotcap rv">
+            <div className="shot" style={{ marginTop: 0 }}>
+              <div className="shotbar">
+                <span className="tl" style={{ background: "#FF5F57" }} />
+                <span className="tl" style={{ background: "#FEBC2E" }} />
+                <span className="tl" style={{ background: "#28C840" }} />
+                <span className="shoturl">
+                  Shopify admin · Reports — Total sales over time · live client store
+                </span>
+              </div>
+              <Image
+                className="shotimg"
+                src="/uploads/shopify-aud.jpg"
+                alt="Shopify admin report — Total sales over time: 1,138 orders, A$19,815.60 gross sales for a live client store"
+                width={1480}
+                height={737}
+                sizes="(max-width: 980px) 100vw, 940px"
+              />
+            </div>
+            <figcaption className="shotcaption">
+              Live client store · figures shared with permission
+            </figcaption>
+          </figure>
         </div>
       </section>
 
