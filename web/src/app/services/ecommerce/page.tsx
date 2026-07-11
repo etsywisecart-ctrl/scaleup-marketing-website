@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import SubHero from "@/components/SubHero";
 import FeatureList from "@/components/FeatureList";
+import { LiveBuildPlayer, LiveOrderFeed } from "@/components/LiveShowcases";
 import RelatedLinks from "@/components/RelatedLinks";
 import Process from "@/components/Process";
 import { results } from "@/data/content";
@@ -59,6 +60,35 @@ export default function EcommercePage() {
             </h2>
           </div>
           <FeatureList items={features} />
+        </div>
+      </section>
+
+      <section className="sec vidsec">
+        <div className="wrap vidwrap">
+          <div className="rv">
+            <p className="eyebrow">Real project, in motion</p>
+            <h2 className="h2">Watch a real client store come together.</h2>
+            <p className="lead" style={{ marginTop: 20 }}>
+              Aurelia Skin is a live client build — theme, catalog, payments, and pixel wired by
+              this team. The loop on the right replays the build; the feed below is what store
+              ops look like once it ships.
+            </p>
+            <div className="vlist">
+              <div className="vli">
+                <span className="vnum">+322%</span>Gross sales growth in 7 months — PKR 3.84M
+              </div>
+              <div className="vli">
+                <span className="vnum">1,138</span>Orders processed — up 287% year over year
+              </div>
+              <div className="vli">
+                <span className="vnum">48h</span>From payment gateway approval to first live order
+              </div>
+            </div>
+            <LiveOrderFeed />
+          </div>
+          <div className="rv">
+            <LiveBuildPlayer />
+          </div>
         </div>
       </section>
 

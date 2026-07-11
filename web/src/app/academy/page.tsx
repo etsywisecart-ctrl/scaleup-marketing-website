@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import SubHero from "@/components/SubHero";
 import FormatToggle from "@/components/FormatToggle";
+import PlatformMark from "@/components/PlatformMark";
 import { siteConfig } from "@/config/site";
 import { courses, results, testimonials, faqs } from "@/data/content";
 
@@ -52,33 +53,53 @@ export default function AcademyPage() {
             <FormatToggle />
           </div>
 
-          <div className="crow">
-            {courses.map((c) => (
-              <div key={c.title} className="ccard rv">
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                  <span className="ctag">{c.tag}</span>
-                  {c.badge ? <span className="cbadge">{c.badge}</span> : null}
-                </div>
-                <h3 className="ct">{c.title}</h3>
-                <p className="cs">{c.sub}</p>
-                <div className="cmods">
-                  {c.mods.map((m) => (
-                    <div key={m.n} className="cmod">
-                      <span className="cmn">{m.n}</span>
-                      {m.t}
+          <div className="vcrow">
+            {courses.map((c) => {
+              const grad =
+                c.slug === "shopify-mastery"
+                  ? "vg-shopify"
+                  : c.slug === "tiktok-shop"
+                    ? "vg-tiktok"
+                    : c.slug === "ebay-etsy"
+                      ? "vg-market"
+                      : c.slug === "daraz"
+                        ? "vg-daraz"
+                        : "vg-ai";
+              const featured = c.slug === "shopify-mastery";
+              return (
+                <div key={c.title} className={`vccard rv${featured ? " feat" : ""}`}>
+                  <div className={`vchead ${grad}`}>
+                    <span className="vclogo">
+                      <PlatformMark slug={c.slug} size={featured ? 30 : 26} />
+                    </span>
+                    <div style={{ flex: 1, position: "relative" }}>
+                      <h3 className="vct">{c.title}</h3>
+                      <p className="vcsub">{c.sub}</p>
                     </div>
-                  ))}
+                    {c.badge ? <span className="vcbadge">{c.badge}</span> : null}
+                  </div>
+                  <div className="vcbody">
+                    <div className="vcmods">
+                      {c.mods.map((m) => (
+                        <div key={m.n} className="vcmod">
+                          <span className="vcmn">{m.n}</span>
+                          {m.t}
+                        </div>
+                      ))}
+                    </div>
+                    <div className="vcmore">{c.more}</div>
+                    <div className="vcmeta">
+                      <span className="cpill">{c.dur}</span>
+                      <span className="cpill">{c.level}</span>
+                      <span className="cpill">CERTIFICATE</span>
+                    </div>
+                    <Link className="vclink" href={`/academy/${c.slug}`}>
+                      View full curriculum &amp; pricing →
+                    </Link>
+                  </div>
                 </div>
-                <div className="cmore">{c.more}</div>
-                <div className="cmeta">
-                  <span className="cpill">{c.dur}</span>
-                  <span className="cpill">{c.level}</span>
-                </div>
-                <Link className="clink" href={`/academy/${c.slug}`}>
-                  View full curriculum &amp; pricing →
-                </Link>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           <div className="models rv" style={{ marginTop: 44 }}>

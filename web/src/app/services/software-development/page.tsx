@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import SubHero from "@/components/SubHero";
 import FeatureList from "@/components/FeatureList";
+import { LiveCodeTyping, LiveMetricBoard } from "@/components/LiveShowcases";
 import RelatedLinks from "@/components/RelatedLinks";
 import Process from "@/components/Process";
 import { results } from "@/data/content";
@@ -80,6 +81,35 @@ export default function SoftwareDevelopmentPage() {
           <div className="priceband rv" id="pricing" style={{ maxWidth: 760 }}>
             <span className="pricev">Business sites from $1.5K · SaaS MVPs from $8K</span>
             <span className="softline">Fixed quote after a free scoping call · working demo every Friday</span>
+          </div>
+        </div>
+      </section>
+
+      <section className="sec vidsec">
+        <div className="wrap vidwrap">
+          <div className="rv">
+            <p className="eyebrow">Real project, in motion</p>
+            <h2 className="h2">From first commit to live operations.</h2>
+            <p className="lead" style={{ marginTop: 20 }}>
+              RGM Stone&rsquo;s Workflow OS is a real SaaS platform this team built and runs in
+              production today — quoting, factory pipeline, and billing for a stone-fabrication
+              business, all in one dashboard.
+            </p>
+            <div className="vlist">
+              <div className="vli">
+                <span className="vnum">LIVE</span>In production — a real business runs on it daily
+              </div>
+              <div className="vli">
+                <span className="vnum">1</span>One dashboard — jobs, warnings &amp; billing together
+              </div>
+              <div className="vli">
+                <span className="vnum">42s</span>Commit-to-production deploys, fully automated
+              </div>
+            </div>
+          </div>
+          <div className="rv" style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+            <LiveCodeTyping />
+            <LiveMetricBoard />
           </div>
         </div>
       </section>

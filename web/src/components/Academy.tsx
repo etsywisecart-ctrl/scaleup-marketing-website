@@ -3,6 +3,7 @@ import { siteConfig } from "@/config/site";
 import { courses, curriculum } from "@/data/content";
 import FormatToggle from "./FormatToggle";
 import CurriculumAccordion from "./CurriculumAccordion";
+import PlatformMark from "./PlatformMark";
 
 export default function Academy() {
   const bandClass = siteConfig.toggles.academyBand === "teal-tint" ? "acadT" : "";
@@ -25,8 +26,11 @@ export default function Academy() {
         <div className="crow">
           {courses.map((c) => (
             <div key={c.title} className="ccard rv">
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                <span className="ctag">{c.tag}</span>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
+                <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                  <PlatformMark slug={c.slug} size={20} />
+                  <span className="ctag">{c.tag}</span>
+                </span>
                 {c.badge ? <span className="cbadge">{c.badge}</span> : null}
               </div>
               <h3 className="ct">{c.title}</h3>
