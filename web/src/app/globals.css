@@ -1849,42 +1849,86 @@ a:hover {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   gap: 0;
-  margin-top: 60px;
+  margin-top: 64px;
   position: relative;
 }
 .stline {
   position: absolute;
-  top: 19px;
-  left: 3%;
-  right: 3%;
-  height: 2px;
-  background: linear-gradient(90deg, #2fbf9e, #0e3b52);
-  opacity: 0.25;
+  top: 47px;
+  left: 8%;
+  right: 8%;
+  height: 3px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #63dbc2, #2fbf9e 40%, #0e3b52);
+  opacity: 0.3;
+  z-index: 0;
 }
 .step {
   position: relative;
   padding: 0 18px 0 0;
 }
-.stdot {
-  width: 38px;
-  height: 38px;
+.storb {
+  position: relative;
+  z-index: 1;
+  width: 94px;
+  height: 94px;
   border-radius: 50%;
-  background: #fff;
-  border: 2px solid #2fbf9e;
-  color: #14806f;
-  font-family: var(--font-jetbrains-mono), monospace;
-  font-size: 11px;
-  font-weight: 600;
   display: flex;
   align-items: center;
   justify-content: center;
+  color: #fff;
+  transition:
+    transform 0.28s cubic-bezier(0.2, 0.7, 0.2, 1),
+    box-shadow 0.28s;
+  animation: storbfloat 5.5s ease-in-out infinite;
+}
+.nomotion .storb {
+  animation: none;
+}
+@keyframes storbfloat {
+  0%, 100% { transform: translateY(-5px); }
+  50% { transform: translateY(5px); }
+}
+.storb::before {
+  content: "";
+  position: absolute;
+  top: 9px;
+  left: 16px;
+  right: 26px;
+  height: 32%;
+  border-radius: 50%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.55), transparent);
+  filter: blur(1.5px);
+  pointer-events: none;
+}
+.storb::after {
+  content: "";
+  position: absolute;
+  inset: -7px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(47, 191, 158, 0.4);
+  opacity: 0;
+  transition: opacity 0.28s;
+  pointer-events: none;
+}
+.step:hover .storb {
+  transform: translateY(-8px) scale(1.06);
+}
+.step:hover .storb::after {
+  opacity: 1;
+}
+.storbn {
   position: relative;
-  z-index: 1;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 23px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.22);
 }
 .stt {
   font-size: 16.5px;
   font-weight: 900;
-  margin: 16px 0 0;
+  margin: 22px 0 0;
 }
 .std {
   font-size: 13px;
