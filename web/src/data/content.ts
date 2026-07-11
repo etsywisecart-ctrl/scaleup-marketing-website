@@ -340,7 +340,7 @@ export const testimonials = [
 export const faqs = [
   {
     q: "What does a project cost?",
-    a: "Business sites start around $1.5K, ecommerce builds from $2.5K, SaaS MVPs from $8K. Every engagement begins with a free scoping call and a fixed, line-itemed quote — no hourly surprises.",
+    a: "Every project is scoped individually — a landing site and a full SaaS platform are very different builds. The engagement starts with a free scoping call, and you get a fixed, line-itemed quote in writing before any work begins. No hourly surprises.",
   },
   {
     q: "How long until launch?",
@@ -414,7 +414,7 @@ export const milestones = [
   { y: "Year 1–2", t: "Agency founded", d: "Started delivering Shopify and WooCommerce stores for local SMEs in Lahore." },
   { y: "Year 3", t: "Academy launched", d: "Opened the first live cohort to turn client playbooks into a teachable curriculum." },
   { y: "Year 4–6", t: "Software & AI added", d: "Expanded into SaaS product development, CRM/ERP, and AI automation for client operations." },
-  { y: "Year 7–8", t: "One ecosystem", d: "2,400+ students trained and 340+ stores and products launched under one team." },
+  { y: "Year 7–8", t: "One ecosystem", d: "500+ students trained and 100+ projects delivered under one team." },
 ];
 
 export const coursesBySlug = Object.fromEntries(courses.map((c) => [c.slug, c]));

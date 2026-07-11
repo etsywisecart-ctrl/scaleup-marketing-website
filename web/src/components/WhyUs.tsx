@@ -45,7 +45,7 @@ export default function WhyUs() {
               </Icon>
             </div>
             <h3 className="wt">The people who teach it, build it</h3>
-            <p className="wd">Senior engineers and sellers on every project — the same team that trains 2,400+ students.</p>
+            <p className="wd">Senior engineers and sellers on every project — the same team that trains 500+ students.</p>
           </div>
           <div className="whyc rv">
             <div className="bic">

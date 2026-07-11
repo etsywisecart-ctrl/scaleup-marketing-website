@@ -79,8 +79,8 @@ export default function SoftwareDevelopmentPage() {
           </div>
           <FeatureList items={saasFeatures} />
           <div className="priceband rv" id="pricing" style={{ maxWidth: 760 }}>
-            <span className="pricev">Business sites from $1.5K · SaaS MVPs from $8K</span>
-            <span className="softline">Fixed quote after a free scoping call · working demo every Friday</span>
+            <span className="pricev">Fixed quote, in writing, before we start</span>
+            <span className="softline">Scoped on a free call · working demo every Friday</span>
           </div>
         </div>
       </section>

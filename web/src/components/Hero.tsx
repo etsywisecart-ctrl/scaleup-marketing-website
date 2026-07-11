@@ -47,16 +47,16 @@ export default function Hero() {
       <div className="stats rv">
         <div className="wrap strip">
           <div className="stat first">
-            <div className="num" data-to="2400" data-suf="+">
-              2,400+
+            <div className="num" data-to="500" data-suf="+">
+              500+
             </div>
             <div className="slab">Students trained</div>
           </div>
           <div className="stat nb">
-            <div className="num" data-to="340" data-suf="+">
-              340+
+            <div className="num" data-to="100" data-suf="+">
+              100+
             </div>
-            <div className="slab">Stores &amp; products launched</div>
+            <div className="slab">Projects delivered</div>
           </div>
           <div className="stat">
             <div className="num" data-pre="$" data-to="12" data-suf="M+">

@@ -135,12 +135,12 @@ export default function AboutPage() {
         <div className="stats rv" style={{ marginTop: 40, border: "1px solid #E7F0EE" }}>
           <div className="wrap strip">
             <div className="stat first">
-              <div className="num" data-to="2400" data-suf="+">2,400+</div>
+              <div className="num" data-to="500" data-suf="+">500+</div>
               <div className="slab">Students trained</div>
             </div>
             <div className="stat nb">
-              <div className="num" data-to="340" data-suf="+">340+</div>
-              <div className="slab">Stores &amp; products launched</div>
+              <div className="num" data-to="100" data-suf="+">100+</div>
+              <div className="slab">Projects delivered</div>
             </div>
             <div className="stat">
               <div className="num" data-pre="$" data-to="12" data-suf="M+">$12M+</div>

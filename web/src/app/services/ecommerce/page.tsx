@@ -76,10 +76,10 @@ export default function EcommercePage() {
             </p>
             <div className="vlist">
               <div className="vli">
-                <span className="vnum">+322%</span>Gross sales growth in 7 months — PKR 3.84M
+                <span className="vnum">+322%</span>Gross sales growth year over year — A$19.8K
               </div>
               <div className="vli">
-                <span className="vnum">1,138</span>Orders processed — up 287% year over year
+                <span className="vnum">1,138</span>Orders processed through the rebuilt store
               </div>
               <div className="vli">
                 <span className="vnum">48h</span>From payment gateway approval to first live order
@@ -104,8 +104,8 @@ export default function EcommercePage() {
             </h2>
           </div>
           <div className="priceband rv" id="pricing" style={{ maxWidth: 760 }}>
-            <span className="pricev">Ecommerce builds start from $2.5K</span>
-            <span className="softline">Fixed quote after a free scoping call · 2–4 week launch for a standard store</span>
+            <span className="pricev">Fixed quote, in writing, before we start</span>
+            <span className="softline">Scoped on a free call · 2–4 week launch for a standard store</span>
           </div>
         </div>
       </section>
