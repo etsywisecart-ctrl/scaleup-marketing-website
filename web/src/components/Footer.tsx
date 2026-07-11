@@ -65,11 +65,15 @@ export default function Footer() {
         </div>
         <div className="fbot">
           <span>© 2026 SCALEUP MARKETING — LEARN. LAUNCH. SCALE.</span>
+          {/* Social links render only once real profile URLs are set in site.ts */}
           <div className="fsoc">
-            <a href={social.linkedin}>LINKEDIN</a>
-            <a href={social.instagram}>INSTAGRAM</a>
-            <a href={social.youtube}>YOUTUBE</a>
-            <a href={social.facebook}>FACEBOOK</a>
+            {Object.entries(social)
+              .filter(([, href]) => href && !href.startsWith("#"))
+              .map(([label, href]) => (
+                <a key={label} href={href} target="_blank" rel="noopener noreferrer">
+                  {label.toUpperCase()}
+                </a>
+              ))}
           </div>
         </div>
       </div>

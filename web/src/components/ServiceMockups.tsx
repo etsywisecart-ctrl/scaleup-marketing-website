@@ -178,8 +178,8 @@ export function AdsMock() {
     <div className="mk mkads">
       <div className="mkadstop">
         <span className="mkadslabel">ROAS</span>
-        <span className="mkadsval">4.6×</span>
-        <span className="mkadsup">▲ 38%</span>
+        <span className="mkadsval">6.2×</span>
+        <span className="mkadsup">▲ 11.11 campaign</span>
       </div>
       <svg className="mkadschart" viewBox="0 0 100 40" preserveAspectRatio="none">
         <defs>

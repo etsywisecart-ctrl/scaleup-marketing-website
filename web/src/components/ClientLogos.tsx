@@ -43,7 +43,7 @@ export default function ClientLogos() {
           ))}
         </div>
         <p className="softline rv" style={{ marginTop: 18, textAlign: "center" }}>
-          Placeholder logos — send your real client marks and we&rsquo;ll drop them straight in.
+          A selection of client engagements across retail, tools, health, and property.
         </p>
       </div>
     </section>

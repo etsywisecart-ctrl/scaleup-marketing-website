@@ -1,8 +1,7 @@
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
-import { courses, curriculum } from "@/data/content";
+import { courses } from "@/data/content";
 import FormatToggle from "./FormatToggle";
-import CurriculumAccordion from "./CurriculumAccordion";
 import PlatformMark from "./PlatformMark";
 
 export default function Academy() {
@@ -102,12 +101,6 @@ export default function Academy() {
             </Link>
           </div>
         )}
-
-        <CurriculumAccordion
-          title="Inside the flagship: Shopify Mastery"
-          meta="11 MODULES · 12 WEEKS · TAP TO EXPAND"
-          modules={curriculum}
-        />
       </div>
     </section>
   );

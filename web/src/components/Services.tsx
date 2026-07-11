@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { coreServices, orbitalServices } from "@/data/content";
 import {
   StoreMock,
   DashMock,
@@ -34,42 +33,6 @@ export default function Services() {
           </p>
         </div>
 
-        <div className="orbit rv">
-          <div className="oc oc1" />
-          <div className="oc oc2" />
-          <div className="oax" />
-          <span className="oaxl" style={{ left: 0 }}>
-            <span>Commerce</span>
-            <span className="oaxd" />
-          </span>
-          <span className="oaxl" style={{ right: 0 }}>
-            <span className="oaxd" />
-            <span>Software</span>
-          </span>
-          <div className="omast">
-            Mastery
-            <br />
-            Area
-          </div>
-          {coreServices.map((s, i) => (
-            <div key={s.t} className="opos" style={{ left: s.x + "%", top: s.y + "%" }}>
-              <div className="obob" style={{ animationDelay: -i * 0.7 + "s" }}>
-                <div className="opill">
-                  <span className="oico" style={{ background: s.c, borderRadius: s.r }} />
-                  {s.t}
-                </div>
-              </div>
-            </div>
-          ))}
-          {orbitalServices.map((s, i) => (
-            <div key={s.t} className="opos" style={{ left: s.x + "%", top: s.y + "%" }}>
-              <div className="obob" style={{ animationDelay: -i * 0.9 - 0.4 + "s" }}>
-                <span className="ofaint">{s.t}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-
         <div className="bento">
           <div className="bcard b7 rv">
             <div className="glt" />
@@ -91,7 +54,7 @@ export default function Services() {
               <span className="chip">Headless</span>
             </div>
             <StoreMock />
-            <div className="fstat">Real client results — gross sales +322% YoY · orders +287%</div>
+            <div className="fstat">Real client result — 1,138 orders · gross sales up 322% YoY</div>
             <Link className="clink" href="/services/ecommerce" style={{ paddingTop: 16 }}>
               Explore Ecommerce Development →
             </Link>
@@ -134,7 +97,7 @@ export default function Services() {
                 <span className="ftag">BRANCH</span>
               </div>
             </div>
-            <div className="fstat">Ran 1,284× this week · 99.2% success · 0 human minutes</div>
+            <div className="fstat">A real client workflow — runs on every order, zero human minutes</div>
           </div>
 
           <div className="bcard b5 rv">
@@ -250,7 +213,7 @@ export default function Services() {
             <div className="chips">
               <span className="chip">Meta</span>
               <span className="chip">TikTok</span>
-              <span className="chip">ROAS 4.6× avg</span>
+              <span className="chip">Funnels &amp; CRO</span>
             </div>
             <AdsMock />
           </div>

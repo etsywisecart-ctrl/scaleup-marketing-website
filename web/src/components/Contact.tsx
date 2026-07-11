@@ -11,9 +11,31 @@ function Icon({ children }: { children: React.ReactNode }) {
   );
 }
 
+const MAPS_HREF =
+  "https://www.google.com/maps/search/?api=1&query=Al+Latif+Center+Gulberg+III+Lahore";
+
 export default function Contact() {
   const [sent, setSent] = useState(false);
+  const [name, setName] = useState("");
+  const [goal, setGoal] = useState("");
+  const [interest, setInterest] = useState("Ecommerce store");
   const { contact } = siteConfig;
+
+  // The form delivers through WhatsApp — no silent dead-end submissions.
+  const waMessage = () => {
+    const lines = [
+      `Hi ScaleUp! I'm ${name.trim() || "…"}.`,
+      goal.trim() ? `My business/goal: ${goal.trim()}.` : "",
+      `Interested in: ${interest}.`,
+      "I'd like to book a free strategy call.",
+    ].filter(Boolean);
+    return `${contact.whatsappHref}?text=${encodeURIComponent(lines.join("\n"))}`;
+  };
+
+  const submit = () => {
+    window.open(waMessage(), "_blank", "noopener");
+    setSent(true);
+  };
 
   return (
     <section className="sec" id="contact" style={{ paddingTop: 0 }}>
@@ -66,7 +88,7 @@ export default function Contact() {
                     <p className="cwd">Fastest — replies in minutes</p>
                   </div>
                 </a>
-                <a className="cway" href="#contact">
+                <a className="cway" href={MAPS_HREF} target="_blank" rel="noopener noreferrer">
                   <span className="cwico">
                     <Icon>
                       <path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11Z" />
@@ -86,18 +108,33 @@ export default function Contact() {
               {!sent ? (
                 <>
                   <h3 className="ft">Request a call back</h3>
-                  <p className="fd">Tell us where you are headed — we reply within 24 hours.</p>
+                  <p className="fd">
+                    Fill this in and it opens WhatsApp with your details ready to send — a
+                    strategist replies within 24 hours.
+                  </p>
                   <div>
                     <p className="lab">Your name</p>
-                    <input className="inp" type="text" placeholder="Ayesha Khan" />
+                    <input
+                      className="inp"
+                      type="text"
+                      placeholder="Ayesha Khan"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                    />
                   </div>
                   <div>
                     <p className="lab">Your business or goal</p>
-                    <input className="inp" type="text" placeholder="e.g. Launching a skincare brand on Shopify" />
+                    <input
+                      className="inp"
+                      type="text"
+                      placeholder="e.g. Launching a skincare brand on Shopify"
+                      value={goal}
+                      onChange={(e) => setGoal(e.target.value)}
+                    />
                   </div>
                   <div>
                     <p className="lab">Interested in</p>
-                    <select className="inp">
+                    <select className="inp" value={interest} onChange={(e) => setInterest(e.target.value)}>
                       <option>Ecommerce store</option>
                       <option>Web or SaaS product</option>
                       <option>Mobile app</option>
@@ -110,7 +147,7 @@ export default function Contact() {
                     className="btn btnG"
                     onClick={(e) => {
                       e.preventDefault();
-                      setSent(true);
+                      submit();
                     }}
                     style={{ width: "100%" }}
                   >
@@ -125,13 +162,13 @@ export default function Contact() {
                       <path d="m4.5 12.5 5 5 10-11" />
                     </svg>
                   </div>
-                  <h3 className="sentt">Got it — talk soon.</h3>
+                  <h3 className="sentt">Almost there — hit send.</h3>
                   <p className="sentd">
-                    Your request is in. A strategist (not a salesperson) will reach out within 24
-                    hours. Want it faster? WhatsApp us now.
+                    We opened WhatsApp with your details pre-filled. Send the message and a
+                    strategist (not a salesperson) replies within 24 hours. Didn&rsquo;t open?
                   </p>
-                  <a className="btn btnO sm" href={contact.whatsappHref}>
-                    Open WhatsApp
+                  <a className="btn btnO sm" href={waMessage()} target="_blank" rel="noopener noreferrer">
+                    Open WhatsApp again
                   </a>
                 </div>
               )}

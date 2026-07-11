@@ -191,16 +191,16 @@ export const steps = [
 
 export const results = [
   {
-    name: "Retail Shopify Store",
+    name: "Retail Shopify Store (AU)",
     tag: "SHOPIFY BUILD",
-    line: "PKR 3.84M gross sales in 7 months — up 322%",
+    line: "A$19.8K gross sales across 1,138 orders — up 322% YoY",
     pts: "0,36 12,33 24,34 36,28 48,25 60,20 72,15 84,9 100,3",
     base: "0,36 100,36",
     delta: "+322% YoY",
-    more: "34.2K sessions — see live dashboard above",
-    unit: "Gross sales / month (PKR)",
+    more: "Figures pulled from the client's Shopify admin",
+    unit: "Gross sales / month (A$)",
     kpis: [
-      { v: "PKR 3.84M", l: "Gross sales" },
+      { v: "A$19.8K", l: "Gross sales" },
       { v: "1,138", l: "Orders" },
       { v: "34.2K", l: "Sessions" },
     ],
@@ -270,7 +270,7 @@ export const results = [
     kpis: [
       { v: "128", l: "Jobs live" },
       { v: "99.9%", l: "Uptime" },
-      { v: "42s", l: "Deploys" },
+      { v: "0", l: "Paper forms" },
     ],
     bars: [30, 38, 44, 52, 60, 74, 88, 100],
     work: ["Auth & billing", "Job pipeline", "Warnings engine"],
@@ -307,9 +307,9 @@ export const testimonials = [
     ini: "SI",
     av: "avB",
     name: "Sana Iqbal",
-    role: "Ops Lead, TrimTech Tools",
-    metric: "ERP SHIPPED ON THE DATE PROMISED",
-    q: "The ERP rollout was the first project in years that shipped on the date we were promised. Weekly demos meant zero surprises.",
+    role: "Ops Lead, RGM Stone",
+    metric: "SHIPPED ON THE DATE PROMISED",
+    q: "The workflow system rollout was the first project in years that shipped on the date we were promised. Weekly demos meant zero surprises.",
   },
   {
     ini: "BA",

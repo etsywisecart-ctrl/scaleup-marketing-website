@@ -3,11 +3,12 @@
 import { useEffect, useRef, useState } from "react";
 import { siteConfig } from "@/config/site";
 
+/* Animated build demo — an illustrative CSS animation of our store-launch
+   sequence. Deliberately labelled as a demo, not real screen recording. */
+
 export default function Showreel() {
   const [playing, setPlaying] = useState(false);
-  const [timecode, setTimecode] = useState("0:00");
   const winRef = useRef<HTMLDivElement>(null);
-  const tRef = useRef(0);
 
   useEffect(() => {
     if (!siteConfig.toggles.motion || !winRef.current) return;
@@ -27,35 +28,25 @@ export default function Showreel() {
     return () => io.disconnect();
   }, []);
 
-  useEffect(() => {
-    if (!siteConfig.toggles.motion) return;
-    const timer = setInterval(() => {
-      if (!playing) return;
-      tRef.current = (tRef.current + 0.2) % 14.5;
-      setTimecode("0:" + String(Math.min(58, Math.round((tRef.current / 14.5) * 58))).padStart(2, "0"));
-    }, 200);
-    return () => clearInterval(timer);
-  }, [playing]);
-
   return (
     <section className="sec vidsec" id="showreel">
       <div className="wrap vidwrap">
         <div className="rv">
-          <p className="eyebrow">See it in action</p>
-          <h2 className="h2">Watch a store go from zero to checkout.</h2>
+          <p className="eyebrow">How a build comes together</p>
+          <h2 className="h2">From blank theme to first order.</h2>
           <p className="lead" style={{ marginTop: 20 }}>
-            A 58-second build reel: theme engineering, catalog import, payment routing, and the
-            first live order — condensed from a real client sprint.
+            Every store we ship follows the same launch sequence — theme, catalog, payments,
+            tracking, test order. Here it is, step by step.
           </p>
           <div className="vlist">
             <div className="vli">
-              <span className="vnum">0:04</span>Theme scaffold and brand system applied
+              <span className="vnum">01</span>Theme scaffold and brand system applied
             </div>
             <div className="vli">
-              <span className="vnum">0:19</span>Catalog, shipping zones &amp; payment gateways wired
+              <span className="vnum">02</span>Catalog, shipping zones &amp; payment gateways wired
             </div>
             <div className="vli">
-              <span className="vnum">0:41</span>Meta pixel firing — first test order placed
+              <span className="vnum">03</span>Meta pixel firing — first test order placed
             </div>
           </div>
         </div>
@@ -65,14 +56,14 @@ export default function Showreel() {
               <span className="tl" style={{ background: "#FF5F57" }} />
               <span className="tl" style={{ background: "#FEBC2E" }} />
               <span className="tl" style={{ background: "#28C840" }} />
-              <span className="vurl">aurelia-skin.myshopify.com — build in progress…</span>
+              <span className="vurl">yourstore.myshopify.com — build in progress…</span>
             </div>
             <div className="vbody" onClick={() => setPlaying((v) => !v)}>
               <div className="vstore">
                 <div className="vsnav va">
                   <span className="vsnavbrand">
                     <span className="ddot" style={{ width: 12, height: 12 }} />
-                    <span className="vsb">AURELIA SKIN</span>
+                    <span className="vsb">YOUR BRAND</span>
                   </span>
                   <span className="vslinks">Shop&nbsp;&nbsp;&nbsp;Bestsellers&nbsp;&nbsp;&nbsp;About</span>
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#0E2A38" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -121,12 +112,12 @@ export default function Showreel() {
                   </svg>
                 </div>
               </div>
-              <span className="vtag">VIDEO PLACEHOLDER · AI-GENERATED BUILD REEL</span>
+              <span className="vtag">ANIMATED DEMO · ILLUSTRATIVE</span>
               <span className="vtime">
                 <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M8 5.5v13l11-6.5-11-6.5Z" />
                 </svg>
-                <span>{timecode}</span>&nbsp;/ 0:58 · Store build time-lapse
+                <span>Store launch sequence</span>
               </span>
               <div className="vprog">
                 <div className="vprogf va" />
