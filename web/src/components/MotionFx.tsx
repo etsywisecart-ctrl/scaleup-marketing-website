@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { siteConfig } from "@/config/site";
 
 function countUp(el: Element) {
@@ -18,42 +19,57 @@ function countUp(el: Element) {
   requestAnimationFrame(step);
 }
 
-/** Global scroll-reveal (.rv) and stat counter (.num) behavior, mounted once. */
+/**
+ * Global scroll-reveal (.rv) and stat-counter (.num) behavior.
+ * Lives in the persistent root layout, so it re-scans the DOM on every
+ * route change (via the pathname dependency) — otherwise a client-side
+ * navigation would leave the new page's .rv elements at opacity:0 forever.
+ */
 export default function MotionFx() {
+  const pathname = usePathname();
+
   useEffect(() => {
+    // Motion off: CSS already shows everything; nothing to observe.
     if (!siteConfig.toggles.motion) return;
 
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("in");
-            io.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: "0px 0px -6% 0px" }
-    );
-    document.querySelectorAll(".rv").forEach((el) => io.observe(el));
+    // Wait a frame so the freshly-navigated page's DOM is in place.
+    let io: IntersectionObserver | null = null;
+    let cio: IntersectionObserver | null = null;
 
-    const cio = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            countUp(entry.target);
-            cio.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.5 }
-    );
-    document.querySelectorAll(".num").forEach((el) => cio.observe(el));
+    const raf = requestAnimationFrame(() => {
+      io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("in");
+              io?.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.1, rootMargin: "0px 0px -6% 0px" }
+      );
+      document.querySelectorAll(".rv:not(.in)").forEach((el) => io!.observe(el));
+
+      cio = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              countUp(entry.target);
+              cio?.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.5 }
+      );
+      document.querySelectorAll(".num").forEach((el) => cio!.observe(el));
+    });
 
     return () => {
-      io.disconnect();
-      cio.disconnect();
+      cancelAnimationFrame(raf);
+      io?.disconnect();
+      cio?.disconnect();
     };
-  }, []);
+  }, [pathname]);
 
   return null;
 }
