@@ -26,8 +26,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={jetbrainsMono.variable}>
+    <html lang="en" className={jetbrainsMono.variable} suppressHydrationWarning>
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "(function(){try{var t=localStorage.getItem('theme');if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){}})();",
+          }}
+        />
         <link rel="preconnect" href="https://api.fontshare.com" />
         <link
           href="https://api.fontshare.com/v2/css?f[]=satoshi@500,700,900&display=swap"

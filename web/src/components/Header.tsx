@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import ThemeToggle from "./ThemeToggle";
 
 const SERVICE_LINKS = [
   { href: "/services/ecommerce", label: "Ecommerce Development", sub: "Shopify, WooCommerce & marketplaces" },
@@ -75,19 +76,23 @@ export default function Header() {
                 {l.label}
               </Link>
             ))}
+            <ThemeToggle />
             <Link className="btn btnG sm" href="/#contact">
               Free Consultation
             </Link>
           </nav>
-          <button
-            className="burger"
-            onClick={() => setMenuOpen((v) => !v)}
-            aria-label="Menu"
-          >
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-              <path d="M3 6h14M3 10h14M3 14h14" />
-            </svg>
-          </button>
+          <div className="hdmob">
+            <ThemeToggle />
+            <button
+              className="burger"
+              onClick={() => setMenuOpen((v) => !v)}
+              aria-label="Menu"
+            >
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                <path d="M3 6h14M3 10h14M3 14h14" />
+              </svg>
+            </button>
+          </div>
         </div>
       </header>
       <div className={`mm${menuOpen ? " on" : ""}`}>
