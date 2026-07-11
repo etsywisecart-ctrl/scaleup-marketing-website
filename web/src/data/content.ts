@@ -196,8 +196,16 @@ export const results = [
     line: "PKR 3.84M gross sales in 7 months — up 322%",
     pts: "0,36 12,33 24,34 36,28 48,25 60,20 72,15 84,9 100,3",
     base: "0,36 100,36",
-    delta: "1,138 orders · +287%",
+    delta: "+322% YoY",
     more: "34.2K sessions — see live dashboard above",
+    unit: "Gross sales / month (PKR)",
+    kpis: [
+      { v: "PKR 3.84M", l: "Gross sales" },
+      { v: "1,138", l: "Orders" },
+      { v: "34.2K", l: "Sessions" },
+    ],
+    bars: [22, 30, 27, 41, 48, 63, 79, 100],
+    work: ["Theme engineering", "Meta ads", "China sourcing", "Order ops"],
   },
   {
     name: "TrimTech Tools",
@@ -207,6 +215,14 @@ export const results = [
     base: "0,34 100,34",
     delta: "99.1% positive",
     more: "Listing overhaul + repricing automation",
+    unit: "Orders / week",
+    kpis: [
+      { v: "1,847", l: "Orders / qtr" },
+      { v: "99.1%", l: "Positive" },
+      { v: "+18%", l: "Margin" },
+    ],
+    bars: [40, 46, 43, 55, 61, 72, 84, 96],
+    work: ["Listing overhaul", "Repricing bot", "Account health"],
   },
   {
     name: "Karachi Kart",
@@ -214,8 +230,16 @@ export const results = [
     line: "#1 in Home & Living, 11.11 campaign",
     pts: "0,35 15,32 30,33 45,26 60,27 75,14 88,10 100,2",
     base: "0,35 100,35",
-    delta: "6.2× campaign ROAS",
+    delta: "6.2× ROAS",
     more: "Flash-sale calendar + fulfilment SLA fix",
+    unit: "Units / campaign day",
+    kpis: [
+      { v: "6.2×", l: "Campaign ROAS" },
+      { v: "4,300", l: "Units sold" },
+      { v: "#1", l: "Category rank" },
+    ],
+    bars: [18, 24, 30, 28, 46, 58, 77, 100],
+    work: ["Flash-sale calendar", "Daraz ads", "Fulfilment SLA"],
   },
   {
     name: "FitFuel",
@@ -223,8 +247,16 @@ export const results = [
     line: "40K downloads in the first 90 days",
     pts: "0,37 14,35 28,30 42,28 56,22 70,18 84,10 100,4",
     base: "0,37 100,37",
-    delta: "4.7★ store rating",
+    delta: "4.7★ rating",
     more: "MVP in 10 weeks, referral loop built in",
+    unit: "Installs / week",
+    kpis: [
+      { v: "40K", l: "Downloads" },
+      { v: "4.7★", l: "Store rating" },
+      { v: "32%", l: "D30 retention" },
+    ],
+    bars: [26, 34, 44, 40, 58, 66, 82, 100],
+    work: ["MVP in 10 wks", "Referral loop", "Push flows"],
   },
   {
     name: "RGM Stone",
@@ -234,6 +266,14 @@ export const results = [
     base: "0,38 100,38",
     delta: "Live in production",
     more: "Jobs, warnings & billing in one dashboard",
+    unit: "Jobs processed / week",
+    kpis: [
+      { v: "128", l: "Jobs live" },
+      { v: "99.9%", l: "Uptime" },
+      { v: "42s", l: "Deploys" },
+    ],
+    bars: [30, 38, 44, 52, 60, 74, 88, 100],
+    work: ["Auth & billing", "Job pipeline", "Warnings engine"],
   },
   {
     name: "Areeba K. — graduate",
@@ -243,6 +283,14 @@ export const results = [
     base: "0,38 100,38",
     delta: "Etsy · 312 sales",
     more: "Started in the free 3-day demo cohort",
+    unit: "Sales / month",
+    kpis: [
+      { v: "$1.0K", l: "Monthly revenue" },
+      { v: "312", l: "Etsy sales" },
+      { v: "60 days", l: "To first $1K" },
+    ],
+    bars: [8, 14, 22, 30, 44, 58, 78, 100],
+    work: ["Etsy setup", "Product hunting", "Listing SEO"],
   },
 ];
 
