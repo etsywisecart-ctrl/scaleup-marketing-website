@@ -13,30 +13,47 @@ export default function HeroPromo() {
           <div className="ppcircle" />
           <div className="ppflare ppflare1" />
           <div className="ppflare ppflare2" />
-          <div className="pfield">
-            <span className="pballshadow" />
+          <div className="pscene">
+            {/* player mid-kick */}
+            <svg className="pplayer" viewBox="0 0 140 176">
+              <circle cx="48" cy="32" r="11.5" fill="#fff" />
+              {/* jersey: torso + arms (teal) */}
+              <g fill="none" stroke="#2FBF9E" strokeWidth="11" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M49 44 L60 98" />
+                <path d="M54 60 L40 74 L30 65" />
+                <path d="M54 58 L70 68 L83 57" />
+              </g>
+              {/* legs (white) */}
+              <g fill="none" stroke="#fff" strokeWidth="11" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M60 98 L52 132 L45 164" />
+              </g>
+              <g className="kickleg" fill="none" stroke="#fff" strokeWidth="11" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M60 98 L86 114 L110 106" />
+              </g>
+            </svg>
+            {/* colorful football */}
             <span className="pball">
               <span className="pballspin">
                 <svg className="pballsvg" viewBox="0 0 100 100">
                   <defs>
-                    <radialGradient id="pbsh" cx="38%" cy="32%" r="75%">
+                    <radialGradient id="pbsh" cx="38%" cy="30%" r="78%">
                       <stop offset="0" stopColor="#ffffff" />
-                      <stop offset="1" stopColor="#dbe6e8" />
+                      <stop offset="1" stopColor="#eef3f4" />
                     </radialGradient>
                     <clipPath id="pbclip">
                       <circle cx="50" cy="50" r="46" />
                     </clipPath>
                   </defs>
-                  <circle cx="50" cy="50" r="47" fill="url(#pbsh)" stroke="#0E2A38" strokeWidth="1.5" />
-                  <g clipPath="url(#pbclip)" fill="#0E2A38">
-                    <polygon points="50,35 64.3,45.4 58.8,62.1 41.2,62.1 35.7,45.4" />
-                    <polygon points="50,-6 60,6 50,15 40,6" />
-                    <polygon points="104,31 92,44 82,36 89,23" />
-                    <polygon points="88,98 74,87 82,73 96,79" />
-                    <polygon points="12,98 26,73 34,87 20,98" />
-                    <polygon points="-4,31 11,23 18,36 8,44" />
+                  <circle cx="50" cy="50" r="47" fill="url(#pbsh)" stroke="#0E2A38" strokeWidth="1.4" />
+                  <g clipPath="url(#pbclip)">
+                    <polygon points="50,35 64.3,45.4 58.8,62.1 41.2,62.1 35.7,45.4" fill="#2FBF9E" />
+                    <polygon points="50,-6 60,6 50,15 40,6" fill="#F5A623" />
+                    <polygon points="104,31 92,44 82,36 89,23" fill="#FF6B6B" />
+                    <polygon points="88,98 74,87 82,73 96,79" fill="#3B82F6" />
+                    <polygon points="12,98 26,73 34,87 20,98" fill="#7C5CFC" />
+                    <polygon points="-4,31 11,23 18,36 8,44" fill="#F5A623" />
                   </g>
-                  <g clipPath="url(#pbclip)" stroke="#0E2A38" strokeWidth="1.6" fill="none">
+                  <g clipPath="url(#pbclip)" stroke="#0E2A38" strokeWidth="1.5" fill="none">
                     <line x1="50" y1="35" x2="50" y2="5" />
                     <line x1="64.3" y1="45.4" x2="90" y2="34" />
                     <line x1="58.8" y1="62.1" x2="74" y2="84" />
@@ -57,7 +74,7 @@ export default function HeroPromo() {
         <div className="promoveil" aria-hidden="true" />
 
         {/* promo content */}
-        <span className="probadge">⚽ Football Season · Limited-Time</span>
+        <span className="probadge">⚽ FIFA Football Season · Limited-Time</span>
         <div className="promeat">
           <p className="proeyebrow">Exclusive Student Discount</p>
           <h3 className="protitle">
