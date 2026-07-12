@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import SubHero from "@/components/SubHero";
+import AcademyHero from "@/components/AcademyHero";
 import FormatToggle from "@/components/FormatToggle";
 import PlatformMark from "@/components/PlatformMark";
 import Faq from "@/components/Faq";
@@ -22,31 +22,11 @@ const academyTestimonials = testimonials.filter((t) =>
 export default function AcademyPage() {
   return (
     <>
-      <SubHero
-        crumbs={[{ label: "Academy" }]}
-        eyebrow="Academy — learn to build"
-        title={
-          <>
-            Five tracks. <span className="grad">One certification standard.</span>
-          </>
-        }
-        lead="Live cohorts online and at our Lahore campus, taught by the same senior team running client stores and ad accounts — not career instructors reading slides."
-        chips={["11-MODULE FLAGSHIP TRACK", "FREE 3-DAY DEMO", "1:1 MENTORSHIP"]}
-        ctas={
-          <>
-            <Link className="btn btnG" href="/#contact">
-              Reserve a demo seat
-            </Link>
-            <a className="btn btnO" href="#tracks">
-              See all tracks
-            </a>
-          </>
-        }
-      />
+      <AcademyHero />
 
       <section className="sec" style={{ paddingTop: 0 }} id="tracks">
         <div className="wrap">
-          <div className="stats rv" style={{ border: "1px solid #E7F0EE", marginBottom: 64 }}>
+          <div className="stats ahstats rv" style={{ marginBottom: 72 }}>
             <div className="wrap strip">
               <div className="stat first">
                 <div className="num" data-to="500" data-suf="+">500+</div>
