@@ -9,6 +9,7 @@ const VENDOR = [
   "Sales team makes the promises, juniors do the delivery",
   "Trendy stack that gets expensive by year two",
   "Weeks of silence, then one big risky reveal",
+  "Handover is a ZIP file and a goodbye",
 ];
 
 const PARTNER = [
@@ -16,6 +17,7 @@ const PARTNER = [
   "Senior engineers and sellers on every build — the same team that trains 500+ students",
   "Architecture chosen for year three — boring, proven, cheap to scale",
   "Weekly demos, shared dashboards, fixed quotes — you always know what shipped",
+  "Launch includes 30 days of support and your team trained on the admin",
 ];
 
 const industries = [
@@ -56,6 +58,7 @@ export default function WhyUs() {
                 {t}
               </div>
             ))}
+            <p className="cmpbadfoot">Sound familiar? There&rsquo;s a better way →</p>
           </div>
 
           <div className="cmpcard cmpgood">

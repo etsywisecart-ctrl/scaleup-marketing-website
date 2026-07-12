@@ -1966,8 +1966,9 @@ a:hover {
 .cmpwrap {
   position: relative;
   display: grid;
-  grid-template-columns: 1fr 1.15fr;
-  gap: 22px;
+  /* equal columns so the VS badge sits exactly on the seam */
+  grid-template-columns: 1fr 1fr;
+  gap: 26px;
   align-items: stretch;
   margin-top: 48px;
 }
@@ -2087,17 +2088,39 @@ a:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 54px;
-  height: 54px;
+  width: 58px;
+  height: 58px;
   border-radius: 50%;
-  background: #0e2a38;
+  background: linear-gradient(150deg, #0e3b52, #0e2a38);
   color: #7fe7cf;
   font-family: var(--font-jetbrains-mono), monospace;
   font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.06em;
   border: 3px solid #f6faf9;
-  box-shadow: 0 16px 34px -12px rgba(14, 42, 56, 0.55);
+  box-shadow:
+    0 0 0 1.5px rgba(47, 191, 158, 0.55),
+    0 16px 34px -12px rgba(14, 42, 56, 0.6);
+}
+/* rotating dashed orbit around the VS badge */
+.cmpvs::before {
+  content: "";
+  position: absolute;
+  inset: -11px;
+  border-radius: 50%;
+  border: 1.5px dashed rgba(47, 191, 158, 0.55);
+  animation: cmpspin 14s linear infinite;
+}
+.nomotion .cmpvs::before { animation: none; }
+@keyframes cmpspin {
+  to { transform: rotate(360deg); }
+}
+.cmpbadfoot {
+  margin: 18px 0 0;
+  font-size: 13.5px;
+  font-style: italic;
+  font-weight: 600;
+  color: #93a8a3;
 }
 @media (max-width: 880px) {
   .cmpwrap {
@@ -2114,6 +2137,7 @@ a:hover {
 [data-theme="dark"] .cmprow.good { color: #d9e8e5; }
 [data-theme="dark"] .cmpx { background: #1c3844; color: #7d949c; }
 [data-theme="dark"] .cmpvs { border-color: #0d2029; }
+[data-theme="dark"] .cmpbadfoot { color: #7d949c; }
 
 .inddot {
   display: inline-block;
