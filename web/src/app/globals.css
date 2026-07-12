@@ -534,13 +534,23 @@ a:hover {
   align-items: center;
   justify-content: center;
   gap: 9px;
-  padding: 34px 18px;
+  padding: 30px 14px;
   background: #fff;
   color: #5b6b72;
   transition: background 0.2s;
 }
 .lcell:hover {
   background: #f7fafa;
+}
+.lcell svg {
+  width: auto;
+  max-width: 100%;
+  opacity: 0.92;
+  transition: transform 0.22s, opacity 0.22s;
+}
+.lcell:hover svg {
+  opacity: 1;
+  transform: scale(1.07);
 }
 .lname {
   font-size: 16px;
