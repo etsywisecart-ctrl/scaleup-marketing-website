@@ -5,8 +5,10 @@ import SubHero from "@/components/SubHero";
 import FormatToggle from "@/components/FormatToggle";
 import CurriculumAccordion from "@/components/CurriculumAccordion";
 import RelatedLinks from "@/components/RelatedLinks";
+import JsonLd from "@/components/JsonLd";
 import { siteConfig } from "@/config/site";
 import { courses, curriculaBySlug } from "@/data/content";
+import { courseSchema, breadcrumbSchema } from "@/lib/schema";
 
 export function generateStaticParams() {
   return courses.map((c) => ({ slug: c.slug }));
@@ -21,8 +23,9 @@ export async function generateMetadata({
   const course = courses.find((c) => c.slug === slug);
   if (!course) return {};
   return {
-    title: `${course.title} — ScaleUp Marketing Academy`,
+    title: `${course.title} — Academy`,
     description: course.sub,
+    alternates: { canonical: `/academy/${course.slug}` },
   };
 }
 
@@ -36,6 +39,16 @@ export default async function CoursePage({ params }: { params: Promise<{ slug: s
 
   return (
     <>
+      <JsonLd
+        data={[
+          courseSchema(course),
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Academy", path: "/academy" },
+            { name: course.title, path: `/academy/${course.slug}` },
+          ]),
+        ]}
+      />
       <SubHero
         crumbs={[{ label: "Academy", href: "/academy" }, { label: course.title }]}
         eyebrow={`${course.tag} · ${course.badge || "TRAINING TRACK"}`}

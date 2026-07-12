@@ -8,9 +8,10 @@ import Process from "@/components/Process";
 import { results } from "@/data/content";
 
 export const metadata: Metadata = {
-  title: "Web, SaaS & App Development — ScaleUp Marketing",
+  title: "Web, SaaS & App Development",
   description:
     "Business sites, SaaS platforms, and mobile apps — one senior product team from MVP to full launch.",
+  alternates: { canonical: "/services/software-development" },
 };
 
 const softwareResults = results.filter((r) => ["SAAS — WORKFLOW OS", "FLUTTER APP"].includes(r.tag));

@@ -10,10 +10,14 @@ import Results from "@/components/Results";
 import Testimonials from "@/components/Testimonials";
 import Faq from "@/components/Faq";
 import Contact from "@/components/Contact";
+import JsonLd from "@/components/JsonLd";
+import { faqs } from "@/data/content";
+import { faqSchema } from "@/lib/schema";
 
 export default function Home() {
   return (
     <>
+      <JsonLd data={faqSchema(faqs)} />
       <Hero />
       <About />
       <ClientLogos />

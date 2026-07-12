@@ -4,9 +4,10 @@ import SubHero from "@/components/SubHero";
 import { teamPods, milestones } from "@/data/content";
 
 export const metadata: Metadata = {
-  title: "About — ScaleUp Marketing",
+  title: "About Us",
   description:
     "ScaleUp Marketing is an engineering-grade digital agency and a hands-on training institute under one roof.",
+  alternates: { canonical: "/about" },
 };
 
 export default function AboutPage() {

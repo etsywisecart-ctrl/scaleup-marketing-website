@@ -4,6 +4,11 @@
 export type AcademyBand = "navy" | "teal-tint";
 
 export const siteConfig = {
+  /** Canonical production URL — override per environment with NEXT_PUBLIC_SITE_URL.
+      Used for metadataBase, canonical tags, sitemap, robots, and OG URLs. */
+  siteUrl: (process.env.NEXT_PUBLIC_SITE_URL || "https://www.wescaleupmarketing.com").replace(/\/$/, ""),
+  name: "ScaleUp Marketing",
+  tagline: "Learn. Launch. Scale.",
   toggles: {
     /** "navy" (dark band) or "teal-tint" (light band) for the Academy section */
     academyBand: "navy" as AcademyBand,

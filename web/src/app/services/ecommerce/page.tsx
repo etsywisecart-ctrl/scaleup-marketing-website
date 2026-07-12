@@ -9,9 +9,10 @@ import Process from "@/components/Process";
 import { results } from "@/data/content";
 
 export const metadata: Metadata = {
-  title: "Ecommerce Development — ScaleUp Marketing",
+  title: "Ecommerce Development",
   description:
     "Shopify, WooCommerce & custom storefronts engineered to convert — theme speed, checkout flow, and the ops behind them.",
+  alternates: { canonical: "/services/ecommerce" },
 };
 
 const ecommerceResults = results.filter((r) =>

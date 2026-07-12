@@ -4,13 +4,16 @@ import AcademyHero from "@/components/AcademyHero";
 import FormatToggle from "@/components/FormatToggle";
 import PlatformMark from "@/components/PlatformMark";
 import Faq from "@/components/Faq";
+import JsonLd from "@/components/JsonLd";
 import { siteConfig } from "@/config/site";
 import { courses, results, testimonials, academyFaqs } from "@/data/content";
+import { faqSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Academy — ScaleUp Marketing",
+  title: "Academy — Learn to Build",
   description:
     "Live online and Lahore-campus training in Shopify, TikTok Shop, eBay & Etsy, Daraz, and AI & Digital Marketing — taught by the team running client stores.",
+  alternates: { canonical: "/academy" },
 };
 
 // Only real graduate outcomes and voices — extend as new results come in
@@ -22,6 +25,7 @@ const academyTestimonials = testimonials.filter((t) =>
 export default function AcademyPage() {
   return (
     <>
+      <JsonLd data={faqSchema(academyFaqs)} />
       <AcademyHero />
 
       <section className="sec" style={{ paddingTop: 0 }} id="tracks">

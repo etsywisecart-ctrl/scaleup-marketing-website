@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import BackToTop from "@/components/BackToTop";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import MotionFx from "@/components/MotionFx";
+import JsonLd from "@/components/JsonLd";
 
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
@@ -14,10 +15,72 @@ const jetbrainsMono = JetBrains_Mono({
   weight: ["400", "500", "600"],
 });
 
+const { siteUrl, name, tagline, contact, social } = siteConfig;
+const description =
+  "ScaleUp Marketing is a digital agency and training academy in Lahore — we build Shopify stores, SaaS, apps and AI automations, and train the next generation of digital entrepreneurs.";
+
 export const metadata: Metadata = {
-  title: "ScaleUp Marketing — Learn. Launch. Scale.",
-  description:
-    "We engineer digital businesses through Ecommerce, AI, Software, and Growth Strategy — and train the next generation of digital entrepreneurs.",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: `${name} — ${tagline}`,
+    template: `%s — ${name}`,
+  },
+  description,
+  applicationName: name,
+  keywords: [
+    "digital agency Lahore",
+    "Shopify development Pakistan",
+    "ecommerce course Lahore",
+    "TikTok Shop training",
+    "Daraz seller course",
+    "SaaS development Pakistan",
+    "AI automation agency",
+  ],
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    siteName: name,
+    title: `${name} — ${tagline}`,
+    description,
+    url: siteUrl,
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${name} — ${tagline}`,
+    description,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large" },
+  },
+};
+
+// Site-wide structured data: the organisation + its Lahore campus.
+const orgLd = {
+  "@context": "https://schema.org",
+  "@type": ["Organization", "LocalBusiness"],
+  "@id": `${siteUrl}/#organization`,
+  name,
+  url: siteUrl,
+  logo: `${siteUrl}/uploads/logo.png`,
+  image: `${siteUrl}/opengraph-image`,
+  description,
+  slogan: tagline,
+  email: contact.email,
+  telephone: contact.phoneDisplay,
+  priceRange: "$$",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: `${contact.addressLine1.replace(/,\s*$/, "")}`,
+    addressLocality: "Lahore",
+    addressRegion: "Punjab",
+    addressCountry: "PK",
+  },
+  areaServed: ["Lahore", "Pakistan", "Worldwide"],
+  openingHours: "Mo-Sa 10:00-19:00",
+  sameAs: Object.values(social).filter((u) => u && !u.startsWith("#")),
 };
 
 export default function RootLayout({
@@ -39,6 +102,7 @@ export default function RootLayout({
           href="https://api.fontshare.com/v2/css?f[]=satoshi@500,700,900&display=swap"
           rel="stylesheet"
         />
+        <JsonLd data={orgLd} />
       </head>
       <body>
         <div className={`site${siteConfig.toggles.motion ? "" : " nomotion"}`}>
