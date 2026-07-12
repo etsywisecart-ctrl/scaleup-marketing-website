@@ -1,20 +1,32 @@
-function Icon({ children }: { children: React.ReactNode }) {
-  return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      {children}
-    </svg>
-  );
-}
+import Link from "next/link";
+
+/* "Partners, not vendors" — a face-off. The typical-vendor panel is muted
+   and dashed; the ScaleUp panel is a glowing dark card that clearly wins.
+   Each ✗ row on the left maps 1:1 to the ✓ row on the right. */
+
+const VENDOR = [
+  "Starts with a template and an hourly meter running",
+  "Sales team makes the promises, juniors do the delivery",
+  "Trendy stack that gets expensive by year two",
+  "Weeks of silence, then one big risky reveal",
+];
+
+const PARTNER = [
+  "Starts from your unit economics — revenue targets before pixels",
+  "Senior engineers and sellers on every build — the same team that trains 500+ students",
+  "Architecture chosen for year three — boring, proven, cheap to scale",
+  "Weekly demos, shared dashboards, fixed quotes — you always know what shipped",
+];
 
 const industries = [
-  "Retail & Ecommerce",
-  "Healthcare",
-  "Education",
-  "Real Estate",
-  "Manufacturing",
-  "Construction",
-  "Hospitality",
-  "Startups",
+  { name: "Retail & Ecommerce", c: "#2FBF9E" },
+  { name: "Healthcare", c: "#E64980" },
+  { name: "Education", c: "#3F83F8" },
+  { name: "Real Estate", c: "#B8860B" },
+  { name: "Manufacturing", c: "#64748B" },
+  { name: "Construction", c: "#F06E2D" },
+  { name: "Hospitality", c: "#7C5CFC" },
+  { name: "Startups", c: "#F2C94C" },
 ];
 
 export default function WhyUs() {
@@ -27,54 +39,52 @@ export default function WhyUs() {
             Built like partners, <span className="grad">not vendors.</span>
           </h2>
         </div>
-        <div className="whyg">
-          <div className="whyc rv">
-            <div className="bic">
-              <Icon>
-                <path d="M3 17l6-6 4 4 8-9M21 6v5h-5" />
-              </Icon>
-            </div>
-            <h3 className="wt">Business-first strategy</h3>
-            <p className="wd">Every build starts from your unit economics — revenue targets before pixels or frameworks.</p>
+
+        <div className="cmpwrap rv">
+          <span className="cmpvs" aria-hidden="true">
+            VS
+          </span>
+
+          <div className="cmpcard cmpbad">
+            <span className="cmptag">TYPICAL VENDOR</span>
+            <h3 className="cmph">The usual agency</h3>
+            {VENDOR.map((t, i) => (
+              <div key={t} className="cmprow rv" style={{ transitionDelay: `${i * 90}ms` }}>
+                <span className="cmpx" aria-hidden="true">
+                  ✗
+                </span>
+                {t}
+              </div>
+            ))}
           </div>
-          <div className="whyc rv">
-            <div className="bic">
-              <Icon>
-                <circle cx="9" cy="8" r="3.5" />
-                <path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M16.5 4.8a3.5 3.5 0 0 1 0 6.4M18 14.5c2 .8 3 2.5 3 5.5" />
-              </Icon>
-            </div>
-            <h3 className="wt">The people who teach it, build it</h3>
-            <p className="wd">Senior engineers and sellers on every project — the same team that trains 500+ students.</p>
-          </div>
-          <div className="whyc rv">
-            <div className="bic">
-              <Icon>
-                <path d="M12 3v18M3 12h18M5.5 5.5l13 13M18.5 5.5l-13 13" />
-              </Icon>
-            </div>
-            <h3 className="wt">Architecture that scales</h3>
-            <p className="wd">Stacks chosen for year three, not week one — boring, proven, and cheap to grow on.</p>
-          </div>
-          <div className="whyc rv">
-            <div className="bic">
-              <Icon>
-                <rect x="3" y="4" width="18" height="15" rx="2" />
-                <path d="M3 9h18M8 14h5" />
-              </Icon>
-            </div>
-            <h3 className="wt">Transparent delivery</h3>
-            <p className="wd">Weekly demos, shared dashboards, fixed quotes. You always know what shipped and what is next.</p>
+
+          <div className="cmpcard cmpgood">
+            <span className="cmpglow" aria-hidden="true" />
+            <span className="cmptag good">SCALEUP — THE PARTNER</span>
+            <h3 className="cmph good">Working with ScaleUp</h3>
+            {PARTNER.map((t, i) => (
+              <div key={t} className="cmprow good rv" style={{ transitionDelay: `${i * 90 + 120}ms` }}>
+                <span className="cmpc" aria-hidden="true">
+                  ✓
+                </span>
+                {t}
+              </div>
+            ))}
+            <Link className="cmplink" href="/#contact">
+              Experience the difference — free consultation →
+            </Link>
           </div>
         </div>
-        <div className="rv" style={{ marginTop: 44 }}>
+
+        <div className="rv" style={{ marginTop: 52 }}>
           <p className="eyebrow" style={{ marginBottom: 14 }}>
             Industries served
           </p>
           <div className="inds" style={{ marginTop: 0 }}>
             {industries.map((i) => (
-              <span key={i} className="ind">
-                {i}
+              <span key={i.name} className="ind">
+                <span className="inddot" style={{ background: i.c }} />
+                {i.name}
               </span>
             ))}
           </div>
