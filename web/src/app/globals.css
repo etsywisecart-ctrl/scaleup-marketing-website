@@ -3062,6 +3062,170 @@ a:hover {
 .ahs3 { right: 28%; bottom: 24%; animation-delay: -2.2s; }
 .ahs4 { left: 30%; bottom: 16%; animation-delay: -1.6s; }
 
+/* Solutions hero centerpieces */
+.svcard {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 226px;
+  background: #fff;
+  border-radius: 16px;
+  padding: 14px;
+  box-shadow: 0 34px 64px -20px rgba(4, 24, 20, 0.55);
+  animation: svfloatc 6s ease-in-out infinite;
+}
+.nomotion .svcard { animation: none; }
+/* float that keeps the centering translate */
+@keyframes svfloatc {
+  0%, 100% { transform: translate(-50%, calc(-50% - 8px)); }
+  50% { transform: translate(-50%, calc(-50% + 8px)); }
+}
+.svtop {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 12px;
+}
+.svurl {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 8.5px;
+  font-weight: 600;
+  color: #7a8b92;
+  margin-left: 6px;
+}
+.svrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.svthumb {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #ffd3a5, #fd9853);
+}
+.svname {
+  font-size: 12.5px;
+  font-weight: 800;
+  color: #0e2a38;
+  margin: 0;
+}
+.svprice {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 9.5px;
+  color: #7a8b92;
+  margin: 3px 0 0;
+}
+.svpay {
+  margin-top: 13px;
+  text-align: center;
+  font-size: 12.5px;
+  font-weight: 800;
+  color: #062a20;
+  background: linear-gradient(105deg, #5fd6bc, #2fbf9e 60%, #23a98f);
+  border-radius: 10px;
+  padding: 10px;
+  animation: ctaglow 2.8s ease-in-out infinite;
+}
+.nomotion .svpay { animation: none; }
+.svtoast {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: -20px;
+  text-align: center;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 9.5px;
+  font-weight: 600;
+  color: #baf5e6;
+  background: #0e2a38;
+  border: 1px solid rgba(127, 231, 207, 0.35);
+  border-radius: 10px;
+  padding: 8px 10px;
+  box-shadow: 0 16px 30px -12px rgba(4, 24, 20, 0.6);
+  opacity: 0;
+  animation: svtoasta 5s ease-in-out infinite;
+}
+.nomotion .svtoast { animation: none; opacity: 1; }
+@keyframes svtoasta {
+  0%, 52% { opacity: 0; transform: translateY(8px); }
+  62%, 88% { opacity: 1; transform: translateY(0); }
+  98%, 100% { opacity: 0; transform: translateY(-4px); }
+}
+.svping {
+  position: absolute;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 10px;
+  font-weight: 700;
+  color: #0b3f33;
+  background: #baf5e6;
+  border-radius: 99px;
+  padding: 6px 11px;
+  box-shadow: 0 14px 26px -10px rgba(47, 191, 158, 0.7);
+  opacity: 0;
+  animation: svpinga 6s ease-out infinite;
+}
+.nomotion .svping { animation: none; }
+@keyframes svpinga {
+  0%, 8% { opacity: 0; transform: translateY(12px) scale(0.9); }
+  18% { opacity: 1; transform: translateY(0) scale(1); }
+  46% { opacity: 1; transform: translateY(-46px) scale(1); }
+  62%, 100% { opacity: 0; transform: translateY(-72px) scale(0.95); }
+}
+.svping1 { right: 5%; top: 38%; }
+.svping2 { left: 3%; top: 50%; animation-delay: -3s; }
+
+.svwin {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 236px;
+  background: #0d2230;
+  border: 1px solid #24485a;
+  border-radius: 16px;
+  padding: 14px;
+  box-shadow: 0 34px 64px -20px rgba(2, 14, 22, 0.75);
+  animation: svfloatc 6s ease-in-out infinite;
+}
+.nomotion .svwin { animation: none; }
+.svl {
+  display: block;
+  height: 9px;
+  border-radius: 5px;
+  margin-top: 9px;
+  opacity: 0.95;
+}
+.svl1 { width: 62%; background: linear-gradient(90deg, #5fd6bc, #2fbf9e); }
+.svl2 { width: 86%; background: linear-gradient(90deg, #7fc3f0, #3f83f8); margin-left: 12%; }
+.svl3 { width: 52%; background: linear-gradient(90deg, #f2c94c, #f5a623); margin-left: 12%; }
+.svl4 { width: 74%; background: linear-gradient(90deg, #b8a7f0, #7c5cfc); }
+.svl5 { width: 38%; background: linear-gradient(90deg, #f09a9a, #e64980); }
+.svstat {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 14px;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 9.5px;
+  font-weight: 600;
+  color: #7fe7cf;
+  background: rgba(47, 191, 158, 0.12);
+  border: 1px solid rgba(127, 231, 207, 0.3);
+  border-radius: 99px;
+  padding: 6px 10px;
+}
+.svstatdot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #5fd6bc;
+  animation: ahglowp 2s ease-in-out infinite;
+}
+.nomotion .svstatdot { animation: none; }
+
 @media (max-width: 980px) {
   .ahgrid {
     grid-template-columns: 1fr;

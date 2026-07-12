@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import SubHero from "@/components/SubHero";
+import SolutionsHero from "@/components/SolutionsHero";
 import FeatureList from "@/components/FeatureList";
 import { LiveCodeTyping, LiveMetricBoard } from "@/components/LiveShowcases";
 import RelatedLinks from "@/components/RelatedLinks";
@@ -35,26 +35,21 @@ const mobileFeatures = [
 export default function SoftwareDevelopmentPage() {
   return (
     <>
-      <SubHero
-        crumbs={[{ label: "Solutions" }, { label: "Web, SaaS & App Development" }]}
+      <SolutionsHero
+        crumb="Web, SaaS & App Development"
         eyebrow="Solutions — Software"
+        variant="software"
         title={
           <>
-            One product team. <span className="grad">Three ways to ship.</span>
+            One product team.
+            <br />
+            <span className="ahshimmer">Three ways to ship.</span>
           </>
         }
         lead="Business sites, full SaaS platforms, and mobile apps — built by the same senior engineers, on stacks chosen for year three, not week one."
         chips={["React", "Next.js", "Laravel", "Flutter", "Stripe billing", "AWS"]}
-        ctas={
-          <>
-            <Link className="btn btnG" href="/#contact">
-              Book a free scoping call
-            </Link>
-            <a className="btn btnO" href="#pricing">
-              See pricing &amp; timeline
-            </a>
-          </>
-        }
+        ghostLabel="See timeline & process"
+        ghostHref="#pricing"
       />
 
       <section className="sec" style={{ paddingTop: 0 }}>

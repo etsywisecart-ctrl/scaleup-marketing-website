@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import SubHero from "@/components/SubHero";
+import SolutionsHero from "@/components/SolutionsHero";
 import FeatureList from "@/components/FeatureList";
 import { LiveBuildPlayer, LiveOrderFeed } from "@/components/LiveShowcases";
 import ShopifyShowcase from "@/components/ShopifyShowcase";
@@ -30,26 +30,21 @@ const features = [
 export default function EcommercePage() {
   return (
     <>
-      <SubHero
-        crumbs={[{ label: "Solutions" }, { label: "Ecommerce Development" }]}
+      <SolutionsHero
+        crumb="Ecommerce Development"
         eyebrow="Solutions — Ecommerce"
+        variant="commerce"
         title={
           <>
-            Stores engineered <span className="grad">to convert.</span>
+            Stores engineered
+            <br />
+            <span className="ahshimmer">to convert.</span>
           </>
         }
         lead="Shopify, WooCommerce, and marketplace storefronts built for speed and checkout conversion — with the ops training so your team can run it after we ship."
         chips={["Shopify Plus", "WooCommerce", "Daraz Seller", "Headless"]}
-        ctas={
-          <>
-            <Link className="btn btnG" href="/#contact">
-              Book a free scoping call
-            </Link>
-            <a className="btn btnO" href="#pricing">
-              See pricing &amp; timeline
-            </a>
-          </>
-        }
+        ghostLabel="See timeline & process"
+        ghostHref="#pricing"
       />
 
       <section className="sec" style={{ paddingTop: 0 }}>
