@@ -2786,6 +2786,10 @@ a:hover {
   background: color-mix(in srgb, var(--sc) 16%, transparent);
   color: #fff;
 }
+/* keyline keeps near-black badges (TikTok) visible on the dark footer */
+[data-theme="dark"] .socico {
+  box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.3);
+}
 .up {
   position: fixed;
   right: 32px;

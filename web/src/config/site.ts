@@ -29,8 +29,9 @@ export const siteConfig = {
   },
   social: {
     linkedin: "#top",
-    instagram: "#top",
+    instagram: "https://www.instagram.com/scalesupmarketing",
     youtube: "#top",
     facebook: "https://web.facebook.com/scalesupmarketing",
+    tiktok: "https://www.tiktok.com/@scaleup_marketing",
   },
 };
