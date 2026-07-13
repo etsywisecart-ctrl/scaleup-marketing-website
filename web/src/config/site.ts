@@ -31,6 +31,6 @@ export const siteConfig = {
     linkedin: "#top",
     instagram: "#top",
     youtube: "#top",
-    facebook: "#top",
+    facebook: "https://web.facebook.com/scalesupmarketing",
   },
 };

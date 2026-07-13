@@ -2728,7 +2728,63 @@ a:hover {
 }
 .fsoc {
   display: flex;
-  gap: 18px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+/* branded social pill: glyph badge + handle + external arrow */
+.socpill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px 6px 6px;
+  border-radius: 99px;
+  border: 1px solid #d8e5e2;
+  background: #fff;
+  color: #3e5560;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  transition: border-color 0.2s, background 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+.socico {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--sc);
+  color: #fff;
+  transition: transform 0.2s;
+}
+.socarr {
+  opacity: 0.55;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.socpill:hover {
+  border-color: var(--sc);
+  background: color-mix(in srgb, var(--sc) 10%, #fff);
+  color: var(--sc);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px -12px var(--sc);
+}
+.socpill:hover .socico {
+  transform: scale(1.12) rotate(-6deg);
+}
+.socpill:hover .socarr {
+  opacity: 1;
+  transform: translate(1.5px, -1.5px);
+}
+[data-theme="dark"] .socpill {
+  border-color: #26424f;
+  background: rgba(255, 255, 255, 0.04);
+  color: #a9bcc2;
+}
+[data-theme="dark"] .socpill:hover {
+  border-color: var(--sc);
+  background: color-mix(in srgb, var(--sc) 16%, transparent);
+  color: #fff;
 }
 .up {
   position: fixed;
