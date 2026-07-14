@@ -107,7 +107,7 @@ export default function AboutPage() {
           <div className="rv" style={{ maxWidth: 640 }}>
             <p className="eyebrow">Where we&rsquo;ve been</p>
             <h2 className="h2">
-              Eight years, <span className="grad">one ecosystem.</span>
+              Five years, <span className="grad">one ecosystem.</span>
             </h2>
           </div>
           <div className="mstones rv">
