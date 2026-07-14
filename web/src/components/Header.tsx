@@ -8,11 +8,7 @@ import ThemeToggle from "./ThemeToggle";
 const SERVICE_LINKS = [
   { href: "/services/ecommerce", label: "Ecommerce Development", sub: "Shopify, WooCommerce & marketplaces" },
   { href: "/services/software-development", label: "Web, SaaS & App Dev", sub: "Sites, platforms & mobile apps" },
-  { href: "/#services", label: "AI Automation", sub: "Workflows that run themselves" },
-  { href: "/#services", label: "CRM / ERP", sub: "One source of truth" },
-  { href: "/#services", label: "UI / UX Design", sub: "Research, flows & interfaces" },
-  { href: "/#services", label: "Digital Marketing", sub: "Ads, funnels & retention" },
-  { href: "/#services", label: "Business Consulting", sub: "Strategy before code" },
+  { href: "/#services", label: "All Solutions", sub: "AI, CRM/ERP, design, marketing & more" },
 ];
 
 const MAIN_LINKS = [
