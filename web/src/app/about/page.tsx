@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import SubHero from "@/components/SubHero";
+import AboutHero from "@/components/AboutHero";
 import { teamPods, milestones } from "@/data/content";
 
 export const metadata: Metadata = {
@@ -13,26 +13,7 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <>
-      <SubHero
-        crumbs={[{ label: "About Us" }]}
-        eyebrow="About ScaleUp Marketing"
-        title={
-          <>
-            One team. Two engines. <span className="grad">One mission.</span>
-          </>
-        }
-        lead="We build digital businesses and we teach people how to build them — using the same playbooks, the same senior team, and the same standard for what 'done' looks like."
-        ctas={
-          <>
-            <Link className="btn btnG" href="/#contact">
-              Book a Strategy Call
-            </Link>
-            <Link className="btn btnO" href="/academy">
-              Explore the Academy
-            </Link>
-          </>
-        }
-      />
+      <AboutHero />
 
       <section className="sec softband" style={{ paddingTop: 0 }}>
         <div className="wrap split">

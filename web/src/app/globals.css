@@ -3317,6 +3317,158 @@ a:hover {
 .ahs3 { right: 28%; bottom: 24%; animation-delay: -2.2s; }
 .ahs4 { left: 30%; bottom: 16%; animation-delay: -1.6s; }
 
+/* ===== About hero — two engines converging ===== */
+.abstage {
+  position: relative;
+}
+.abwires {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.abwire {
+  fill: none;
+  stroke: rgba(127, 231, 207, 0.35);
+  stroke-width: 2;
+  stroke-dasharray: 5 7;
+  animation: abdash 3s linear infinite;
+}
+.abwire2 { stroke: rgba(127, 195, 240, 0.35); animation-direction: reverse; }
+.nomotion .abwire { animation: none; }
+@keyframes abdash {
+  to { stroke-dashoffset: -24; }
+}
+.abflow {
+  fill: #baf5e6;
+  filter: drop-shadow(0 0 5px rgba(127, 231, 207, 0.9));
+  offset-rotate: 0deg;
+}
+.abflow1 { offset-path: path("M92 96 Q180 180 268 96"); animation: abmove 3.4s linear infinite; }
+.abflow2 { offset-path: path("M268 96 Q180 180 92 96"); fill: #cfe4ff; animation: abmove 3.4s linear infinite 1.7s; }
+.abflow3 { offset-path: path("M92 264 Q180 180 268 264"); fill: #cfe4ff; animation: abmove 3.8s linear infinite 0.8s; }
+.abflow4 { offset-path: path("M268 264 Q180 180 92 264"); animation: abmove 3.8s linear infinite 2.4s; }
+.nomotion .abflow { animation: none; opacity: 0; }
+@keyframes abmove {
+  0% { offset-distance: 0%; opacity: 0; }
+  12%, 88% { opacity: 1; }
+  100% { offset-distance: 100%; opacity: 0; }
+}
+.abcore {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: linear-gradient(150deg, #0e3b52, #0e2a38);
+  border: 1.5px solid rgba(127, 231, 207, 0.5);
+  color: #fff;
+  font-family: "Satoshi", sans-serif;
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: -0.01em;
+  box-shadow: 0 20px 44px -14px rgba(47, 191, 158, 0.6);
+}
+.abcorepulse {
+  position: absolute;
+  inset: -10px;
+  border-radius: 50%;
+  border: 2px solid rgba(127, 231, 207, 0.45);
+  animation: ahping 3s ease-out infinite;
+}
+.nomotion .abcorepulse { animation: none; opacity: 0; }
+.abpod {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 12px 16px 12px 12px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.97);
+  box-shadow: 0 22px 44px -18px rgba(0, 0, 0, 0.5);
+  animation: ahfloat 5.5s ease-in-out infinite;
+}
+.nomotion .abpod { animation: none; }
+.abpodA { left: 2%; top: 14%; }
+.abpodB { right: 2%; bottom: 14%; animation-delay: -2.6s; }
+.abpodi {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 11px;
+  flex: none;
+}
+.abpodt {
+  font-size: 14px;
+  font-weight: 800;
+  color: #0e2a38;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+.abpods {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 10px;
+  font-weight: 600;
+  color: #6b8088;
+  margin: 2px 0 0;
+}
+
+/* ===== Course hero — platform mark stage ===== */
+.chstage {
+  position: relative;
+}
+.chtile {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 128px;
+  height: 128px;
+  border-radius: 30px;
+  background: #fff;
+  animation: chfloat 5.5s ease-in-out infinite;
+}
+.nomotion .chtile { animation: none; }
+@keyframes chfloat {
+  0%, 100% { transform: translate(-50%, calc(-50% - 8px)); }
+  50% { transform: translate(-50%, calc(-50% + 8px)); }
+}
+.chchip {
+  position: absolute;
+  z-index: 2;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #cfeee5;
+  background: rgba(9, 28, 38, 0.72);
+  border: 1px solid rgba(127, 231, 207, 0.32);
+  border-radius: 99px;
+  padding: 7px 13px;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  animation: ahfloat 6s ease-in-out infinite;
+  white-space: nowrap;
+}
+.nomotion .chchip { animation: none; }
+.chc1 { left: -2%; top: 20%; }
+.chc2 { right: -2%; top: 30%; animation-delay: -1.4s; }
+.chc3 { left: 4%; bottom: 22%; animation-delay: -2.6s; }
+.chc4 { right: 2%; bottom: 16%; animation-delay: -3.6s; color: #08251d; }
+
 /* Solutions hero centerpieces */
 .svcard {
   position: absolute;

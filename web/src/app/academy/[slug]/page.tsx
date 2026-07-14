@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import SubHero from "@/components/SubHero";
 import FormatToggle from "@/components/FormatToggle";
+import CourseHero from "@/components/CourseHero";
 import CurriculumAccordion from "@/components/CurriculumAccordion";
 import RelatedLinks from "@/components/RelatedLinks";
 import JsonLd from "@/components/JsonLd";
@@ -49,22 +49,15 @@ export default async function CoursePage({ params }: { params: Promise<{ slug: s
           ]),
         ]}
       />
-      <SubHero
-        crumbs={[{ label: "Academy", href: "/academy" }, { label: course.title }]}
-        eyebrow={`${course.tag} · ${course.badge || "TRAINING TRACK"}`}
+      <CourseHero
+        slug={course.slug}
+        tag={course.tag}
+        badge={course.badge}
         title={course.title}
-        lead={course.sub}
-        chips={[course.dur, course.level, "CERTIFICATE ON COMPLETION"]}
-        ctas={
-          <>
-            <Link className="btn btnG" href="/#contact">
-              Get the full syllabus
-            </Link>
-            <Link className="btn btnO" href="/#contact">
-              Reserve a free demo seat
-            </Link>
-          </>
-        }
+        sub={course.sub}
+        dur={course.dur}
+        level={course.level}
+        modules={modules.length}
       />
 
       <section className="sec" style={{ paddingTop: 0 }}>
