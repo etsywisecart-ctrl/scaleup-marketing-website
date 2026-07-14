@@ -3769,7 +3769,7 @@ a:hover {
   height: 120px;
   border-radius: 50%;
   object-fit: cover;
-  object-position: center top;
+  object-position: center 22%;
   display: block;
   background: #eef4f3;
 }
