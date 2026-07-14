@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import AboutHero from "@/components/AboutHero";
-import { teamPods, milestones } from "@/data/content";
+import TeamAvatar from "@/components/TeamAvatar";
+import { teamPods, milestones, team } from "@/data/content";
 
 export const metadata: Metadata = {
   title: "About Us",
@@ -84,6 +85,44 @@ export default function AboutPage() {
       </section>
 
       <section className="sec softband">
+        <div className="wrap">
+          <div className="rv" style={{ maxWidth: 640 }}>
+            <p className="eyebrow">The people</p>
+            <h2 className="h2">
+              Faces behind <span className="grad">the work.</span>
+            </h2>
+            <p className="lead" style={{ marginTop: 18 }}>
+              Real people you&rsquo;ll actually work with — the same team that ships client
+              projects and teaches the tracks.
+            </p>
+          </div>
+          <div className="teamg">
+            {team.map((m) => (
+              <div key={m.name} className="tmcard rv">
+                <TeamAvatar photo={m.photo} name={m.name} ini={m.ini} accent={m.accent} />
+                <h3 className="tmname">{m.name}</h3>
+                <p className="tmrole">{m.role}</p>
+                {m.linkedin ? (
+                  <a
+                    className="tmli"
+                    href={m.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${m.name} on LinkedIn`}
+                  >
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path d="M6.94 8.5a1.94 1.94 0 1 0 0-3.88 1.94 1.94 0 0 0 0 3.88ZM5.34 10h3.2v9.5h-3.2V10Zm5.1 0h3.07v1.3h.04c.43-.77 1.47-1.58 3.03-1.58 3.24 0 3.84 2.06 3.84 4.74v5.04h-3.2v-4.47c0-1.07-.02-2.44-1.54-2.44-1.54 0-1.78 1.16-1.78 2.36v4.55h-3.2V10Z" />
+                    </svg>
+                    LinkedIn
+                  </a>
+                ) : null}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="sec">
         <div className="wrap">
           <div className="rv" style={{ maxWidth: 640 }}>
             <p className="eyebrow">Where we&rsquo;ve been</p>

@@ -447,6 +447,35 @@ export const teamPods = [
   },
 ];
 
+/* The people. `photo` points at /uploads/team/<file> — until that file
+   exists the avatar gracefully shows the gradient initials instead. */
+export const team = [
+  {
+    name: "Arslan Khan",
+    role: "Operations Manager",
+    photo: "/uploads/team/arslan.jpg",
+    ini: "AK",
+    accent: "#2FBF9E",
+    linkedin: "",
+  },
+  {
+    name: "Muhammad Rizwan",
+    role: "Ecommerce Trainer",
+    photo: "/uploads/team/rizwan.jpg",
+    ini: "MR",
+    accent: "#3F83F8",
+    linkedin: "",
+  },
+  {
+    name: "Hanzala Mehmood",
+    role: "Full-Stack Engineer",
+    photo: "/uploads/team/hanzala.jpg",
+    ini: "HM",
+    accent: "#7C5CFC",
+    linkedin: "",
+  },
+];
+
 export const milestones = [
   { y: "Year 1–2", t: "Agency founded", d: "Started delivering Shopify and WooCommerce stores for local SMEs in Lahore." },
   { y: "Year 3", t: "Academy launched", d: "Opened the first live cohort to turn client playbooks into a teachable curriculum." },
