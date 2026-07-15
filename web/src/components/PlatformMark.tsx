@@ -35,6 +35,41 @@ export default function PlatformMark({ slug, size = 24 }: { slug: string; size?:
           />
         </svg>
       );
+    case "ebay":
+      return (
+        <span
+          aria-label="eBay"
+          style={{
+            display: "inline-flex",
+            alignItems: "baseline",
+            fontWeight: 900,
+            fontSize: size * 0.82,
+            letterSpacing: -1,
+            lineHeight: 1,
+          }}
+        >
+          <span style={{ color: "#E53238" }}>e</span>
+          <span style={{ color: "#0064D2" }}>b</span>
+          <span style={{ color: "#F5AF02" }}>a</span>
+          <span style={{ color: "#86B817" }}>y</span>
+        </span>
+      );
+    case "etsy":
+      return (
+        <span
+          aria-label="Etsy"
+          style={{
+            color: "#F1641E",
+            fontFamily: "Georgia, 'Times New Roman', serif",
+            fontWeight: 700,
+            fontSize: size * 0.86,
+            letterSpacing: -0.5,
+            lineHeight: 1,
+          }}
+        >
+          Etsy
+        </span>
+      );
     case "ebay-etsy":
       return (
         <span
