@@ -5328,3 +5328,38 @@ body { transition: background 0.3s ease; }
 [data-theme="dark"] .rclabel { color: #6f878f; }
 [data-theme="dark"] .rbars { border-bottom-color: #22414f; }
 [data-theme="dark"] .rwchip { background: #16303c; border-color: #25414f; color: #b9cace; }
+
+/* ============================================================
+   Desktop refinement — 14"/15"+ laptops only (min-width: 1440px).
+   Widens the shared container to reduce side gutters and nudges the
+   fixed-px body copy up ~1px to hold the type hierarchy against the
+   vw-scaled headings. Mobile/tablet (< 1440px) are untouched; spacing,
+   colors, and layout structure are preserved.
+   ============================================================ */
+@media (min-width: 1440px) {
+  /* Layout: a wider, more balanced container */
+  .wrap { max-width: 1320px; }
+
+  /* Typography: slight, uniform body-copy lift (headings already scale via vw) */
+  .lead { font-size: 18px; }
+  .ahlead { font-size: 18px; }
+  .hsub { font-size: clamp(16px, 1.3vw, 19.5px); }
+  .tq { font-size: 16.5px; }
+  .fqa { font-size: 16px; }
+  .ctad { font-size: 16.5px; }
+  .cstext { font-size: 16.5px; }
+  .bs { font-size: 15.5px; }
+  .pd { font-size: 15px; }
+  .demod { font-size: 15px; }
+  .wd { font-size: 14.5px; }
+  .podd { font-size: 14.5px; }
+  .std { font-size: 14px; }
+  .cs { font-size: 13.5px; }
+  .vcsub { font-size: 13.5px; }
+  .slab { font-size: 13.5px; }
+}
+
+/* Larger 15"/16"+ displays: one more balanced widening step */
+@media (min-width: 1680px) {
+  .wrap { max-width: 1400px; }
+}
