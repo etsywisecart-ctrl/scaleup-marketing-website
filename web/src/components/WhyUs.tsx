@@ -1,4 +1,5 @@
 import Link from "next/link";
+import IndustryMarquee from "./IndustryMarquee";
 
 /* "Partners, not vendors" — a face-off. The typical-vendor panel is muted
    and dashed; the ScaleUp panel is a glowing dark card that clearly wins.
@@ -18,17 +19,6 @@ const PARTNER = [
   "Architecture chosen for year three — boring, proven, cheap to scale",
   "Weekly demos, shared dashboards, fixed quotes — you always know what shipped",
   "Launch includes 30 days of support and your team trained on the admin",
-];
-
-const industries = [
-  { name: "Retail & Ecommerce", c: "#2FBF9E" },
-  { name: "Healthcare", c: "#E64980" },
-  { name: "Education", c: "#3F83F8" },
-  { name: "Real Estate", c: "#B8860B" },
-  { name: "Manufacturing", c: "#64748B" },
-  { name: "Construction", c: "#F06E2D" },
-  { name: "Hospitality", c: "#7C5CFC" },
-  { name: "Startups", c: "#F2C94C" },
 ];
 
 export default function WhyUs() {
@@ -79,19 +69,18 @@ export default function WhyUs() {
           </div>
         </div>
 
-        <div className="rv" style={{ marginTop: 52 }}>
-          <p className="eyebrow" style={{ marginBottom: 14 }}>
+        <div className="rv" style={{ marginTop: 56 }}>
+          <p className="eyebrow" style={{ marginBottom: 4 }}>
             Industries served
           </p>
-          <div className="inds" style={{ marginTop: 0 }}>
-            {industries.map((i) => (
-              <span key={i.name} className="ind">
-                <span className="inddot" style={{ background: i.c }} />
-                {i.name}
-              </span>
-            ))}
-          </div>
+          <h3 className="indh">
+            Built for every kind of business.
+          </h3>
         </div>
+      </div>
+
+      <div className="rv">
+        <IndustryMarquee />
       </div>
     </section>
   );
