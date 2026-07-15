@@ -5357,6 +5357,45 @@ body { transition: background 0.3s ease; }
   .cs { font-size: 13.5px; }
   .vcsub { font-size: 13.5px; }
   .slab { font-size: 13.5px; }
+
+  /* --- comprehensive body / description text --- */
+  .cmprow { font-size: 15.5px; }
+  .cmpbadfoot { font-size: 14.5px; }
+  .rline { font-size: 15.5px; }
+  .rinvd { font-size: 14.5px; }
+  .rmore { font-size: 13px; }
+  .vli { font-size: 16px; }
+  .mdesc { font-size: 14.5px; }
+  .sentd { font-size: 15px; }
+  .fd { font-size: 14px; }
+  .softline { font-size: 15px; }
+  .ftag2 { font-size: 15px; }
+  .cmod { font-size: 12.5px; }
+  .cmore { font-size: 11px; }
+
+  /* --- labels & meta --- */
+  .eyebrow { font-size: 12.5px; }
+  .mqlab { font-size: 11.5px; }
+  .hnote { font-size: 12px; }
+  .ahlive { font-size: 12px; }
+  .ahcrumb { font-size: 11.5px; }
+  .crumb { font-size: 12px; }
+  .rkpl { font-size: 10.5px; }
+  .rclabel { font-size: 9.5px; }
+  .cwt { font-size: 14.5px; }
+  .cwd { font-size: 11.5px; }
+  .tr { font-size: 13px; }
+  .tmetric { font-size: 11px; }
+  .model { font-size: 14px; }
+  .ind { font-size: 15px; }
+  .currs { font-size: 11px; }
+  .ahchip { font-size: 11px; }
+  .cpill { font-size: 10px; }
+
+  /* --- form text --- */
+  .inp { font-size: 15.5px; }
+  .lab { font-size: 11.5px; }
+  .fnote { font-size: 11px; }
 }
 
 /* Larger 15"/16"+ displays: one more balanced widening step */
