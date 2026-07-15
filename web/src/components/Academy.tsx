@@ -2,7 +2,7 @@ import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import { courses } from "@/data/content";
 import FormatToggle from "./FormatToggle";
-import PlatformMark from "./PlatformMark";
+import CourseGallery from "./CourseGallery";
 
 export default function Academy() {
   const bandClass = siteConfig.toggles.academyBand === "teal-tint" ? "acadT" : "";
@@ -22,38 +22,11 @@ export default function Academy() {
           <FormatToggle />
         </div>
 
-        <div className="crow">
-          {courses.map((c) => (
-            <div key={c.title} className="ccard rv">
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
-                <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                  <PlatformMark slug={c.slug} size={20} />
-                  <span className="ctag">{c.tag}</span>
-                </span>
-                {c.badge ? <span className="cbadge">{c.badge}</span> : null}
-              </div>
-              <h3 className="ct">{c.title}</h3>
-              <p className="cs">{c.sub}</p>
-              <div className="cmods">
-                {c.mods.map((m) => (
-                  <div key={m.n} className="cmod">
-                    <span className="cmn">{m.n}</span>
-                    {m.t}
-                  </div>
-                ))}
-              </div>
-              <div className="cmore">{c.more}</div>
-              <div className="cmeta">
-                <span className="cpill">{c.dur}</span>
-                <span className="cpill">{c.level}</span>
-              </div>
-              <Link className="clink" href={`/academy/${c.slug}`}>
-                View full curriculum →
-              </Link>
-            </div>
-          ))}
-        </div>
+      </div>
 
+      <CourseGallery courses={courses} />
+
+      <div className="wrap">
         <div className="secta rv">
           <Link className="btn btnW" href="/academy">
             Explore the full Academy
