@@ -5468,35 +5468,29 @@ body { transition: background 0.3s ease; }
   height: 428px;
   padding: 30px 28px;
   border-radius: 28px;
-  color: #fff;
-  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.55);
-  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.32s ease;
+  background: #fff;
+  color: #13242e;
+  border: 1px solid #e8efed;
+  box-shadow: 0 30px 60px -34px rgba(14, 42, 56, 0.55);
+  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.32s ease, border-color 0.32s ease;
 }
+/* brand-tinted wash across the top of the white card */
 .cgcard::before {
   content: "";
   position: absolute;
-  inset: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 168px;
   z-index: 0;
-  background: radial-gradient(120% 80% at 15% 0%, rgba(255, 255, 255, 0.22), transparent 55%);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--acc) 14%, #fff), rgba(255, 255, 255, 0));
   pointer-events: none;
-}
-/* depth glow anchored bottom-right */
-.cgcard::after {
-  content: "";
-  position: absolute;
-  right: -30%;
-  bottom: -30%;
-  width: 75%;
-  height: 75%;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(0, 0, 0, 0.22), transparent 70%);
-  pointer-events: none;
-  z-index: 0;
 }
 .cgcard:hover {
   transform: translateY(-8px);
-  box-shadow: 0 44px 76px -30px rgba(0, 0, 0, 0.6);
-  color: #fff; /* neutralise the global a:hover teal */
+  box-shadow: 0 46px 82px -34px color-mix(in srgb, var(--acc) 45%, rgba(14, 42, 56, 0.5));
+  border-color: color-mix(in srgb, var(--acc) 34%, #e8efed);
+  color: #13242e; /* neutralise the global a:hover teal */
 }
 .cgtop { position: relative; z-index: 1; }
 .cgtags {
@@ -5508,35 +5502,33 @@ body { transition: background 0.3s ease; }
 .cgtag {
   font-family: var(--font-jetbrains-mono), monospace;
   font-size: 10px;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.08em;
-  color: rgba(255, 255, 255, 0.92);
-  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: var(--ai);
+  background: color-mix(in srgb, var(--acc) 12%, #fff);
+  border: 1px solid color-mix(in srgb, var(--acc) 30%, #fff);
   border-radius: 99px;
   padding: 5px 11px;
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
 }
 .cgbadge {
   font-family: var(--font-jetbrains-mono), monospace;
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.06em;
-  color: #10241c;
-  background: #fff;
+  color: #fff;
+  background: var(--acc);
   border-radius: 99px;
   padding: 5px 11px;
 }
 .cgt {
   position: relative;
   z-index: 1;
-  color: #fff;
+  color: #13242e;
   font-size: 26px;
   font-weight: 800;
   letter-spacing: -0.02em;
   line-height: 1.12;
   margin: 0;
-  text-shadow: 0 1px 14px rgba(0, 0, 0, 0.18);
 }
 .cgs {
   position: relative;
@@ -5544,9 +5536,8 @@ body { transition: background 0.3s ease; }
   font-size: 14.5px;
   line-height: 1.5;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.9);
+  color: #5c6d75;
   margin: 11px 0 0;
-  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.14);
 }
 .cghero {
   position: relative;
@@ -5556,7 +5547,23 @@ body { transition: background 0.3s ease; }
   align-items: center;
   justify-content: center;
 }
+/* brand-color halo glowing behind the logo tile */
+.cghalo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 188px;
+  height: 188px;
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--acc) 46%, transparent), transparent 68%);
+  filter: blur(22px);
+  opacity: 0.7;
+  z-index: 0;
+}
 .cgtile {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -5564,6 +5571,8 @@ body { transition: background 0.3s ease; }
   height: 108px;
   border-radius: 28px;
   background: #fff;
+  border: 1px solid color-mix(in srgb, var(--acc) 20%, #edf1f0);
+  box-shadow: 0 18px 40px -16px color-mix(in srgb, var(--acc) 60%, transparent);
 }
 .cgfoot {
   position: relative;
@@ -5579,7 +5588,7 @@ body { transition: background 0.3s ease; }
   font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.9);
+  color: #7a8b92;
 }
 .cgarr2 {
   display: flex;
@@ -5589,13 +5598,13 @@ body { transition: background 0.3s ease; }
   height: 38px;
   border-radius: 50%;
   color: #fff;
-  background: rgba(255, 255, 255, 0.18);
-  border: 1px solid rgba(255, 255, 255, 0.32);
-  transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
+  background: var(--acc);
+  border: none;
+  box-shadow: 0 10px 22px -8px color-mix(in srgb, var(--acc) 70%, transparent);
+  transition: filter 0.25s ease, transform 0.25s ease;
 }
 .cgcard:hover .cgarr2 {
-  background: #fff;
-  color: #16232c;
+  filter: brightness(1.08);
   transform: translateX(3px);
 }
 .cgnav {

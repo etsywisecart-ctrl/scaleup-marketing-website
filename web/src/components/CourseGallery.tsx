@@ -22,15 +22,15 @@ type Card = {
   sub: string;
   dur: string;
   level: string;
-  bg: string;
-  glow: string;
+  acc: string; // vibrant brand accent (glow, arrow, badge)
+  ink: string; // darker brand shade (readable accent text)
 };
 
-const THEME: Record<string, { bg: string; glow: string }> = {
-  "shopify-mastery": { bg: "linear-gradient(155deg,#7fae43,#48761f)", glow: "rgba(149,191,71,.6)" },
-  "tiktok-shop": { bg: "linear-gradient(155deg,#2b2b3c,#0a0a12)", glow: "rgba(37,244,238,.4)" },
-  daraz: { bg: "linear-gradient(155deg,#fb6a2a,#dd430a)", glow: "rgba(248,86,6,.55)" },
-  "ai-marketing": { bg: "linear-gradient(155deg,#8b6df5,#5330c0)", glow: "rgba(124,92,252,.55)" },
+const THEME: Record<string, { acc: string; ink: string }> = {
+  "shopify-mastery": { acc: "#8CC63F", ink: "#4E7A29" },
+  "tiktok-shop": { acc: "#FE2C55", ink: "#D31742" },
+  daraz: { acc: "#F85606", ink: "#C64304" },
+  "ai-marketing": { acc: "#7C5CFC", ink: "#5B3FD0" },
 };
 
 // Expand the combined eBay/Etsy track into two distinct cards that both
@@ -48,8 +48,8 @@ function buildCards(courses: Course[]): Card[] {
         sub: "Cross-border stores that get paid from anywhere.",
         dur: c.dur,
         level: c.level,
-        bg: "linear-gradient(155deg,#2f7de0,#0f52ad)",
-        glow: "rgba(0,100,210,.55)",
+        acc: "#0064D2",
+        ink: "#0454B0",
       });
       cards.push({
         key: "etsy",
@@ -60,8 +60,8 @@ function buildCards(courses: Course[]): Card[] {
         sub: "Turn handmade & craft products into worldwide orders.",
         dur: c.dur,
         level: c.level,
-        bg: "linear-gradient(155deg,#f2617a,#cf3459)",
-        glow: "rgba(226,73,128,.5)",
+        acc: "#F1641E",
+        ink: "#C94E13",
       });
       continue;
     }
@@ -76,8 +76,8 @@ function buildCards(courses: Course[]): Card[] {
       sub: c.sub,
       dur: c.dur,
       level: c.level,
-      bg: t.bg,
-      glow: t.glow,
+      acc: t.acc,
+      ink: t.ink,
     });
   }
   return cards;
@@ -124,7 +124,7 @@ export default function CourseGallery({ courses }: { courses: Course[] }) {
             key={c.key}
             href={c.href}
             className="cgcard"
-            style={{ background: c.bg }}
+            style={{ "--acc": c.acc, "--ai": c.ink } as React.CSSProperties}
             aria-label={`${c.title} — view full curriculum`}
           >
             <div className="cgtop">
@@ -137,7 +137,8 @@ export default function CourseGallery({ courses }: { courses: Course[] }) {
             </div>
 
             <div className="cghero" aria-hidden="true">
-              <span className="cgtile" style={{ boxShadow: `0 22px 46px -18px ${c.glow}, inset 0 1px 0 rgba(255,255,255,.7)` }}>
+              <span className="cghalo" />
+              <span className="cgtile">
                 <PlatformMark slug={c.mark} size={54} />
               </span>
             </div>
