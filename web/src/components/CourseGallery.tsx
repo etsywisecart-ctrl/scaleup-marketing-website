@@ -15,7 +15,7 @@ type Course = (typeof CoursesType)[number];
 const THEME: Record<string, { bg: string; glow: string }> = {
   "shopify-mastery": { bg: "linear-gradient(155deg,#7fae43,#48761f)", glow: "rgba(149,191,71,.6)" },
   "tiktok-shop": { bg: "linear-gradient(155deg,#2b2b3c,#0a0a12)", glow: "rgba(37,244,238,.4)" },
-  "ebay-etsy": { bg: "linear-gradient(155deg,#f0791f,#d1400d)", glow: "rgba(240,120,30,.55)" },
+  "ebay-etsy": { bg: "linear-gradient(155deg,#2f7de0,#0f52ad)", glow: "rgba(0,100,210,.55)" },
   daraz: { bg: "linear-gradient(155deg,#fb6a2a,#dd430a)", glow: "rgba(248,86,6,.55)" },
   "ai-marketing": { bg: "linear-gradient(155deg,#8b6df5,#5330c0)", glow: "rgba(124,92,252,.55)" },
 };
