@@ -238,9 +238,17 @@ const LOGOS: { name: string; node: React.ReactNode }[] = [
   },
 ];
 
+function LogoCard({ node, name, hidden }: { node: React.ReactNode; name: string; hidden?: boolean }) {
+  return (
+    <div className="lqcard" title={name} aria-hidden={hidden || undefined}>
+      <span className="lqlogo">{node}</span>
+    </div>
+  );
+}
+
 export default function ClientLogos() {
   return (
-    <section className="sec" id="clients" style={{ paddingBottom: 96 }}>
+    <section className="sec lqsec" id="clients">
       <div className="wrap">
         <div className="rv" style={{ maxWidth: 640 }}>
           <p className="eyebrow">Trusted by</p>
@@ -248,14 +256,27 @@ export default function ClientLogos() {
             Brands and founders <span className="grad">we&rsquo;ve shipped for.</span>
           </h2>
         </div>
-        <div className="lwall rv">
-          {LOGOS.map((l) => (
-            <div key={l.name} className="lcell" title={l.name}>
-              {l.node}
-            </div>
-          ))}
+      </div>
+
+      {/* seamless auto-scrolling marquee — two identical groups, track shifts
+          exactly one group width so the loop never jumps */}
+      <div className="lqwrap rv">
+        <div className="lqtrack">
+          <div className="lqgroup">
+            {LOGOS.map((l) => (
+              <LogoCard key={`a-${l.name}`} node={l.node} name={l.name} />
+            ))}
+          </div>
+          <div className="lqgroup">
+            {LOGOS.map((l) => (
+              <LogoCard key={`b-${l.name}`} node={l.node} name={l.name} hidden />
+            ))}
+          </div>
         </div>
-        <p className="softline rv" style={{ marginTop: 18, textAlign: "center" }}>
+      </div>
+
+      <div className="wrap">
+        <p className="softline rv" style={{ marginTop: 6, textAlign: "center" }}>
           A selection of client engagements across retail, tools, health, and property.
         </p>
       </div>

@@ -519,60 +519,90 @@ a:hover {
 .softband {
   background: #f7fafa;
 }
-.lwall {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 1px;
-  margin-top: 48px;
-  background: #eef4f3;
-  border: 1px solid #e7f0ee;
-  border-radius: 20px;
-  overflow: hidden;
+/* ===== premium client logo marquee ===== */
+.lqsec {
+  padding-bottom: 104px;
 }
-.lcell {
+.lqwrap {
+  position: relative;
+  margin-top: 52px;
+  overflow: hidden;
+  /* soft entrance/exit fades to the page background */
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+}
+.lqtrack {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: lqscroll 46s linear infinite;
+}
+.lqwrap:hover .lqtrack {
+  animation-play-state: paused;
+}
+.nomotion .lqtrack {
+  animation: none;
+}
+@keyframes lqscroll {
+  to {
+    /* shift exactly one group so the second (identical) group lines up */
+    transform: translateX(-50%);
+  }
+}
+.lqgroup {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  padding-right: 26px;
+}
+.lqcard {
+  flex: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 9px;
-  padding: 30px 14px;
+  width: 214px;
+  height: 116px;
+  padding: 0 22px;
+  border-radius: 18px;
   background: #fff;
-  color: #5b6b72;
-  transition: background 0.2s;
+  border: 1px solid #edf2f1;
+  box-shadow: 0 10px 26px -16px rgba(14, 42, 56, 0.28);
+  transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
 }
-.lcell:hover {
-  background: #f7fafa;
+.lqcard:hover {
+  transform: translateY(-4px) scale(1.045);
+  border-color: #dcebe7;
+  box-shadow: 0 22px 44px -20px rgba(14, 42, 56, 0.32);
 }
-.lcell svg {
+.lqlogo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: saturate(0.96);
+  transition: filter 0.28s ease, transform 0.28s ease;
+}
+.lqcard:hover .lqlogo {
+  filter: saturate(1.05) brightness(1.06);
+}
+/* logos enlarged ~22% (30 -> 37) while preserving aspect ratio */
+.lqlogo svg {
+  height: 37px;
   width: auto;
-  max-width: 100%;
-  opacity: 0.92;
-  transition: transform 0.22s, opacity 0.22s;
+  display: block;
 }
-.lcell:hover svg {
-  opacity: 1;
-  transform: scale(1.07);
-}
-.lname {
-  font-size: 16px;
-  font-weight: 900;
-  letter-spacing: -0.02em;
-  white-space: nowrap;
-}
-@media (max-width: 1020px) {
-  .lwall {
-    grid-template-columns: repeat(3, 1fr);
+@media (max-width: 720px) {
+  .lqcard {
+    width: 168px;
+    height: 100px;
+    padding: 0 16px;
+    border-radius: 16px;
   }
-}
-@media (max-width: 640px) {
-  .lwall {
-    grid-template-columns: repeat(2, 1fr);
+  .lqlogo svg {
+    height: 31px;
   }
-  .lcell {
-    padding: 26px 10px;
-    gap: 7px;
-  }
-  .lname {
-    font-size: 14.5px;
+  .lqgroup {
+    gap: 18px;
+    padding-right: 18px;
   }
 }
 .split {
@@ -5181,7 +5211,9 @@ body { transition: background 0.3s ease; }
 [data-theme="dark"] .msd { color: #9fb3bb; }
 
 /* logo wall — keep tiles light so brand logos stay legible */
-[data-theme="dark"] .lwall { background: #22333c; border-color: #22414f; }
+/* logo cards stay light in dark mode so brand marks read cleanly */
+[data-theme="dark"] .lqcard { background: #f4f8f7; border-color: #e2ecea; box-shadow: 0 12px 30px -16px rgba(0,0,0,.5); }
+[data-theme="dark"] .lqcard:hover { border-color: #cfe0dc; }
 
 /* footer */
 [data-theme="dark"] .foot { background: #081720; border-top-color: #183341; }
