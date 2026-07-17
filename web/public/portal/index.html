@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scale Up Marketing — Project, Quotation &amp; Invoice System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/portal/styles.css">
+</head>
+<body>
+
+<div class="app-header no-print">
+  <div class="brand">
+    <img src="/portal/assets/logo-white.png" alt="Scale Up Marketing">
+    <div class="app-name">Project Invoice System<small>Projects · Quotations · Invoices</small></div>
+  </div>
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="dashboard">Dashboard</button>
+    <button class="tab-btn" data-tab="projects">Projects</button>
+    <button class="tab-btn owner-only" data-tab="form">+ New</button>
+    <button class="tab-btn" data-tab="list">Documents</button>
+    <button class="tab-btn owner-only" data-tab="users">Users</button>
+    <div class="user-chip" id="userChip" title="Signed in">
+      <span class="uc-name" id="ucName">—</span>
+      <span class="role-badge" id="ucRole">viewer</span>
+    </div>
+    <button class="tab-btn" id="logoutBtn" title="Log out" style="margin-left:2px;">Log Out</button>
+  </div>
+</div>
+<div class="gradient-bar no-print"></div>
+
+<main>
+
+  <!-- ========== DASHBOARD ========== -->
+  <section class="view active" id="view-dashboard">
+    <div class="list-toolbar"><h1>Dashboard</h1></div>
+    <div class="dash-grid" id="dashCards"></div>
+    <div class="dash-cols">
+      <div class="card dash-card">
+        <div class="dash-card-h">Outstanding by currency</div>
+        <div id="dashOutstanding" class="money-rows"></div>
+      </div>
+      <div class="card dash-card">
+        <div class="dash-card-h">Recent documents</div>
+        <div id="dashRecent" class="mini-list"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PROJECTS ========== -->
+  <section class="view" id="view-projects">
+    <div class="list-toolbar">
+      <h1>Projects</h1>
+      <div style="display:flex; gap:10px; align-items:center;">
+        <div class="search-box"><span>🔍</span><input type="text" id="projSearch" placeholder="Search projects…"></div>
+        <button class="btn btn-primary owner-only" id="newProjectBtn">+ New Project</button>
+      </div>
+    </div>
+    <div class="project-grid" id="projectGrid"></div>
+    <div class="empty-state" id="projEmpty" style="display:none;">
+      <div class="big">No projects yet</div>
+      <div class="owner-only">Create your first project to group its quotations &amp; invoices.</div>
+      <div class="viewer-only">Projects created by the owner will appear here.</div>
+    </div>
+  </section>
+
+  <!-- ========== NEW / EDIT FORM ========== -->
+  <section class="view" id="view-form">
+    <div class="form-toolbar">
+      <h1 id="formTitle">New Document</h1>
+      <div class="doc-type-switch" id="docTypeSwitch">
+        <button data-type="Quotation" class="active">Quotation</button>
+        <button data-type="Invoice">Invoice</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="form-grid">
+        <div class="field">
+          <label for="refNo">Reference No.</label>
+          <input type="text" id="refNo">
+          <span class="hint">Auto-generated — you can edit it</span>
+        </div>
+        <div class="field">
+          <label for="docDate">Date</label>
+          <input type="date" id="docDate">
+        </div>
+        <div class="field">
+          <label for="currencySelect">Currency</label>
+          <select id="currencySelect">
+            <option value="PKR">PKR — Pakistani Rupee</option>
+            <option value="USD">USD — US Dollar</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="projectSelect">Project</label>
+          <select id="projectSelect"><option value="">— No project —</option></select>
+          <span class="hint">Link this document to a project</span>
+        </div>
+
+        <div class="field span-2">
+          <label for="clientName">Client / Company Name</label>
+          <input type="text" id="clientName" placeholder="e.g. Bright Horizons Pvt Ltd">
+        </div>
+        <div class="field span-2">
+          <label for="clientAddress">Client Address / Contact Lines</label>
+          <textarea id="clientAddress" placeholder="Address, city&#10;Attn: contact person&#10;Phone / email"></textarea>
+        </div>
+        <div class="field span-2">
+          <label for="subject">Subject</label>
+          <input type="text" id="subject" placeholder="e.g. Social Media Management — Q3 2026">
+        </div>
+        <div class="field span-2">
+          <label for="greeting">Opening Line</label>
+          <input type="text" id="greeting" placeholder="e.g. Dear Mr. Ahmed,">
+        </div>
+        <div class="field span-2">
+          <label for="bodyText">Intro / Cover Note (optional)</label>
+          <textarea id="bodyText" placeholder="Thank you for the opportunity to work with you…"></textarea>
+        </div>
+
+        <div class="section-label">Line Items</div>
+        <div class="items-wrap">
+          <table class="items" id="itemsTable">
+            <thead>
+              <tr>
+                <th style="width:40px;">#</th>
+                <th>Description</th>
+                <th style="width:80px;">Qty</th>
+                <th style="width:110px;">Unit Price</th>
+                <th style="width:120px;">Amount</th>
+                <th style="width:36px;"></th>
+              </tr>
+            </thead>
+            <tbody id="itemsBody"></tbody>
+          </table>
+          <button type="button" class="add-row-btn" id="addRowBtn">+ Add line item</button>
+        </div>
+
+        <div class="totals-box">
+          <div class="totals-table">
+            <div class="trow"><span>Subtotal</span><span id="subtotalVal">PKR 0</span></div>
+            <div class="trow"><span>Discount</span><span><input type="number" id="discountInput" value="0" min="0"> <select id="discountType" style="border:1px solid var(--line); border-radius:6px; padding:5px; font-size:12px;"><option value="pct">%</option><option value="flat">flat</option></select></span></div>
+            <div class="trow"><span>Tax</span><span><input type="number" id="taxInput" value="0" min="0">%</span></div>
+            <div class="trow grand"><span>Total</span><span id="totalVal">PKR 0</span></div>
+            <div class="trow invoice-only" id="paidRow"><span>Amount Paid</span><span><input type="number" id="amountPaidInput" value="0" min="0"></span></div>
+          </div>
+        </div>
+
+        <div class="field span-2">
+          <label for="notes">Notes / Terms (optional)</label>
+          <textarea id="notes" placeholder="e.g. This quotation is valid for 15 days. 50% advance required to begin work."></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button class="btn btn-ghost" id="clearFormBtn">Clear</button>
+          <button class="btn" id="previewBtn">Preview</button>
+          <button class="btn btn-primary" id="saveBtn">Save Document</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== DOCUMENTS LIST ========== -->
+  <section class="view" id="view-list">
+    <div class="list-toolbar">
+      <h1>Documents</h1>
+      <div class="search-box"><span>🔍</span><input type="text" id="searchInput" placeholder="Search by client, ref no, or subject…"></div>
+    </div>
+    <div class="filter-row">
+      <button class="filter-chip active" data-filter="">All</button>
+      <button class="filter-chip" data-filter="Quotation">Quotations</button>
+      <button class="filter-chip" data-filter="Invoice">Invoices</button>
+    </div>
+    <div class="card" style="overflow:hidden;">
+      <table class="doc-list">
+        <thead>
+          <tr>
+            <th>Ref No.</th><th>Type</th><th>Client</th><th>Project</th><th>Date</th>
+            <th style="text-align:right;">Total</th><th style="text-align:center;">Payment</th>
+            <th style="text-align:center;">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="docListBody"></tbody>
+      </table>
+      <div class="empty-state" id="emptyState" style="display:none;">
+        <div class="big">No documents yet</div>
+        <div class="owner-only">Create your first quotation or invoice from the “+ New” tab.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== USERS (owner only) ========== -->
+  <section class="view" id="view-users">
+    <div class="list-toolbar">
+      <h1>Users &amp; Access</h1>
+      <button class="btn btn-primary" id="newUserBtn">+ Add User</button>
+    </div>
+    <p class="muted-note">Owners have full control. Viewers can see everything but cannot create, edit, or delete.</p>
+    <div class="card" style="overflow:hidden;">
+      <table class="doc-list">
+        <thead><tr><th>Username</th><th>Name</th><th>Role</th><th>Added</th><th style="text-align:center;">Actions</th></tr></thead>
+        <tbody id="userListBody"></tbody>
+      </table>
+    </div>
+  </section>
+
+</main>
+
+<footer class="credit no-print">Scale Up Marketing · Al Latif Center, Gulberg III, Lahore · Data stored locally in <code>data/</code>.</footer>
+
+<!-- ========== PREVIEW OVERLAY ========== -->
+<div class="preview-overlay no-print" id="previewOverlay">
+  <div class="preview-shell">
+    <div class="preview-toolbar">
+      <div class="title" id="previewTitleTxt">Preview</div>
+      <div class="actions">
+        <button class="btn btn-accent" id="downloadPdfBtn">⬇ Download PDF</button>
+        <button class="btn" id="closePreviewBtn" style="background:transparent; color:#fff; border-color:rgba(255,255,255,0.3);">Close</button>
+      </div>
+    </div>
+    <div id="docSheet">
+      <div class="doc-head">
+        <img src="/portal/assets/logo.png" alt="Scale Up Marketing">
+        <div class="contact">+92 328 0814301<br>hello@wescaleupmarketing.com<br>www.wescaleupmarketing.com</div>
+      </div>
+      <div class="doc-bar"></div>
+      <div class="doc-meta"><div><b>REF</b> <span id="pv-ref"></span></div><div><b>DATE</b> <span id="pv-date"></span></div></div>
+      <div class="doc-to"><div class="lbl">To,</div><div id="pv-clientname"></div><div id="pv-clientaddress" style="white-space:pre-wrap;"></div></div>
+      <div class="doc-subject"><span>Subject</span><span class="val" id="pv-subject"></span></div>
+      <div class="doc-greeting" id="pv-greeting"></div>
+      <div class="doc-body-text" id="pv-bodytext"></div>
+      <table class="doc-items">
+        <thead><tr><th style="width:34px;">#</th><th>Description</th><th class="num" style="width:60px;">Qty</th><th class="num" style="width:100px;">Unit Price</th><th class="num" style="width:110px;">Amount</th></tr></thead>
+        <tbody id="pv-items"></tbody>
+      </table>
+      <div class="doc-totals"><div class="doc-totals-inner">
+        <div class="trow"><span>Subtotal</span><span id="pv-subtotal"></span></div>
+        <div class="trow" id="pv-discount-row"><span>Discount</span><span id="pv-discount"></span></div>
+        <div class="trow" id="pv-tax-row"><span>Tax</span><span id="pv-tax"></span></div>
+        <div class="trow grand"><span id="pv-totallabel">Total</span><span id="pv-total"></span></div>
+      </div></div>
+      <div class="doc-notes" id="pv-notes-wrap" style="display:none;"><b style="color:#1c2f2f;">Notes:</b><br><span id="pv-notes"></span></div>
+      <div class="doc-sign">Warm regards,<br><span class="company">Scale Up Marketing</span></div>
+      <div class="doc-footer"><div>+92 328 0814301 &nbsp;|&nbsp; hello@wescaleupmarketing.com &nbsp;|&nbsp; Al Latif Center, Gulberg III, Lahore</div><div class="tagline">LEARN. LAUNCH. SCALE</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== PROJECT DETAIL OVERLAY ========== -->
+<div class="modal-overlay no-print" id="projectDetailOverlay">
+  <div class="modal-shell wide">
+    <div class="modal-head">
+      <div><div class="modal-title" id="pd-name">Project</div><div class="modal-sub" id="pd-client"></div></div>
+      <button class="modal-close" id="pdClose">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="pd-stats" id="pd-stats"></div>
+      <div class="pd-bar-wrap"><div class="pd-bar"><div class="pd-bar-fill" id="pd-bar-fill"></div></div><div class="pd-bar-legend" id="pd-bar-legend"></div></div>
+      <div class="section-label" style="margin-top:6px;">Documents in this project</div>
+      <table class="doc-list compact"><thead><tr><th>Ref</th><th>Type</th><th>Date</th><th style="text-align:right;">Total</th><th style="text-align:center;">Payment</th><th style="text-align:center;"></th></tr></thead><tbody id="pd-docs"></tbody></table>
+      <div class="pd-empty" id="pd-empty" style="display:none;">No documents linked yet.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== PROJECT EDIT MODAL ========== -->
+<div class="modal-overlay no-print" id="projectFormOverlay">
+  <div class="modal-shell">
+    <div class="modal-head"><div class="modal-title" id="pf-title">New Project</div><button class="modal-close" id="pfClose">✕</button></div>
+    <div class="modal-body">
+      <div class="field"><label>Project Name</label><input type="text" id="pf-name" placeholder="e.g. Bright Horizons Website"></div>
+      <div class="field"><label>Client</label><input type="text" id="pf-client" placeholder="Client / company"></div>
+      <div class="mini-grid">
+        <div class="field"><label>Currency</label><select id="pf-currency"><option value="PKR">PKR</option><option value="USD">USD</option></select></div>
+        <div class="field"><label>Budget / Value</label><input type="number" id="pf-value" value="0" min="0"></div>
+        <div class="field"><label>Status</label><select id="pf-status"><option>Active</option><option>On Hold</option><option>Completed</option><option>Cancelled</option></select></div>
+      </div>
+      <div class="field"><label>Notes</label><textarea id="pf-notes" placeholder="Optional notes"></textarea></div>
+      <div class="modal-actions"><button class="btn btn-ghost" id="pfCancel">Cancel</button><button class="btn btn-primary" id="pfSave">Save Project</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== USER EDIT MODAL ========== -->
+<div class="modal-overlay no-print" id="userFormOverlay">
+  <div class="modal-shell">
+    <div class="modal-head"><div class="modal-title" id="uf-title">Add User</div><button class="modal-close" id="ufClose">✕</button></div>
+    <div class="modal-body">
+      <div class="field"><label>Username</label><input type="text" id="uf-username" autocomplete="off"></div>
+      <div class="field"><label>Full Name</label><input type="text" id="uf-name" autocomplete="off"></div>
+      <div class="mini-grid">
+        <div class="field"><label>Role</label><select id="uf-role"><option value="viewer">Viewer (read-only)</option><option value="owner">Owner (full control)</option></select></div>
+        <div class="field"><label id="uf-pwlabel">Password</label><input type="text" id="uf-password" autocomplete="new-password" placeholder="At least 4 characters"></div>
+      </div>
+      <div class="modal-actions"><button class="btn btn-ghost" id="ufCancel">Cancel</button><button class="btn btn-primary" id="ufSave">Save User</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== CONFIRM DIALOG ========== -->
+<div class="confirm-overlay no-print" id="confirmOverlay">
+  <div class="confirm-box"><p id="confirmText">Are you sure?</p><div class="row"><button class="btn btn-ghost" id="confirmCancel">Cancel</button><button class="btn btn-danger" id="confirmOk" style="border-color:var(--danger);">Delete</button></div></div>
+</div>
+
+<div class="toast no-print" id="toast"></div>
+
+<script src="/portal/app.js"></script>
+</body>
+</html>

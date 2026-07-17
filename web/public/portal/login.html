@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign in — Scale Up</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --teal-900:#08424b;
+    --teal-800:#0b4f57;
+    --green-500:#2fb08f;
+    --green-400:#4fc4a3;
+    --gradient: linear-gradient(90deg, var(--teal-800) 0%, var(--green-500) 100%);
+    --ink:#122b2b;
+    --ink-soft:#5c706e;
+    --line:#dfe8e6;
+    --danger:#c04747;
+    --font-display:'Poppins', 'Segoe UI', sans-serif;
+    --font-body:'Inter', 'Segoe UI', sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;height:100%;}
+  body{
+    font-family:var(--font-body);
+    background:
+      radial-gradient(circle at 15% 15%, rgba(47,176,143,0.12), transparent 45%),
+      radial-gradient(circle at 85% 85%, rgba(11,79,87,0.10), transparent 45%),
+      #f2f6f5;
+    color:var(--ink);
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+  }
+  .card{
+    width:380px;
+    max-width:100%;
+    background:#fff;
+    border-radius:14px;
+    border:1px solid var(--line);
+    box-shadow:0 20px 60px rgba(8,66,75,0.12);
+    overflow:hidden;
+  }
+  .card-top{
+    padding:30px 30px 20px;
+    text-align:center;
+  }
+  .card-top img{height:40px; margin-bottom:14px;}
+  .card-top h1{
+    font-family:var(--font-display);
+    font-size:17px;
+    color:var(--teal-900);
+    margin:0 0 4px;
+  }
+  .card-top p{
+    font-size:12.5px;
+    color:var(--ink-soft);
+    margin:0;
+  }
+  .gradient-bar{height:4px; background:var(--gradient);}
+  form{padding:22px 30px 30px; display:flex; flex-direction:column; gap:14px;}
+  .field{display:flex; flex-direction:column; gap:6px;}
+  .field label{
+    font-size:11.5px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.5px;
+    color:var(--teal-800);
+  }
+  .field input{
+    font-family:var(--font-body);
+    font-size:14px;
+    padding:11px 12px;
+    border:1px solid var(--line);
+    border-radius:8px;
+    outline:none;
+    transition:border-color .12s ease, box-shadow .12s ease;
+  }
+  .field input:focus{
+    border-color:var(--green-500);
+    box-shadow:0 0 0 3px rgba(47,176,143,0.15);
+  }
+  button{
+    appearance:none;
+    border:0;
+    background:var(--teal-800);
+    color:#fff;
+    font-family:var(--font-body);
+    font-weight:700;
+    font-size:14px;
+    padding:12px;
+    border-radius:8px;
+    cursor:pointer;
+    margin-top:4px;
+    transition:background .12s ease, transform .08s ease;
+  }
+  button:hover{background:var(--teal-900);}
+  button:active{transform:scale(0.98);}
+  .error{
+    display:none;
+    font-size:13px;
+    color:var(--danger);
+    background:#fdeaea;
+    border:1px solid #f6c9c9;
+    padding:9px 12px;
+    border-radius:7px;
+  }
+  .error.show{display:block;}
+  .hint{
+    text-align:center;
+    font-size:11.5px;
+    color:var(--ink-soft);
+    padding:0 30px 22px;
+    margin-top:-6px;
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="gradient-bar"></div>
+    <div class="card-top">
+      <img src="/portal/assets/logo.png" alt="Scale Up Marketing">
+      <h1>Quotation &amp; Invoice System</h1>
+      <p>Authorized access only</p>
+    </div>
+    <form id="loginForm">
+      <div class="error" id="errorBox"></div>
+      <div class="field">
+        <label for="username">Username</label>
+        <input type="text" id="username" autocomplete="username" autofocus required>
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input type="password" id="password" autocomplete="current-password" required>
+      </div>
+      <button type="submit" id="loginBtn">Log In</button>
+    </form>
+    <div class="hint">Enter your Scale Up portal credentials. Access is restricted to authorized accounts.</div>
+  </div>
+
+<script>
+document.getElementById('loginForm').addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  const btn = document.getElementById('loginBtn');
+  const errorBox = document.getElementById('errorBox');
+  errorBox.classList.remove('show');
+  btn.textContent = 'Logging in…';
+  btn.disabled = true;
+  try{
+    const res = await fetch('/api/portal/login', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        username: document.getElementById('username').value,
+        password: document.getElementById('password').value
+      })
+    });
+    if(res.ok){
+      window.location.href = '/portal/';
+    } else {
+      const data = await res.json().catch(()=>({}));
+      errorBox.textContent = data.error || 'Could not log in.';
+      errorBox.classList.add('show');
+    }
+  } catch(err){
+    errorBox.textContent = 'Could not reach the server. Is it still running?';
+    errorBox.classList.add('show');
+  } finally {
+    btn.textContent = 'Log In';
+    btn.disabled = false;
+  }
+});
+</script>
+</body>
+</html>
