@@ -26,9 +26,11 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
     return NextResponse.json({ error: 'clientName is required' }, { status: 400 });
   const totals = computeTotals(body);
   const type = body.type === 'Invoice' ? 'Invoice' : 'Quotation';
+  const projectId = body.projectId != null ? body.projectId : (existing.projectId || '');
+  const ownerId = await store.resolveOwnerId(body.ownerId, projectId);
   const doc = {
     ...existing, type, ref: body.ref || existing.ref, date: body.date || existing.date,
-    projectId: body.projectId != null ? body.projectId : (existing.projectId || ''),
+    projectId, ownerId,
     clientName: String(body.clientName).trim(), clientAddress: body.clientAddress || '',
     subject: body.subject || '', greeting: body.greeting || '', bodyText: body.bodyText || '', notes: body.notes || '',
     ...totals, ...paymentFields(body, type, totals.total),

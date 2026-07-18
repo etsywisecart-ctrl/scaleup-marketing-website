@@ -32,10 +32,11 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'clientName is required' }, { status: 400 });
   const totals = computeTotals(body);
   const type = body.type === 'Invoice' ? 'Invoice' : 'Quotation';
+  const ownerId = await store.resolveOwnerId(body.ownerId, body.projectId);
   const doc = {
     id: 'd' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8),
     type, ref: body.ref || '', date: body.date || new Date().toISOString().slice(0, 10),
-    projectId: body.projectId || '',
+    projectId: body.projectId || '', ownerId,
     clientName: String(body.clientName).trim(), clientAddress: body.clientAddress || '',
     subject: body.subject || '', greeting: body.greeting || '', bodyText: body.bodyText || '', notes: body.notes || '',
     ...totals, ...paymentFields(body, type, totals.total),

@@ -13,13 +13,45 @@ const USE_PG = !!process.env.POSTGRES_URL;
 export type Role = 'owner' | 'viewer';
 export type User = { id: string; username: string; name: string; role: Role; password: string; createdAt: string };
 export type PublicUser = Omit<User, 'password'>;
+
+/* A business unit an invoice/project belongs to (an Academy track, a service
+   line, or "Other"). Fully data-driven — admins add/edit/remove/toggle owners
+   from the UI, no code change needed to introduce new tracks or services. */
+export type OwnerCategory = 'Academy' | 'Services' | 'Other';
+export type BusinessOwner = {
+  id: string; name: string; category: OwnerCategory; color: string;
+  active: boolean; createdAt: string; updatedAt?: string;
+};
+export const OWNER_CATEGORIES: OwnerCategory[] = ['Academy', 'Services', 'Other'];
+
 export type Project = {
-  id: string; name: string; client: string; currency: 'PKR' | 'USD';
-  value: number; status: string; notes: string; createdAt: string; updatedAt?: string;
+  id: string; ownerId: string; name: string; code: string; client: string;
+  description: string; currency: 'PKR' | 'USD'; budget: number; value: number;
+  status: string; startDate: string; endDate: string; archived: boolean;
+  notes: string; createdAt: string; updatedAt?: string;
 };
 export type Doc = Record<string, unknown> & { id: string; savedAt: string };
 
 export const PROJECT_STATUSES = ['Active', 'On Hold', 'Completed', 'Cancelled'];
+
+/* Seeded once on first run. Colours give each unit a distinct badge. */
+const DEFAULT_OWNERS: Array<{ name: string; category: OwnerCategory; color: string }> = [
+  { name: 'Track 1', category: 'Academy', color: '#0ea5e9' },
+  { name: 'Track 2', category: 'Academy', color: '#6366f1' },
+  { name: 'Track 3', category: 'Academy', color: '#8b5cf6' },
+  { name: 'Track 4', category: 'Academy', color: '#ec4899' },
+  { name: 'Track 5', category: 'Academy', color: '#14b8a6' },
+  { name: 'Web Development', category: 'Services', color: '#2563eb' },
+  { name: 'Mobile App Development', category: 'Services', color: '#7c3aed' },
+  { name: 'UI/UX Design', category: 'Services', color: '#db2777' },
+  { name: 'Digital Marketing', category: 'Services', color: '#ea580c' },
+  { name: 'SEO', category: 'Services', color: '#16a34a' },
+  { name: 'Branding', category: 'Services', color: '#d97706' },
+  { name: 'AI Automation', category: 'Services', color: '#0891b2' },
+  { name: 'SaaS Development', category: 'Services', color: '#4f46e5' },
+  { name: 'Consulting', category: 'Services', color: '#0d9488' },
+  { name: 'Other Projects', category: 'Other', color: '#64748b' },
+];
 
 /* ---------------- password hashing (scrypt) ---------------- */
 export function hashPassword(password: string, salt?: string) {
@@ -68,6 +100,7 @@ async function pg() {
     await sql`CREATE TABLE IF NOT EXISTS portal_users (
       id text PRIMARY KEY, username text UNIQUE NOT NULL, name text, role text NOT NULL,
       password text NOT NULL, created_at timestamptz NOT NULL DEFAULT now())`;
+    await sql`CREATE TABLE IF NOT EXISTS portal_owners (id text PRIMARY KEY, data jsonb NOT NULL)`;
     await sql`CREATE TABLE IF NOT EXISTS portal_projects (id text PRIMARY KEY, data jsonb NOT NULL)`;
     await sql`CREATE TABLE IF NOT EXISTS portal_documents (id text PRIMARY KEY, data jsonb NOT NULL)`;
     await sql`CREATE TABLE IF NOT EXISTS portal_sequences (key text PRIMARY KEY, n int NOT NULL)`;
@@ -78,6 +111,10 @@ async function pg() {
 
 /* ================= SEED ================= */
 export async function ensureSeed() {
+  await seedOwnerUser();
+  await seedBusinessOwners();
+}
+async function seedOwnerUser() {
   const list = await listUsersRaw();
   if (list.length > 0) return;
   const username = process.env.PORTAL_OWNER_USERNAME || 'owner';
@@ -92,6 +129,25 @@ export async function ensureSeed() {
               VALUES (${owner.id}, ${owner.username}, ${owner.name}, ${owner.role}, ${owner.password}, ${owner.createdAt})`;
   } else {
     fwrite('users', [owner]);
+  }
+}
+async function seedBusinessOwners() {
+  const existing = await listOwnersRaw();
+  if (existing.length > 0) return;
+  const now = Date.now();
+  const owners: BusinessOwner[] = DEFAULT_OWNERS.map((o, i) => ({
+    id: 'o' + (now + i).toString(36),
+    name: o.name, category: o.category, color: o.color,
+    active: true, createdAt: new Date().toISOString(),
+  }));
+  if (USE_PG) {
+    const sql = await pg();
+    for (const o of owners) {
+      await sql`INSERT INTO portal_owners (id, data) VALUES (${o.id}, ${JSON.stringify(o)}::jsonb)
+                ON CONFLICT (id) DO NOTHING`;
+    }
+  } else {
+    fwrite('owners', owners);
   }
 }
 
@@ -171,25 +227,122 @@ export async function deleteUser(id: string) {
   else fwrite('users', users.filter((u) => u.id !== id));
 }
 
+/* ================= BUSINESS OWNERS ================= */
+async function listOwnersRaw(): Promise<BusinessOwner[]> {
+  if (USE_PG) {
+    const sql = await pg();
+    const { rows } = await sql`SELECT data FROM portal_owners`;
+    return rows.map((r) => r.data as BusinessOwner);
+  }
+  return fread<BusinessOwner[]>('owners', []);
+}
+function sortOwners(list: BusinessOwner[]): BusinessOwner[] {
+  const order: Record<string, number> = { Academy: 0, Services: 1, Other: 2 };
+  return list.slice().sort((a, b) =>
+    (order[a.category] ?? 9) - (order[b.category] ?? 9) || a.name.localeCompare(b.name));
+}
+export async function listOwners(): Promise<BusinessOwner[]> {
+  return sortOwners(await listOwnersRaw());
+}
+export async function getOwner(id: string): Promise<BusinessOwner | null> {
+  return (await listOwnersRaw()).find((o) => o.id === id) || null;
+}
+async function saveOwner(o: BusinessOwner) {
+  if (USE_PG) {
+    const sql = await pg();
+    await sql`INSERT INTO portal_owners (id, data) VALUES (${o.id}, ${JSON.stringify(o)}::jsonb)
+              ON CONFLICT (id) DO UPDATE SET data = EXCLUDED.data`;
+  } else {
+    const list = await listOwnersRaw();
+    const i = list.findIndex((x) => x.id === o.id);
+    if (i >= 0) list[i] = o; else list.push(o);
+    fwrite('owners', list);
+  }
+}
+function normalizeOwnerInput(body: Record<string, unknown>): { name: string; category: OwnerCategory; color: string; active: boolean } {
+  const name = String(body.name || '').trim();
+  const category = (OWNER_CATEGORIES.includes(body.category as OwnerCategory) ? body.category : 'Other') as OwnerCategory;
+  const color = /^#[0-9a-fA-F]{6}$/.test(String(body.color)) ? String(body.color) : '#64748b';
+  const active = body.active === undefined ? true : !!body.active;
+  return { name, category, color, active };
+}
+export async function createOwner(body: Record<string, unknown>): Promise<BusinessOwner> {
+  const n = normalizeOwnerInput(body);
+  if (!n.name) throw new Error('Owner name is required');
+  const list = await listOwnersRaw();
+  if (list.some((o) => o.name.toLowerCase() === n.name.toLowerCase())) throw new Error('An owner with that name already exists');
+  const owner: BusinessOwner = { id: uid('o'), ...n, createdAt: new Date().toISOString() };
+  await saveOwner(owner);
+  return owner;
+}
+export async function updateOwner(id: string, body: Record<string, unknown>): Promise<BusinessOwner> {
+  const existing = await getOwner(id);
+  if (!existing) throw new Error('Owner not found');
+  const list = await listOwnersRaw();
+  const patch: Partial<BusinessOwner> = {};
+  if (body.name !== undefined) {
+    const name = String(body.name).trim();
+    if (!name) throw new Error('Owner name is required');
+    if (list.some((o) => o.id !== id && o.name.toLowerCase() === name.toLowerCase())) throw new Error('An owner with that name already exists');
+    patch.name = name;
+  }
+  if (body.category !== undefined) patch.category = (OWNER_CATEGORIES.includes(body.category as OwnerCategory) ? body.category : existing.category) as OwnerCategory;
+  if (body.color !== undefined && /^#[0-9a-fA-F]{6}$/.test(String(body.color))) patch.color = String(body.color);
+  if (body.active !== undefined) patch.active = !!body.active;
+  const owner: BusinessOwner = { ...existing, ...patch, updatedAt: new Date().toISOString() };
+  await saveOwner(owner);
+  return owner;
+}
+export async function removeOwner(id: string) {
+  const projects = await listProjects();
+  const inUse = projects.filter((p) => p.ownerId === id).length;
+  if (inUse > 0) throw new Error(`This owner is linked to ${inUse} project${inUse === 1 ? '' : 's'}. Reassign or deactivate it instead of deleting.`);
+  if (USE_PG) { const sql = await pg(); await sql`DELETE FROM portal_owners WHERE id=${id}`; }
+  else fwrite('owners', (await listOwnersRaw()).filter((o) => o.id !== id));
+}
+
 /* ================= PROJECTS ================= */
 function normalizeProject(body: Record<string, unknown>, existing?: Project) {
   const status = PROJECT_STATUSES.includes(String(body.status)) ? String(body.status) : (existing ? existing.status : 'Active');
+  const budget = body.budget !== undefined ? Number(body.budget) || 0 : (body.value !== undefined ? Number(body.value) || 0 : (existing ? existing.budget : 0));
   return {
+    ownerId: body.ownerId !== undefined ? String(body.ownerId || '') : (existing ? existing.ownerId : ''),
     name: String(body.name || '').trim(),
+    code: String(body.code || '').trim(),
     client: String(body.client || '').trim(),
+    description: String(body.description ?? body.notes ?? '').trim(),
     currency: (body.currency === 'USD' ? 'USD' : 'PKR') as 'PKR' | 'USD',
-    value: Number(body.value) || 0,
+    budget,
+    value: budget,
     status,
-    notes: String(body.notes || '')
+    startDate: String(body.startDate || '').slice(0, 10),
+    endDate: String(body.endDate || '').slice(0, 10),
+    archived: body.archived !== undefined ? !!body.archived : (existing ? existing.archived : false),
+    notes: String(body.notes ?? body.description ?? '')
+  };
+}
+/* Back-fill defaults for projects saved before the schema grew. */
+function migrateProject(p: Partial<Project> & { id: string }): Project {
+  const budget = p.budget ?? p.value ?? 0;
+  return {
+    id: p.id, ownerId: p.ownerId || '', name: p.name || '', code: p.code || '',
+    client: p.client || '', description: p.description ?? p.notes ?? '',
+    currency: p.currency === 'USD' ? 'USD' : 'PKR', budget, value: budget,
+    status: p.status || 'Active', startDate: p.startDate || '', endDate: p.endDate || '',
+    archived: !!p.archived, notes: p.notes ?? p.description ?? '',
+    createdAt: p.createdAt || new Date().toISOString(), updatedAt: p.updatedAt,
   };
 }
 export async function listProjects(): Promise<Project[]> {
+  let rows: Array<Partial<Project> & { id: string }>;
   if (USE_PG) {
     const sql = await pg();
-    const { rows } = await sql`SELECT data FROM portal_projects`;
-    return rows.map((r) => r.data as Project).sort((a, b) => +new Date(b.createdAt) - +new Date(a.createdAt));
+    const res = await sql`SELECT data FROM portal_projects`;
+    rows = res.rows.map((r) => r.data as Project);
+  } else {
+    rows = fread<Project[]>('projects', []);
   }
-  return fread<Project[]>('projects', []).sort((a, b) => +new Date(b.createdAt) - +new Date(a.createdAt));
+  return rows.map(migrateProject).sort((a, b) => +new Date(b.createdAt) - +new Date(a.createdAt));
 }
 export async function getProject(id: string): Promise<Project | null> {
   return (await listProjects()).find((p) => p.id === id) || null;
@@ -231,6 +384,16 @@ export async function removeProject(id: string) {
 }
 
 /* ================= DOCUMENTS ================= */
+/* Owner of a document: an explicit override wins, otherwise it is inherited
+   from the linked project's owner. */
+export async function resolveOwnerId(overrideOwnerId: unknown, projectId: unknown): Promise<string> {
+  const override = String(overrideOwnerId || '').trim();
+  if (override) return override;
+  const pid = String(projectId || '').trim();
+  if (!pid) return '';
+  const p = await getProject(pid);
+  return p ? p.ownerId || '' : '';
+}
 export async function getAllDocs(): Promise<Doc[]> {
   if (USE_PG) {
     const sql = await pg();

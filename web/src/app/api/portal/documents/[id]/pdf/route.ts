@@ -11,7 +11,13 @@ export async function GET(_req: Request, { params }: { params: Promise<{ id: str
   const { id } = await params;
   const doc = await store.getDoc(id);
   if (!doc) return NextResponse.json({ error: 'Not found' }, { status: 404 });
-  const buf = await generateInvoicePdfBuffer(doc);
+  // Denormalise the owning business unit for the letterhead.
+  let ownerName = '', ownerColor = '';
+  if (doc.ownerId) {
+    const o = await store.getOwner(String(doc.ownerId));
+    if (o) { ownerName = o.name; ownerColor = o.color; }
+  }
+  const buf = await generateInvoicePdfBuffer({ ...doc, ownerName, ownerColor });
   const filename = `${doc.type}-${String(doc.ref || doc.id).replace(/[\/\\]/g, '-')}.pdf`;
   return new NextResponse(new Uint8Array(buf), {
     status: 200,

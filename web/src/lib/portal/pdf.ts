@@ -81,6 +81,16 @@ export function generateInvoicePdfBuffer(docData: any): Promise<Buffer> {
       .text('DATE ', MARGIN + 280, y, { continued: true }).font(F).fillColor(COLORS.ink).text(formatDisplayDate(docData.date));
     y += 26;
 
+    if (docData.ownerName) {
+      const label = 'BUSINESS UNIT';
+      pdf.font(FB).fontSize(9).fillColor(COLORS.teal800).text(label, MARGIN, y, { characterSpacing: 1, lineBreak: false });
+      const lw = pdf.widthOfString(label, { characterSpacing: 1 });
+      const dotX = MARGIN + lw + 14;
+      if (/^#[0-9a-fA-F]{6}$/.test(String(docData.ownerColor || ''))) pdf.circle(dotX, y + 4.5, 3.2).fill(docData.ownerColor);
+      pdf.font(FB).fontSize(10).fillColor(COLORS.ink).text(docData.ownerName, dotX + 9, y, { lineBreak: false });
+      y += 22;
+    }
+
     pdf.font(FB).fontSize(10.5).fillColor(COLORS.ink).text('To,', MARGIN, y); y += 15;
     pdf.font(FB).fontSize(10.5).fillColor(COLORS.ink).text(docData.clientName || '', MARGIN, y, { width: CONTENT_W });
     y = pdf.y + 2;

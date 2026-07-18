@@ -13,13 +13,15 @@
 <div class="app-header no-print">
   <div class="brand">
     <img src="/portal/assets/logo-white.png" alt="Scale Up Marketing">
-    <div class="app-name">Project Invoice System<small>Projects · Quotations · Invoices</small></div>
+    <div class="app-name">Project Invoice System<small>Business Units · Projects · Invoices</small></div>
   </div>
   <div class="tabs">
     <button class="tab-btn active" data-tab="dashboard">Dashboard</button>
+    <button class="tab-btn" data-tab="reports">Reports</button>
     <button class="tab-btn" data-tab="projects">Projects</button>
     <button class="tab-btn owner-only" data-tab="form">+ New</button>
     <button class="tab-btn" data-tab="list">Documents</button>
+    <button class="tab-btn owner-only" data-tab="owners">Owners</button>
     <button class="tab-btn owner-only" data-tab="users">Users</button>
     <div class="user-chip" id="userChip" title="Signed in">
       <span class="uc-name" id="ucName">—</span>
@@ -48,19 +50,50 @@
     </div>
   </section>
 
+  <!-- ========== REPORTS ========== -->
+  <section class="view" id="view-reports">
+    <div class="list-toolbar">
+      <h1>Reports &amp; Analytics</h1>
+      <div class="rep-currency" id="repCurrency"></div>
+    </div>
+    <p class="muted-note">Revenue is tracked per business unit. Amounts can't be summed across currencies, so pick a currency above.</p>
+    <div class="report-grid">
+      <div class="card chart-card"><div class="chart-h">Revenue by Academy Track</div><div class="chart-body" id="chartAcademy"></div></div>
+      <div class="card chart-card"><div class="chart-h">Revenue by Service</div><div class="chart-body" id="chartServices"></div></div>
+      <div class="card chart-card"><div class="chart-h">Outstanding by owner</div><div class="chart-body" id="chartOutstanding"></div></div>
+      <div class="card chart-card"><div class="chart-h">Revenue by project</div><div class="chart-body" id="chartProjects"></div></div>
+      <div class="card chart-card span-2"><div class="chart-h">Monthly comparison — invoiced vs paid</div><div class="chart-body" id="chartMonthly"></div></div>
+      <div class="card chart-card span-2"><div class="chart-h">Yearly comparison — invoiced vs paid</div><div class="chart-body" id="chartYearly"></div></div>
+    </div>
+  </section>
+
   <!-- ========== PROJECTS ========== -->
   <section class="view" id="view-projects">
     <div class="list-toolbar">
       <h1>Projects</h1>
-      <div style="display:flex; gap:10px; align-items:center;">
-        <div class="search-box"><span>🔍</span><input type="text" id="projSearch" placeholder="Search projects…"></div>
-        <button class="btn btn-primary owner-only" id="newProjectBtn">+ New Project</button>
+      <button class="btn btn-primary owner-only" id="newProjectBtn">+ New Project</button>
+    </div>
+    <div class="proj-filters">
+      <div class="search-box"><span>🔍</span><input type="text" id="projSearch" placeholder="Search name, code, client…"></div>
+      <div class="filt"><label>Owner</label><div id="projOwnerFilter" class="combo-mount"></div></div>
+      <div class="filt"><label>Status</label>
+        <select id="projStatusFilter"><option value="">All statuses</option><option>Active</option><option>On Hold</option><option>Completed</option><option>Cancelled</option></select>
       </div>
+      <div class="filt"><label>Sort</label>
+        <select id="projSort">
+          <option value="newest">Newest first</option>
+          <option value="name">Name A–Z</option>
+          <option value="budget">Budget high–low</option>
+          <option value="outstanding">Outstanding high–low</option>
+        </select>
+      </div>
+      <label class="chk"><input type="checkbox" id="projShowArchived"> Show archived</label>
     </div>
     <div class="project-grid" id="projectGrid"></div>
+    <div class="pager" id="projPager"></div>
     <div class="empty-state" id="projEmpty" style="display:none;">
-      <div class="big">No projects yet</div>
-      <div class="owner-only">Create your first project to group its quotations &amp; invoices.</div>
+      <div class="big">No projects found</div>
+      <div class="owner-only">Create a project to group its quotations &amp; invoices under a business unit.</div>
       <div class="viewer-only">Projects created by the owner will appear here.</div>
     </div>
   </section>
@@ -96,7 +129,12 @@
         <div class="field">
           <label for="projectSelect">Project</label>
           <select id="projectSelect"><option value="">— No project —</option></select>
-          <span class="hint">Link this document to a project</span>
+          <span class="hint">Owner is inherited from the project</span>
+        </div>
+        <div class="field span-2">
+          <label>Business Unit / Owner <span class="req">*</span></label>
+          <div id="docOwnerCombo" class="combo-mount"></div>
+          <span class="hint" id="docOwnerHint">Inherited from the selected project — change to override.</span>
         </div>
 
         <div class="field span-2">
@@ -172,12 +210,13 @@
       <button class="filter-chip active" data-filter="">All</button>
       <button class="filter-chip" data-filter="Quotation">Quotations</button>
       <button class="filter-chip" data-filter="Invoice">Invoices</button>
+      <div class="filt inline"><label>Owner</label><div id="docOwnerFilter" class="combo-mount"></div></div>
     </div>
     <div class="card" style="overflow:hidden;">
       <table class="doc-list">
         <thead>
           <tr>
-            <th>Ref No.</th><th>Type</th><th>Client</th><th>Project</th><th>Date</th>
+            <th>Ref No.</th><th>Type</th><th>Client</th><th>Owner</th><th>Project</th><th>Date</th>
             <th style="text-align:right;">Total</th><th style="text-align:center;">Payment</th>
             <th style="text-align:center;">Actions</th>
           </tr>
@@ -189,6 +228,17 @@
         <div class="owner-only">Create your first quotation or invoice from the “+ New” tab.</div>
       </div>
     </div>
+    <div class="pager" id="docPager"></div>
+  </section>
+
+  <!-- ========== OWNERS (owner only) ========== -->
+  <section class="view" id="view-owners">
+    <div class="list-toolbar">
+      <h1>Business Units / Owners</h1>
+      <button class="btn btn-primary" id="newOwnerBtn">+ Add Owner</button>
+    </div>
+    <p class="muted-note">Academy tracks, service lines and other units. Every invoice belongs to one. Deactivate a unit to hide it from new documents without losing its history.</p>
+    <div class="owner-cat-wrap" id="ownerCatWrap"></div>
   </section>
 
   <!-- ========== USERS (owner only) ========== -->
@@ -208,7 +258,7 @@
 
 </main>
 
-<footer class="credit no-print">Scale Up Marketing · Al Latif Center, Gulberg III, Lahore · Data stored locally in <code>data/</code>.</footer>
+<footer class="credit no-print">Scale Up Marketing · Al Latif Center, Gulberg III, Lahore</footer>
 
 <!-- ========== PREVIEW OVERLAY ========== -->
 <div class="preview-overlay no-print" id="previewOverlay">
@@ -227,6 +277,7 @@
       </div>
       <div class="doc-bar"></div>
       <div class="doc-meta"><div><b>REF</b> <span id="pv-ref"></span></div><div><b>DATE</b> <span id="pv-date"></span></div></div>
+      <div class="doc-owner" id="pv-owner-wrap" style="display:none;"><b>BUSINESS UNIT</b> <span class="owner-badge" id="pv-owner"></span></div>
       <div class="doc-to"><div class="lbl">To,</div><div id="pv-clientname"></div><div id="pv-clientaddress" style="white-space:pre-wrap;"></div></div>
       <div class="doc-subject"><span>Subject</span><span class="val" id="pv-subject"></span></div>
       <div class="doc-greeting" id="pv-greeting"></div>
@@ -270,15 +321,40 @@
   <div class="modal-shell">
     <div class="modal-head"><div class="modal-title" id="pf-title">New Project</div><button class="modal-close" id="pfClose">✕</button></div>
     <div class="modal-body">
-      <div class="field"><label>Project Name</label><input type="text" id="pf-name" placeholder="e.g. Bright Horizons Website"></div>
+      <div class="mini-grid two">
+        <div class="field"><label>Project Name <span class="req">*</span></label><input type="text" id="pf-name" placeholder="e.g. Bright Horizons Website"></div>
+        <div class="field"><label>Project Code</label><input type="text" id="pf-code" placeholder="e.g. WEB-014"></div>
+      </div>
+      <div class="field"><label>Business Unit / Owner</label><div id="pf-owner-combo" class="combo-mount"></div></div>
       <div class="field"><label>Client</label><input type="text" id="pf-client" placeholder="Client / company"></div>
+      <div class="field"><label>Description</label><textarea id="pf-desc" placeholder="Short description of the project scope"></textarea></div>
       <div class="mini-grid">
         <div class="field"><label>Currency</label><select id="pf-currency"><option value="PKR">PKR</option><option value="USD">USD</option></select></div>
-        <div class="field"><label>Budget / Value</label><input type="number" id="pf-value" value="0" min="0"></div>
+        <div class="field"><label>Budget</label><input type="number" id="pf-value" value="0" min="0"></div>
         <div class="field"><label>Status</label><select id="pf-status"><option>Active</option><option>On Hold</option><option>Completed</option><option>Cancelled</option></select></div>
       </div>
-      <div class="field"><label>Notes</label><textarea id="pf-notes" placeholder="Optional notes"></textarea></div>
+      <div class="mini-grid two">
+        <div class="field"><label>Start Date</label><input type="date" id="pf-start"></div>
+        <div class="field"><label>End Date</label><input type="date" id="pf-end"></div>
+      </div>
+      <label class="chk"><input type="checkbox" id="pf-archived"> Archive this project (hide from active lists)</label>
       <div class="modal-actions"><button class="btn btn-ghost" id="pfCancel">Cancel</button><button class="btn btn-primary" id="pfSave">Save Project</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== OWNER EDIT MODAL ========== -->
+<div class="modal-overlay no-print" id="ownerFormOverlay">
+  <div class="modal-shell">
+    <div class="modal-head"><div class="modal-title" id="of-title">Add Owner</div><button class="modal-close" id="ofClose">✕</button></div>
+    <div class="modal-body">
+      <div class="field"><label>Name <span class="req">*</span></label><input type="text" id="of-name" placeholder="e.g. Track 6 / Video Editing"></div>
+      <div class="mini-grid two">
+        <div class="field"><label>Category</label><select id="of-category"><option>Academy</option><option>Services</option><option>Other</option></select></div>
+        <div class="field"><label>Badge Colour</label><input type="color" id="of-color" value="#2563eb"></div>
+      </div>
+      <label class="chk"><input type="checkbox" id="of-active" checked> Active (available for new documents)</label>
+      <div class="modal-actions"><button class="btn btn-ghost" id="ofCancel">Cancel</button><button class="btn btn-primary" id="ofSave">Save Owner</button></div>
     </div>
   </div>
 </div>
@@ -290,7 +366,7 @@
     <div class="modal-body">
       <div class="field"><label>Username</label><input type="text" id="uf-username" autocomplete="off"></div>
       <div class="field"><label>Full Name</label><input type="text" id="uf-name" autocomplete="off"></div>
-      <div class="mini-grid">
+      <div class="mini-grid two">
         <div class="field"><label>Role</label><select id="uf-role"><option value="viewer">Viewer (read-only)</option><option value="owner">Owner (full control)</option></select></div>
         <div class="field"><label id="uf-pwlabel">Password</label><input type="text" id="uf-password" autocomplete="new-password" placeholder="At least 4 characters"></div>
       </div>
