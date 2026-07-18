@@ -36,11 +36,11 @@ export const PROJECT_STATUSES = ['Active', 'On Hold', 'Completed', 'Cancelled'];
 
 /* Seeded once on first run. Colours give each unit a distinct badge. */
 const DEFAULT_OWNERS: Array<{ name: string; category: OwnerCategory; color: string }> = [
-  { name: 'Track 1', category: 'Academy', color: '#0ea5e9' },
-  { name: 'Track 2', category: 'Academy', color: '#6366f1' },
-  { name: 'Track 3', category: 'Academy', color: '#8b5cf6' },
-  { name: 'Track 4', category: 'Academy', color: '#ec4899' },
-  { name: 'Track 5', category: 'Academy', color: '#14b8a6' },
+  { name: 'Shopify Mastery', category: 'Academy', color: '#0ea5e9' },
+  { name: 'TikTok Shop Accelerator', category: 'Academy', color: '#6366f1' },
+  { name: 'International Selling (eBay & Etsy)', category: 'Academy', color: '#8b5cf6' },
+  { name: 'Daraz Local Commerce', category: 'Academy', color: '#ec4899' },
+  { name: 'AI & Digital Marketing', category: 'Academy', color: '#14b8a6' },
   { name: 'Web Development', category: 'Services', color: '#2563eb' },
   { name: 'Mobile App Development', category: 'Services', color: '#7c3aed' },
   { name: 'UI/UX Design', category: 'Services', color: '#db2777' },
@@ -109,10 +109,34 @@ async function pg() {
   return sql;
 }
 
+/* One-time rename of the original placeholder Academy tracks to the real
+   course names. Only touches units still literally named "Track N" and only
+   when the new name isn't already present, so any customised owner is left
+   exactly as the admin set it. Becomes a no-op once applied. */
+const TRACK_RENAMES: Record<string, string> = {
+  'Track 1': 'Shopify Mastery',
+  'Track 2': 'TikTok Shop Accelerator',
+  'Track 3': 'International Selling (eBay & Etsy)',
+  'Track 4': 'Daraz Local Commerce',
+  'Track 5': 'AI & Digital Marketing',
+};
+
 /* ================= SEED ================= */
 export async function ensureSeed() {
   await seedOwnerUser();
   await seedBusinessOwners();
+  await reconcileDefaultTracks();
+}
+async function reconcileDefaultTracks() {
+  const list = await listOwnersRaw();
+  const names = new Set(list.map((o) => o.name.toLowerCase()));
+  const pending = list.filter((o) => TRACK_RENAMES[o.name] && !names.has(TRACK_RENAMES[o.name].toLowerCase()));
+  for (const o of pending) {
+    const target = TRACK_RENAMES[o.name];
+    if (names.has(target.toLowerCase())) continue;
+    await saveOwner({ ...o, name: target, updatedAt: new Date().toISOString() });
+    names.add(target.toLowerCase());
+  }
 }
 async function seedOwnerUser() {
   const list = await listUsersRaw();
