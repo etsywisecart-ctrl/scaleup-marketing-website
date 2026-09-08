@@ -1,14 +1,12 @@
 import Hero from "@/components/Hero";
-import About from "@/components/About";
 import ClientLogos from "@/components/ClientLogos";
 import Services from "@/components/Services";
-import Showreel from "@/components/Showreel";
 import Academy from "@/components/Academy";
-import Process from "@/components/Process";
-import WhyUs from "@/components/WhyUs";
 import Results from "@/components/Results";
+import WhyUs from "@/components/WhyUs";
 import Testimonials from "@/components/Testimonials";
 import Faq from "@/components/Faq";
+import CtaBand from "@/components/CtaBand";
 import Contact from "@/components/Contact";
 import JsonLd from "@/components/JsonLd";
 import { faqs } from "@/data/content";
@@ -19,16 +17,14 @@ export default function Home() {
     <>
       <JsonLd data={faqSchema(faqs)} />
       <Hero />
-      <About />
       <ClientLogos />
       <Services />
-      <Showreel />
       <Academy />
-      <Process />
-      <WhyUs />
       <Results />
+      <WhyUs />
       <Testimonials />
       <Faq />
+      <CtaBand />
       <Contact />
     </>
   );

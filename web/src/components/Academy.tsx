@@ -1,79 +1,50 @@
 import Link from "next/link";
-import { siteConfig } from "@/config/site";
 import { courses } from "@/data/content";
-import FormatToggle from "./FormatToggle";
-import CourseGallery from "./CourseGallery";
 
 export default function Academy() {
-  const bandClass = siteConfig.toggles.academyBand === "teal-tint" ? "acadT" : "";
-
   return (
-    <section className={`sec acad ${bandClass}`} id="academy">
+    <section className="sec" id="academy" style={{ background: "var(--sunk)" }}>
       <div className="wrap">
-        <div className="ahead rv">
-          <div style={{ maxWidth: 620 }}>
-            <p className="eyebrow">Academy — learn to build</p>
-            <h2 className="h2">The institute behind the agency.</h2>
-            <p className="lead" style={{ marginTop: 18 }}>
-              Live cohorts taught by the same people running client stores. Choose your format —
-              the curriculum, mentors, and certification are identical.
-            </p>
-          </div>
-          <FormatToggle />
+        <div className="sec-head rv">
+          <span className="eyebrow"><i className="dot" />The Academy</span>
+          <h2 className="h2">Learn the skills we get paid to deliver</h2>
+          <p className="lead">
+            Live cohorts — online and at our Lahore campus — taught by the same people who ship
+            client stores and campaigns. Start with a free 3-day demo class.
+          </p>
         </div>
 
-      </div>
-
-      <CourseGallery courses={courses} />
-
-      <div className="wrap">
-        <div className="secta rv">
-          <Link className="btn btnW" href="/academy">
-            Explore the full Academy
-          </Link>
-          <span className="softline" style={{ color: bandClass ? "#4E6A70" : "#A9C4CE" }}>
-            All 5 tracks, certification details, and graduate results.
-          </span>
-        </div>
-
-        <div className="models rv">
-          <span className="model">
-            <span className="mtick">✓</span>Regular Classes
-          </span>
-          <span className="model">
-            <span className="mtick">✓</span>Advanced Masterclasses
-          </span>
-          <span className="model">
-            <span className="mtick">✓</span>1:1 Mentorship
-          </span>
-          <span className="model">
-            <span className="mtick">✓</span>Hands-on Workshops
-          </span>
-          <span className="model">
-            <span className="mtick">✓</span>Weekly Q&amp;A
-          </span>
-          <span className="model">
-            <span className="mtick">✓</span>Certification
-          </span>
-          <span className="model">
-            <span className="mtick">✓</span>Corporate Training
-          </span>
-        </div>
-
-        {siteConfig.toggles.showDemoBanner && (
-          <div className="demo rv">
-            <div style={{ flex: 1, minWidth: 260 }}>
-              <h3 className="demot">Sit in free for 3 days before you spend a rupee.</h3>
-              <p className="demod">
-                Every track starts with a free 3-day demo class and a 1:1 consultation — so you
-                enroll knowing exactly what you will build.
-              </p>
-            </div>
-            <Link className="btn btnW" href="/#contact">
-              Reserve a demo seat
+        <div className="grid grid-auto" style={{ marginTop: 52 }}>
+          {courses.map((c, i) => (
+            <Link key={c.slug} href={`/academy/${c.slug}`} className={`card course-card rv d${(i % 3) + 1}`}>
+              <div className="cc-top">
+                <span className="cc-tag mono">{c.tag}</span>
+                {c.badge && <span className="cc-badge">{c.badge}</span>}
+              </div>
+              <h3>{c.title}</h3>
+              <p>{c.sub}</p>
+              <div className="cc-meta">
+                <span>{c.dur}</span>
+                <span>{c.level}</span>
+              </div>
+              <span className="card-link">
+                View curriculum
+                <svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M3 8h10M9 4l4 4-4 4" />
+                </svg>
+              </span>
             </Link>
-          </div>
-        )}
+          ))}
+        </div>
+
+        <div className="rv" style={{ textAlign: "center", marginTop: 44 }}>
+          <Link className="btn btn-primary lg" href="/academy">
+            See all courses
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M3 8h10M9 4l4 4-4 4" />
+            </svg>
+          </Link>
+        </div>
       </div>
     </section>
   );
