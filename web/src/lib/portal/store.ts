@@ -34,6 +34,29 @@ export type Doc = Record<string, unknown> & { id: string; savedAt: string };
 
 export const PROJECT_STATUSES = ['Active', 'On Hold', 'Completed', 'Cancelled'];
 
+/* Investor capital & return plans. An investor puts capital into the business
+   (optionally tied to a project / business unit) under a plan — either a fixed
+   annual return, or a share of a linked project's realised profit. Returns
+   actually disbursed are recorded as payouts. */
+export const INVESTMENT_PLANS = ['fixed', 'profit-share'] as const;
+export type PlanType = (typeof INVESTMENT_PLANS)[number];
+export const PAYOUT_FREQUENCIES = ['Monthly', 'Quarterly', 'Annually', 'On Exit'];
+export const INVESTMENT_STATUSES = ['Active', 'Completed', 'Withdrawn'];
+export type Investor = {
+  id: string; name: string; email: string; phone: string; company: string;
+  notes: string; createdAt: string; updatedAt?: string;
+};
+export type Payout = { id: string; date: string; amount: number; method: string; note: string };
+export type Investment = {
+  id: string; investorId: string; title: string;
+  projectId: string; ownerId: string;
+  amount: number; currency: 'PKR' | 'USD';
+  planType: PlanType; rate: number;
+  payoutFrequency: string; startDate: string; endDate: string;
+  status: string; notes: string; payouts: Payout[];
+  createdAt: string; updatedAt?: string;
+};
+
 /* Seeded once on first run. Colours give each unit a distinct badge. */
 const DEFAULT_OWNERS: Array<{ name: string; category: OwnerCategory; color: string }> = [
   { name: 'Shopify Mastery', category: 'Academy', color: '#0ea5e9' },
@@ -104,6 +127,8 @@ async function pg() {
     await sql`CREATE TABLE IF NOT EXISTS portal_projects (id text PRIMARY KEY, data jsonb NOT NULL)`;
     await sql`CREATE TABLE IF NOT EXISTS portal_documents (id text PRIMARY KEY, data jsonb NOT NULL)`;
     await sql`CREATE TABLE IF NOT EXISTS portal_sequences (key text PRIMARY KEY, n int NOT NULL)`;
+    await sql`CREATE TABLE IF NOT EXISTS portal_investors (id text PRIMARY KEY, data jsonb NOT NULL)`;
+    await sql`CREATE TABLE IF NOT EXISTS portal_investments (id text PRIMARY KEY, data jsonb NOT NULL)`;
     pgReady = true;
   }
   return sql;
@@ -445,6 +470,168 @@ export async function upsertDoc(doc: Doc) {
 export async function deleteDoc(id: string) {
   if (USE_PG) { const sql = await pg(); await sql`DELETE FROM portal_documents WHERE id=${id}`; }
   else fwrite('documents', fread<Doc[]>('documents', []).filter((d) => d.id !== id));
+}
+
+/* ================= INVESTORS ================= */
+async function listInvestorsRaw(): Promise<Investor[]> {
+  if (USE_PG) {
+    const sql = await pg();
+    const { rows } = await sql`SELECT data FROM portal_investors`;
+    return rows.map((r) => r.data as Investor);
+  }
+  return fread<Investor[]>('investors', []);
+}
+export async function listInvestors(): Promise<Investor[]> {
+  return (await listInvestorsRaw()).sort((a, b) => a.name.localeCompare(b.name));
+}
+export async function getInvestor(id: string): Promise<Investor | null> {
+  return (await listInvestorsRaw()).find((i) => i.id === id) || null;
+}
+async function saveInvestor(inv: Investor) {
+  if (USE_PG) {
+    const sql = await pg();
+    await sql`INSERT INTO portal_investors (id, data) VALUES (${inv.id}, ${JSON.stringify(inv)}::jsonb)
+              ON CONFLICT (id) DO UPDATE SET data = EXCLUDED.data`;
+  } else {
+    const list = await listInvestorsRaw();
+    const i = list.findIndex((x) => x.id === inv.id);
+    if (i >= 0) list[i] = inv; else list.push(inv);
+    fwrite('investors', list);
+  }
+}
+function normalizeInvestor(body: Record<string, unknown>) {
+  return {
+    name: String(body.name || '').trim(),
+    email: String(body.email || '').trim(),
+    phone: String(body.phone || '').trim(),
+    company: String(body.company || '').trim(),
+    notes: String(body.notes || ''),
+  };
+}
+export async function createInvestor(body: Record<string, unknown>): Promise<Investor> {
+  const n = normalizeInvestor(body);
+  if (!n.name) throw new Error('Investor name is required');
+  const investor: Investor = { id: uid('inv'), ...n, createdAt: new Date().toISOString() };
+  await saveInvestor(investor);
+  return investor;
+}
+export async function updateInvestor(id: string, body: Record<string, unknown>): Promise<Investor> {
+  const existing = await getInvestor(id);
+  if (!existing) throw new Error('Investor not found');
+  const n = normalizeInvestor({ ...existing, ...body });
+  if (!n.name) throw new Error('Investor name is required');
+  const investor: Investor = { ...existing, ...n, updatedAt: new Date().toISOString() };
+  await saveInvestor(investor);
+  return investor;
+}
+export async function removeInvestor(id: string) {
+  // cascade: remove the investor's investments too
+  const invs = await listInvestmentsRaw();
+  for (const iv of invs) if (iv.investorId === id) await removeInvestment(iv.id);
+  if (USE_PG) { const sql = await pg(); await sql`DELETE FROM portal_investors WHERE id=${id}`; }
+  else fwrite('investors', (await listInvestorsRaw()).filter((i) => i.id !== id));
+}
+
+/* ================= INVESTMENTS ================= */
+async function listInvestmentsRaw(): Promise<Investment[]> {
+  if (USE_PG) {
+    const sql = await pg();
+    const { rows } = await sql`SELECT data FROM portal_investments`;
+    return rows.map((r) => migrateInvestment(r.data as Investment));
+  }
+  return fread<Investment[]>('investments', []).map(migrateInvestment);
+}
+function migrateInvestment(iv: Partial<Investment> & { id: string }): Investment {
+  return {
+    id: iv.id, investorId: iv.investorId || '', title: iv.title || 'Investment',
+    projectId: iv.projectId || '', ownerId: iv.ownerId || '',
+    amount: Number(iv.amount) || 0, currency: iv.currency === 'USD' ? 'USD' : 'PKR',
+    planType: iv.planType === 'profit-share' ? 'profit-share' : 'fixed', rate: Number(iv.rate) || 0,
+    payoutFrequency: iv.payoutFrequency || 'Quarterly', startDate: iv.startDate || '', endDate: iv.endDate || '',
+    status: iv.status || 'Active', notes: iv.notes || '', payouts: Array.isArray(iv.payouts) ? iv.payouts : [],
+    createdAt: iv.createdAt || new Date().toISOString(), updatedAt: iv.updatedAt,
+  };
+}
+export async function listInvestments(investorId?: string): Promise<Investment[]> {
+  let list = await listInvestmentsRaw();
+  if (investorId) list = list.filter((i) => i.investorId === investorId);
+  return list.sort((a, b) => +new Date(b.createdAt) - +new Date(a.createdAt));
+}
+export async function getInvestment(id: string): Promise<Investment | null> {
+  return (await listInvestmentsRaw()).find((i) => i.id === id) || null;
+}
+async function saveInvestment(iv: Investment) {
+  if (USE_PG) {
+    const sql = await pg();
+    await sql`INSERT INTO portal_investments (id, data) VALUES (${iv.id}, ${JSON.stringify(iv)}::jsonb)
+              ON CONFLICT (id) DO UPDATE SET data = EXCLUDED.data`;
+  } else {
+    const list = fread<Investment[]>('investments', []);
+    const i = list.findIndex((x) => x.id === iv.id);
+    if (i >= 0) list[i] = iv; else list.push(iv);
+    fwrite('investments', list);
+  }
+}
+function normalizeInvestment(body: Record<string, unknown>, existing?: Investment) {
+  const status = INVESTMENT_STATUSES.includes(String(body.status)) ? String(body.status) : (existing ? existing.status : 'Active');
+  const freq = PAYOUT_FREQUENCIES.includes(String(body.payoutFrequency)) ? String(body.payoutFrequency) : (existing ? existing.payoutFrequency : 'Quarterly');
+  return {
+    title: String(body.title || '').trim() || (existing ? existing.title : 'Investment'),
+    projectId: body.projectId !== undefined ? String(body.projectId || '') : (existing ? existing.projectId : ''),
+    ownerId: body.ownerId !== undefined ? String(body.ownerId || '') : (existing ? existing.ownerId : ''),
+    amount: body.amount !== undefined ? Math.max(0, Number(body.amount) || 0) : (existing ? existing.amount : 0),
+    currency: (body.currency === 'USD' ? 'USD' : (body.currency === 'PKR' ? 'PKR' : (existing ? existing.currency : 'PKR'))) as 'PKR' | 'USD',
+    planType: (body.planType === 'profit-share' ? 'profit-share' : (body.planType === 'fixed' ? 'fixed' : (existing ? existing.planType : 'fixed'))) as PlanType,
+    rate: body.rate !== undefined ? Math.max(0, Number(body.rate) || 0) : (existing ? existing.rate : 0),
+    payoutFrequency: freq,
+    startDate: body.startDate !== undefined ? String(body.startDate || '').slice(0, 10) : (existing ? existing.startDate : ''),
+    endDate: body.endDate !== undefined ? String(body.endDate || '').slice(0, 10) : (existing ? existing.endDate : ''),
+    status,
+    notes: body.notes !== undefined ? String(body.notes || '') : (existing ? existing.notes : ''),
+  };
+}
+export async function createInvestment(body: Record<string, unknown>): Promise<Investment> {
+  const investorId = String(body.investorId || '').trim();
+  if (!investorId || !(await getInvestor(investorId))) throw new Error('A valid investor is required');
+  const n = normalizeInvestment(body);
+  if (n.amount <= 0) throw new Error('Investment amount must be greater than zero');
+  const iv: Investment = { id: uid('iv'), investorId, ...n, payouts: [], createdAt: new Date().toISOString() };
+  await saveInvestment(iv);
+  return iv;
+}
+export async function updateInvestment(id: string, body: Record<string, unknown>): Promise<Investment> {
+  const existing = await getInvestment(id);
+  if (!existing) throw new Error('Investment not found');
+  const n = normalizeInvestment(body, existing);
+  const iv: Investment = { ...existing, ...n, updatedAt: new Date().toISOString() };
+  await saveInvestment(iv);
+  return iv;
+}
+export async function removeInvestment(id: string) {
+  if (USE_PG) { const sql = await pg(); await sql`DELETE FROM portal_investments WHERE id=${id}`; }
+  else fwrite('investments', fread<Investment[]>('investments', []).filter((i) => i.id !== id));
+}
+export async function addPayout(investmentId: string, body: Record<string, unknown>): Promise<Investment> {
+  const iv = await getInvestment(investmentId);
+  if (!iv) throw new Error('Investment not found');
+  const amount = Math.max(0, Number(body.amount) || 0);
+  if (amount <= 0) throw new Error('Payout amount must be greater than zero');
+  const payout: Payout = {
+    id: uid('pay'), date: String(body.date || new Date().toISOString().slice(0, 10)).slice(0, 10),
+    amount, method: String(body.method || '').trim(), note: String(body.note || '').trim(),
+  };
+  iv.payouts = [...(iv.payouts || []), payout];
+  iv.updatedAt = new Date().toISOString();
+  await saveInvestment(iv);
+  return iv;
+}
+export async function removePayout(investmentId: string, payoutId: string): Promise<Investment> {
+  const iv = await getInvestment(investmentId);
+  if (!iv) throw new Error('Investment not found');
+  iv.payouts = (iv.payouts || []).filter((p) => p.id !== payoutId);
+  iv.updatedAt = new Date().toISOString();
+  await saveInvestment(iv);
+  return iv;
 }
 
 /* ================= SEQUENCES ================= */
