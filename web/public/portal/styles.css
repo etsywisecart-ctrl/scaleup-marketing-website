@@ -797,3 +797,18 @@ body.is-invoice .invoice-only { display:flex !important; }
 /* preview owner line */
 .doc-owner{ margin:-8px 0 20px; font-size:12px; display:flex; align-items:center; gap:10px; }
 .doc-owner b{ color:var(--teal-800); letter-spacing:.6px; }
+
+/* ================= Investors ================= */
+.inv-row{ cursor:pointer; }
+.ivcard{ background:#fff; border:1px solid var(--line); border-radius:12px; padding:16px 18px; margin-bottom:12px; }
+.ivcard-top{ display:flex; justify-content:space-between; align-items:flex-start; gap:12px; flex-wrap:wrap; }
+.ivcard-title{ font-family:var(--font-display); font-weight:700; font-size:15.5px; color:var(--teal-900); display:flex; align-items:center; gap:9px; flex-wrap:wrap; }
+.ivcard-meta{ font-size:12.5px; color:var(--ink-soft); margin-top:4px; }
+.ivcard-figs{ display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-top:14px; }
+.ivcard-figs > div{ background:var(--line-soft); border-radius:9px; padding:10px 12px; }
+.ivcard-figs span{ display:block; font-size:10.5px; text-transform:uppercase; letter-spacing:.4px; color:var(--ink-soft); }
+.ivcard-figs b{ font-size:14px; color:var(--ink); }
+.ivpays{ margin-top:12px; border-top:1px dashed var(--line); padding-top:10px; display:flex; flex-direction:column; gap:6px; }
+.ivpay{ display:grid; grid-template-columns:110px 1fr auto auto; align-items:center; gap:10px; font-size:12.5px; color:var(--ink-soft); }
+.ivpay b{ color:var(--ink); font-variant-numeric:tabular-nums; }
+@media (max-width:640px){ .ivcard-figs{ grid-template-columns:repeat(2,1fr); } .ivpay{ grid-template-columns:1fr auto auto; } .ivpay span:nth-child(2){ display:none; } }
