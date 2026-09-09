@@ -1,19 +1,19 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
 import ThemeToggle from "./ThemeToggle";
 
 const SERVICE_LINKS = [
   { href: "/services/ecommerce", label: "Ecommerce Development", sub: "Shopify, WooCommerce & marketplaces" },
   { href: "/services/software-development", label: "Web, SaaS & App Dev", sub: "Sites, platforms & mobile apps" },
-  { href: "/#services", label: "All Solutions", sub: "AI, CRM/ERP, design, marketing & more" },
+  { href: "/#services", label: "All Solutions", sub: "AI, CRM/ERP, design & marketing" },
 ];
 
 const MAIN_LINKS = [
   { href: "/academy", label: "Academy" },
-  { href: "/about", label: "About Us" },
+  { href: "/about", label: "About" },
   { href: "/#work", label: "Work" },
   { href: "/#faq", label: "FAQ" },
 ];
@@ -38,65 +38,58 @@ export default function Header() {
   return (
     <>
       <header className={`hd${scrolled ? " sc" : ""}`}>
-        <div className="wrap hdr">
-          <Link href="/">
-            <Image
-              className="lg"
-              src="/uploads/logo.png"
-              alt="ScaleUp Marketing — Learn. Launch. Scale."
-              width={200}
-              height={46}
-              style={{ height: 46, width: "auto" }}
-              priority
-            />
-          </Link>
-          <nav className="nav">
-            <div className="navdd">
-              <Link className="nlink navddtrigger" href="/#services">
-                Solutions
-                <svg className="navddcaret" width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M2.5 4.5 6 8l3.5-3.5" />
-                </svg>
-              </Link>
-              <div className="navddmenu">
-                {SERVICE_LINKS.map((l) => (
-                  <Link key={l.label} className="navddlink" href={l.href}>
-                    {l.label}
-                    <span className="navddsub">{l.sub}</span>
-                  </Link>
-                ))}
-              </div>
-            </div>
-            {MAIN_LINKS.map((l) => (
-              <Link key={l.href} className="nlink" href={l.href}>
-                {l.label}
-              </Link>
-            ))}
-            <ThemeToggle />
-            <Link className="btn btnG sm" href="/#contact">
-              Free Consultation
+        <div className="hd-wrap">
+          <div className="hd-inner">
+            <Link className="hd-logo" href="/" aria-label="ScaleUp Marketing — Learn. Launch. Scale.">
+              <Image className="logo-img logo-light" src="/uploads/logo.png" alt="ScaleUp Marketing" width={103} height={41} priority />
+              <Image className="logo-img logo-dark" src="/uploads/logo-white.png" alt="ScaleUp Marketing" width={103} height={41} priority />
             </Link>
-          </nav>
-          <div className="hdmob">
-            <ThemeToggle />
-            <button
-              className="burger"
-              onClick={() => setMenuOpen((v) => !v)}
-              aria-label="Menu"
-            >
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                <path d="M3 6h14M3 10h14M3 14h14" />
-              </svg>
-            </button>
+
+            <nav className="nav">
+              <div className="navdd">
+                <Link className="nlink" href="/#services">
+                  Solutions
+                  <svg className="navcaret" width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M2.5 4.5 6 8l3.5-3.5" />
+                  </svg>
+                </Link>
+                <div className="navdd-menu">
+                  {SERVICE_LINKS.map((l) => (
+                    <Link key={l.label} className="navdd-link" href={l.href}>
+                      <b>{l.label}</b>
+                      <span>{l.sub}</span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+              {MAIN_LINKS.map((l) => (
+                <Link key={l.href} className="nlink" href={l.href}>
+                  {l.label}
+                </Link>
+              ))}
+            </nav>
+
+            <div className="hd-actions">
+              <ThemeToggle />
+              <Link className="btn btn-primary sm" href="/#contact">
+                Free Consultation
+              </Link>
+            </div>
+
+            <div className="hd-mob">
+              <ThemeToggle />
+              <button className="burger" onClick={() => setMenuOpen((v) => !v)} aria-label="Menu">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                  <path d="M3 6h14M3 10h14M3 14h14" />
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
       </header>
-      <div className={`mm${menuOpen ? " on" : ""}`}>
-        <button
-          className="mlink mgroup"
-          onClick={() => setMServicesOpen((v) => !v)}
-          aria-expanded={mServicesOpen}
-        >
+
+      <div className={`mobile-menu${menuOpen ? " on" : ""}`}>
+        <button className="mlink" onClick={() => setMServicesOpen((v) => !v)} aria-expanded={mServicesOpen}>
           Solutions
           <span className={`mgcaret${mServicesOpen ? " open" : ""}`}>+</span>
         </button>
@@ -114,7 +107,7 @@ export default function Header() {
             {l.label}
           </Link>
         ))}
-        <Link className="btn btnG" href="/#contact" onClick={closeMenu} style={{ marginTop: 14 }}>
+        <Link className="btn btn-primary" href="/#contact" onClick={closeMenu} style={{ marginTop: 12, width: "100%" }}>
           Free Consultation
         </Link>
       </div>

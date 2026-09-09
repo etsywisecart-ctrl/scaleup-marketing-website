@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import FormatToggle from "@/components/FormatToggle";
-import CourseHero from "@/components/CourseHero";
-import CurriculumAccordion from "@/components/CurriculumAccordion";
+import PageHero from "@/components/PageHero";
+import Accordion from "@/components/Accordion";
 import RelatedLinks from "@/components/RelatedLinks";
 import JsonLd from "@/components/JsonLd";
 import { siteConfig } from "@/config/site";
@@ -14,19 +13,11 @@ export function generateStaticParams() {
   return courses.map((c) => ({ slug: c.slug }));
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const course = courses.find((c) => c.slug === slug);
   if (!course) return {};
-  return {
-    title: `${course.title} — Academy`,
-    description: course.sub,
-    alternates: { canonical: `/academy/${course.slug}` },
-  };
+  return { title: `${course.title} — Academy`, description: course.sub, alternates: { canonical: `/academy/${course.slug}` } };
 }
 
 export default async function CoursePage({ params }: { params: Promise<{ slug: string }> }) {
@@ -49,87 +40,45 @@ export default async function CoursePage({ params }: { params: Promise<{ slug: s
           ]),
         ]}
       />
-      <CourseHero
-        slug={course.slug}
-        tag={course.tag}
-        badge={course.badge}
+      <PageHero
+        crumb={course.title}
+        eyebrow={`Academy · ${course.tag}`}
         title={course.title}
-        sub={course.sub}
-        dur={course.dur}
-        level={course.level}
-        modules={modules.length}
+        lead={course.sub}
+        chips={[course.dur, course.level, `${modules.length} modules`, "Certificate"]}
+        primary={{ label: "Reserve a free demo seat", href: "/#contact" }}
+        ghost={{ label: "All courses", href: "/academy" }}
       />
 
       <section className="sec" style={{ paddingTop: 0 }}>
-        <div className="wrap">
-          <div className="ahead rv">
-            <div style={{ maxWidth: 560 }}>
-              <p className="eyebrow">Choose your format</p>
-              <h2 className="h2" style={{ fontSize: "clamp(26px,3vw,36px)" }}>
-                Same syllabus, your schedule.
-              </h2>
-            </div>
-            <FormatToggle />
-          </div>
-
-          <CurriculumAccordion
-            title={`Full curriculum: ${course.title}`}
+        <div className="wrap" style={{ maxWidth: 860 }}>
+          <Accordion
+            title={`Full curriculum — ${course.title}`}
             meta={`${modules.length} MODULES · ${course.dur} · TAP TO EXPAND`}
             modules={modules}
           />
 
-          <div className="models rv" style={{ marginTop: 44 }}>
-            <span className="model" style={{ color: "#3E5560", borderColor: "#DCE8E5" }}>
-              <span className="mtick">✓</span>Regular Classes
-            </span>
-            <span className="model" style={{ color: "#3E5560", borderColor: "#DCE8E5" }}>
-              <span className="mtick">✓</span>1:1 Mentorship
-            </span>
-            <span className="model" style={{ color: "#3E5560", borderColor: "#DCE8E5" }}>
-              <span className="mtick">✓</span>Weekly Q&amp;A
-            </span>
-            <span className="model" style={{ color: "#3E5560", borderColor: "#DCE8E5" }}>
-              <span className="mtick">✓</span>Certification
-            </span>
-          </div>
-
           {siteConfig.toggles.showDemoBanner && (
             <div className="demo rv">
-              <div style={{ flex: 1, minWidth: 260 }}>
-                <h3 className="demot">Sit in free for 3 days before you spend a rupee.</h3>
-                <p className="demod">
-                  This track starts with a free 3-day demo class and a 1:1 consultation — so you
-                  enroll knowing exactly what you will build.
-                </p>
+              <div>
+                <h3>Sit in free for 3 days before you spend a rupee.</h3>
+                <p>This track starts with a free 3-day demo class and a 1:1 consultation — so you enroll knowing exactly what you will build.</p>
               </div>
-              <Link className="btn btnW" href="/#contact">
-                Reserve a demo seat
-              </Link>
+              <Link className="btn btn-primary lg" href="/#contact">Reserve a demo seat</Link>
             </div>
           )}
         </div>
       </section>
 
-      <section className="sec softband">
+      <section className="sec" style={{ background: "var(--sunk)" }}>
         <div className="wrap">
-          <div className="rv" style={{ maxWidth: 640 }}>
-            <p className="eyebrow">Other tracks</p>
-            <h2 className="h2" style={{ fontSize: "clamp(26px,3vw,36px)" }}>
-              Explore the rest of the Academy.
-            </h2>
+          <div className="sec-head rv">
+            <span className="eyebrow"><i className="dot" />Other tracks</span>
+            <h2 className="h2">Explore the rest of the Academy</h2>
           </div>
           <RelatedLinks
-            items={otherCourses.map((c) => ({
-              href: `/academy/${c.slug}`,
-              title: c.title,
-              meta: `${c.dur} · ${c.level}`,
-            }))}
+            items={otherCourses.map((c) => ({ href: `/academy/${c.slug}`, title: c.title, meta: `${c.dur} · ${c.level}` }))}
           />
-          <div className="secta rv">
-            <Link className="btn btnG" href="/#contact">
-              Book a free consultation
-            </Link>
-          </div>
         </div>
       </section>
     </>

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import AboutHero from "@/components/AboutHero";
-import TeamAvatar from "@/components/TeamAvatar";
+import PageHero from "@/components/PageHero";
 import { teamPods, milestones, team } from "@/data/content";
 
 export const metadata: Metadata = {
@@ -14,108 +13,58 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <>
-      <AboutHero />
+      <PageHero
+        crumb="About"
+        eyebrow="Who we are"
+        title={<>Most agencies guard their playbooks.<br /><span className="accent">We teach ours.</span></>}
+        lead="An engineering-grade digital agency and a hands-on training institute under one roof — in Lahore, building for the world."
+        ghost={{ label: "See our work", href: "/#work" }}
+      />
 
-      <section className="sec softband" style={{ paddingTop: 0 }}>
-        <div className="wrap split">
+      <section className="sec" style={{ paddingTop: 0 }}>
+        <div className="wrap about-split">
           <div className="rv">
-            <p className="eyebrow">Why we exist</p>
-            <h2 className="bigsay">
-              Most agencies guard their playbooks. <span className="grad">We teach ours.</span>
-            </h2>
-            <p className="lead" style={{ marginTop: 26, maxWidth: 520 }}>
-              ScaleUp Marketing started as a small team building Shopify stores for local
-              businesses in Lahore. We kept getting asked the same question by clients and their
-              staff: &ldquo;can you teach us how you did that?&rdquo; So we built a second engine —
-              a training institute running the exact curriculum our own team uses on live client
-              work.
+            <span className="eyebrow"><i className="dot" />Why we exist</span>
+            <p className="lead" style={{ marginTop: 22 }}>
+              ScaleUp started as a small team building Shopify stores for local businesses in Lahore.
+              Clients and their staff kept asking the same thing: &ldquo;can you teach us how you did
+              that?&rdquo; So we built a second engine — a training institute running the exact
+              curriculum our own team uses on live client work.
             </p>
-            <p className="lead" style={{ marginTop: 16, maxWidth: 520 }}>
-              Today those two engines feed each other. Client projects become case studies in the
-              classroom. Our strongest graduates get referred into agency work. Nobody teaches
-              recycled theory here — every module traces back to something we shipped for a real
-              business this year.
+            <p className="lead" style={{ marginTop: 16 }}>
+              Today those two engines feed each other. Client projects become classroom case studies.
+              Our strongest graduates get referred into agency work. Nobody teaches recycled theory
+              here — every module traces back to something we shipped this year.
             </p>
           </div>
-          <div className="paths rv">
-            <div className="pathc" style={{ cursor: "default" }}>
-              <div className="pico">
-                <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M4 21h16M6 21V9l6-5 6 5v12M10 21v-6h4v6" />
-                </svg>
-              </div>
-              <div>
-                <h3 className="pt">Business-first, always</h3>
-                <p className="pd">Every engagement and every lesson starts from unit economics, not tools or trends.</p>
-              </div>
+          <div className="grid" style={{ gap: 20 }}>
+            <div className="point">
+              <span className="point-ic">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"><path d="M4 21h16M6 21V9l6-5 6 5v12M10 21v-6h4v6" /></svg>
+              </span>
+              <div><h3>Business-first, always</h3><p>Every engagement and every lesson starts from unit economics — not tools or trends.</p></div>
             </div>
-            <div className="pathc" style={{ cursor: "default" }}>
-              <div className="pico navy">
-                <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="12" cy="12" r="9" />
-                  <path d="m15.5 8.5-2 5-5 2 2-5 5-2Z" />
-                </svg>
-              </div>
-              <div>
-                <h3 className="pt">One standard, two paths</h3>
-                <p className="pd">Whether you hire us or enroll, you get the same senior team and the same fixed-quote transparency.</p>
-              </div>
+            <div className="point">
+              <span className="point-ic">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9" /><path d="m15.5 8.5-2 5-5 2 2-5 5-2Z" /></svg>
+              </span>
+              <div><h3>One standard, two paths</h3><p>Hire us or enroll — you get the same senior team and the same fixed-quote transparency.</p></div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="sec">
+      <section className="sec" style={{ background: "var(--sunk)" }}>
         <div className="wrap">
-          <div className="rv" style={{ maxWidth: 640 }}>
-            <p className="eyebrow">How we&rsquo;re organized</p>
-            <h2 className="h2">
-              Five pods, <span className="grad">one accountable team.</span>
-            </h2>
+          <div className="sec-head rv">
+            <span className="eyebrow"><i className="dot" />How we&rsquo;re organized</span>
+            <h2 className="h2">Five pods, one accountable team</h2>
           </div>
-          <div className="podg">
-            {teamPods.map((p) => (
-              <div key={p.name} className="pod rv">
-                <h3 className="podn">{p.name}</h3>
-                <p className="podd">{p.d}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="sec softband">
-        <div className="wrap">
-          <div className="rv" style={{ maxWidth: 640 }}>
-            <p className="eyebrow">The people</p>
-            <h2 className="h2">
-              Faces behind <span className="grad">the work.</span>
-            </h2>
-            <p className="lead" style={{ marginTop: 18 }}>
-              Real people you&rsquo;ll actually work with — the same team that ships client
-              projects and teaches the tracks.
-            </p>
-          </div>
-          <div className="teamg">
-            {team.map((m) => (
-              <div key={m.name} className="tmcard rv">
-                <TeamAvatar photo={m.photo} name={m.name} ini={m.ini} accent={m.accent} />
-                <h3 className="tmname">{m.name}</h3>
-                <p className="tmrole">{m.role}</p>
-                {m.linkedin ? (
-                  <a
-                    className="tmli"
-                    href={m.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`${m.name} on LinkedIn`}
-                  >
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                      <path d="M6.94 8.5a1.94 1.94 0 1 0 0-3.88 1.94 1.94 0 0 0 0 3.88ZM5.34 10h3.2v9.5h-3.2V10Zm5.1 0h3.07v1.3h.04c.43-.77 1.47-1.58 3.03-1.58 3.24 0 3.84 2.06 3.84 4.74v5.04h-3.2v-4.47c0-1.07-.02-2.44-1.54-2.44-1.54 0-1.78 1.16-1.78 2.36v4.55h-3.2V10Z" />
-                    </svg>
-                    LinkedIn
-                  </a>
-                ) : null}
+          <div className="grid grid-3" style={{ marginTop: 48 }}>
+            {teamPods.map((p, i) => (
+              <div key={p.name} className={`card rv d${(i % 3) + 1}`}>
+                <h3>{p.name}</h3>
+                <p>{p.d}</p>
               </div>
             ))}
           </div>
@@ -124,19 +73,36 @@ export default function AboutPage() {
 
       <section className="sec">
         <div className="wrap">
-          <div className="rv" style={{ maxWidth: 640 }}>
-            <p className="eyebrow">Where we&rsquo;ve been</p>
-            <h2 className="h2">
-              Five years, <span className="grad">one ecosystem.</span>
-            </h2>
+          <div className="sec-head rv">
+            <span className="eyebrow"><i className="dot" />The people</span>
+            <h2 className="h2">Faces behind the work</h2>
+            <p className="lead">The same team that ships client projects and teaches the tracks.</p>
           </div>
-          <div className="mstones rv">
+          <div className="grid grid-3" style={{ marginTop: 48 }}>
+            {team.map((m, i) => (
+              <div key={m.name} className={`card team-card rv d${(i % 3) + 1}`}>
+                <span className="team-av" style={{ background: m.accent }}>{m.ini}</span>
+                <h3>{m.name}</h3>
+                <p className="team-role">{m.role}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="sec" style={{ background: "var(--sunk)" }}>
+        <div className="wrap">
+          <div className="sec-head rv">
+            <span className="eyebrow"><i className="dot" />Where we&rsquo;ve been</span>
+            <h2 className="h2">Five years, one ecosystem</h2>
+          </div>
+          <div className="timeline rv" style={{ marginTop: 48 }}>
             {milestones.map((m) => (
-              <div key={m.t} className="mstone">
-                <span className="msy">{m.y}</span>
-                <div>
-                  <h3 className="mst">{m.t}</h3>
-                  <p className="msd">{m.d}</p>
+              <div key={m.t} className="tl-item">
+                <span className="tl-year">{m.y}</span>
+                <div className="tl-body">
+                  <h3>{m.t}</h3>
+                  <p>{m.d}</p>
                 </div>
               </div>
             ))}
@@ -144,39 +110,17 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="sec" style={{ paddingBottom: 0 }}>
+      <section className="sec">
         <div className="wrap">
-          <div className="rv" style={{ maxWidth: 660 }}>
-            <p className="eyebrow">The numbers</p>
-            <h2 className="h2">
-              Proof, <span className="grad">not adjectives.</span>
-            </h2>
+          <div className="stats rv">
+            <div className="stat"><b className="num" data-to="500" data-suf="+">0+</b><span>Students trained</span></div>
+            <div className="stat"><b className="num" data-to="100" data-suf="+">0+</b><span>Projects delivered</span></div>
+            <div className="stat"><b className="num" data-to="5" data-suf="">0</b><span>Years shipping &amp; teaching</span></div>
+            <div className="stat"><b>Lahore</b><span>Home base, global clients</span></div>
           </div>
-        </div>
-        <div className="stats rv" style={{ marginTop: 40, border: "1px solid #E7F0EE" }}>
-          <div className="wrap strip">
-            <div className="stat first">
-              <div className="num" data-to="500" data-suf="+">500+</div>
-              <div className="slab">Students trained</div>
-            </div>
-            <div className="stat nb">
-              <div className="num" data-to="100" data-suf="+">100+</div>
-              <div className="slab">Projects delivered</div>
-            </div>
-            <div className="stat">
-              <div className="num" data-to="5" data-suf="">5</div>
-              <div className="slab">Years shipping &amp; teaching</div>
-            </div>
-          </div>
-        </div>
-        <div className="wrap">
-          <div className="secta rv">
-            <Link className="btn btnG" href="/#contact">
-              Book a free scoping call
-            </Link>
-            <Link className="softline" href="/#work">
-              See the results →
-            </Link>
+          <div className="rv" style={{ textAlign: "center", marginTop: 40, display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap" }}>
+            <Link className="btn btn-primary lg" href="/#contact">Book a free scoping call</Link>
+            <Link className="btn btn-neu lg" href="/#work">See the results</Link>
           </div>
         </div>
       </section>
