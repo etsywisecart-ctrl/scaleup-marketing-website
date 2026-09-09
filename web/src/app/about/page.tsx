@@ -18,7 +18,7 @@ export default function AboutPage() {
         eyebrow="Who we are"
         title={<>Most agencies guard their playbooks.<br /><span className="accent">We teach ours.</span></>}
         lead="An engineering-grade digital agency and a hands-on training institute under one roof — in Lahore, building for the world."
-        ghost={{ label: "See our work", href: "/#work" }}
+        ghost={{ label: "See our work", href: "/work" }}
       />
 
       <section className="sec" style={{ paddingTop: 0 }}>
@@ -120,7 +120,7 @@ export default function AboutPage() {
           </div>
           <div className="rv" style={{ textAlign: "center", marginTop: 40, display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap" }}>
             <Link className="btn btn-primary lg" href="/#contact">Book a free scoping call</Link>
-            <Link className="btn btn-neu lg" href="/#work">See the results</Link>
+            <Link className="btn btn-neu lg" href="/work">See the results</Link>
           </div>
         </div>
       </section>
