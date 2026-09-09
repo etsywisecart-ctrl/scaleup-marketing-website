@@ -128,11 +128,11 @@ export default function Academy() {
         </div>
 
         {/* Colourful platform icon strip */}
-        <div className="ac-logos rv" aria-label="Marketplaces our graduates build and sell on">
-          <span className="ac-logos-label">Master every marketplace</span>
+        <div className="ac-logos" aria-label="Marketplaces our graduates build and sell on">
+          <span className="ac-logos-label rv">Master every marketplace</span>
           <div className="ac-plat-row">
-            {PLATFORMS.map((p) => (
-              <div className="ac-plat" key={p.name}>
+            {PLATFORMS.map((p, i) => (
+              <div className="ac-plat rv" key={p.name} style={{ transitionDelay: `${i * 55}ms` }}>
                 <span className="ac-plat-ic" style={{ color: p.color, ["--brand" as string]: p.color }}>
                   <PlatformIcon name={p.ic} />
                 </span>
@@ -143,9 +143,9 @@ export default function Academy() {
         </div>
 
         {/* Key points */}
-        <div className="ac-points rv">
-          {KEY_POINTS.map((k) => (
-            <div className="ac-point" key={k.t}>
+        <div className="ac-points">
+          {KEY_POINTS.map((k, i) => (
+            <div className="ac-point rv" key={k.t} style={{ transitionDelay: `${i * 70}ms` }}>
               <span className="ac-point-ic"><PointIcon name={k.ic} /></span>
               <div className="ac-point-txt">
                 <strong>{k.t}</strong>
