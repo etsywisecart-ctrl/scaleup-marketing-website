@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { siteConfig } from "@/config/site";
 
 const { contact, social } = siteConfig;
@@ -15,7 +16,10 @@ export default function Footer() {
       <div className="wrap">
         <div className="footer-top">
           <div className="footer-brand">
-            <Link className="hd-logo" href="/"><span className="mk">S</span>Scale Up</Link>
+            <Link className="hd-logo footer-logo" href="/" aria-label="ScaleUp Marketing home">
+              <Image className="logo-img logo-light" src="/uploads/logo.png" alt="ScaleUp Marketing" width={128} height={51} />
+              <Image className="logo-img logo-dark" src="/uploads/logo-white.png" alt="ScaleUp Marketing" width={128} height={51} />
+            </Link>
             <p>
               {contact.addressLine1} {contact.addressLine2}
               <br />

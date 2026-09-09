@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import ThemeToggle from "./ThemeToggle";
 
 const SERVICE_LINKS = [
@@ -39,9 +40,9 @@ export default function Header() {
       <header className={`hd${scrolled ? " sc" : ""}`}>
         <div className="hd-wrap">
           <div className="hd-inner">
-            <Link className="hd-logo" href="/" aria-label="ScaleUp Marketing home">
-              <span className="mk">S</span>
-              Scale Up
+            <Link className="hd-logo" href="/" aria-label="ScaleUp Marketing — Learn. Launch. Scale.">
+              <Image className="logo-img logo-light" src="/uploads/logo.png" alt="ScaleUp Marketing" width={103} height={41} priority />
+              <Image className="logo-img logo-dark" src="/uploads/logo-white.png" alt="ScaleUp Marketing" width={103} height={41} priority />
             </Link>
 
             <nav className="nav">
