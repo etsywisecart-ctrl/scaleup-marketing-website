@@ -1,14 +1,5 @@
 import Link from "next/link";
 
-const BARS = [
-  { h: "30%", c: "" },
-  { h: "42%", c: "" },
-  { h: "38%", c: "" },
-  { h: "58%", c: "b" },
-  { h: "76%", c: "a" },
-  { h: "92%", c: "a" },
-];
-
 export default function Hero() {
   return (
     <section className="hero" id="top">
@@ -44,24 +35,33 @@ export default function Hero() {
           </p>
         </div>
 
-        <div className="hero-visual rv d2" aria-hidden="true">
-          <div className="growth-card">
-            <div className="gc-head">
-              <span>Revenue generated</span>
-              <span className="gc-pill">▲ 312%</span>
+        <div className="hero-visual rv d2">
+          <div className="promo-card">
+            <div className="promo-top">
+              <span className="promo-badge"><i className="live-dot" />Now Enrolling</span>
+              <span className="promo-seats">Limited seats</span>
             </div>
-            <div className="gc-big">Rs 2.4 Cr+</div>
-            <div className="gc-chart">
-              {BARS.map((b, i) => (
-                <span key={i} className={b.c} style={{ height: b.h, animationDelay: `${0.15 + i * 0.09}s` }} />
-              ))}
+            <h2 className="promo-title"><span className="accent">Free</span> 3-Day<br />Demo Class</h2>
+            <p className="promo-sub">
+              Sit in a real live cohort before you pay a rupee — online or at our Lahore campus.
+            </p>
+            <div className="promo-feats">
+              <span>Live cohorts</span>
+              <span>Every marketplace</span>
+              <span>Lifetime access</span>
             </div>
+            <Link className="btn btn-primary promo-cta" href="/#contact">
+              Reserve your seat
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M3 8h10M9 4l4 4-4 4" />
+              </svg>
+            </Link>
           </div>
-          <span className="chip float-chip fc1">
+          <span className="chip float-chip fc1" aria-hidden="true">
             <i className="dot" />
-            AI Automation
+            New batch open
           </span>
-          <span className="chip float-chip fc2">
+          <span className="chip float-chip fc2" aria-hidden="true">
             <i className="dot v" />
             Shopify Partner
           </span>

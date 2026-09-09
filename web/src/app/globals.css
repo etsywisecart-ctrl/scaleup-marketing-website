@@ -218,6 +218,24 @@ a{ color:inherit; text-decoration:none; }
 @media (prefers-reduced-motion: reduce){ .float-chip{ animation:none !important; } }
 .hero-visual::before{ content:""; position:absolute; inset:-8% -6% -10% -6%; background:radial-gradient(60% 55% at 60% 40%, rgba(18,184,134,0.16), transparent 70%); filter:blur(20px); z-index:0; }
 
+/* Hero promo (offer) card */
+.promo-card{ padding:32px; border-radius:var(--r-lg); background:var(--surface); box-shadow:var(--raise-lg); position:relative; z-index:2; }
+.promo-top{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
+.promo-badge{ display:inline-flex; align-items:center; gap:9px; font-size:12.5px; font-weight:700; color:var(--accent-deep); background:var(--canvas); box-shadow:var(--inset-sm); padding:8px 15px; border-radius:var(--r-pill); }
+:root[data-theme="dark"] .promo-badge{ color:var(--accent); }
+.promo-badge .live-dot{ width:8px; height:8px; border-radius:50%; background:var(--accent); animation:promoPulse 1.8s ease-out infinite; }
+@keyframes promoPulse{ 0%{ box-shadow:0 0 0 0 rgba(18,184,134,.5); } 70%{ box-shadow:0 0 0 9px rgba(18,184,134,0); } 100%{ box-shadow:0 0 0 0 rgba(18,184,134,0); } }
+.promo-seats{ font-size:11px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:#d98324; }
+:root[data-theme="dark"] .promo-seats{ color:#e6a94e; }
+.promo-title{ font-size:clamp(30px,4vw,40px); font-weight:800; letter-spacing:-0.03em; line-height:1.06; margin:22px 0 12px; color:var(--ink); }
+.promo-sub{ font-size:14.5px; line-height:1.55; color:var(--ink-soft); margin:0 0 20px; }
+.promo-feats{ display:flex; gap:9px; flex-wrap:wrap; margin-bottom:22px; }
+.promo-feats span{ font-size:12px; font-weight:600; color:var(--ink-soft); background:var(--canvas); box-shadow:var(--inset-sm); padding:8px 13px; border-radius:var(--r-pill); }
+.promo-cta{ width:100%; position:relative; overflow:hidden; }
+.promo-cta::after{ content:""; position:absolute; top:0; left:-70%; width:45%; height:100%; background:linear-gradient(100deg, transparent, rgba(255,255,255,.55), transparent); transform:skewX(-18deg); animation:promoShine 3.6s ease-in-out infinite; }
+@keyframes promoShine{ 0%{ left:-70%; } 55%,100%{ left:140%; } }
+@media (prefers-reduced-motion: reduce){ .promo-badge .live-dot, .promo-cta::after{ animation:none; } .promo-cta::after{ display:none; } }
+
 /* =====================================================================
    Logo marquee
    ===================================================================== */
