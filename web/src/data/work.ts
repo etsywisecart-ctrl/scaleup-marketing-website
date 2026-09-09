@@ -20,6 +20,20 @@ export type Project = {
 
 export const portfolio: Project[] = [
   {
+    title: "OmniChat AI",
+    cat: "AI SaaS Platform",
+    year: "2026",
+    img: "/uploads/omnichat-dashboard.png",
+    desc: "An omnichannel AI sales & support agent — one brain and catalog across WhatsApp, website, Messenger and Instagram that answers customers, confirms orders and sends payment links.",
+    metrics: [
+      { v: "4", l: "Channels" },
+      { v: "1", l: "AI brain + catalog" },
+      { v: "24/7", l: "Auto support" },
+    ],
+    tags: ["AI Agent", "WhatsApp", "Meta Ads"],
+    url: "https://omnichat-ai-six.vercel.app",
+  },
+  {
     title: "Retail Shopify Store — AU",
     cat: "Shopify Build",
     year: "2025",
