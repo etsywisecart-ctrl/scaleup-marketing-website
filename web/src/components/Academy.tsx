@@ -7,11 +7,28 @@ const TRAINED_ON = ["Shopify", "Meta Ads", "TikTok Shop", "Etsy", "Daraz", "eBay
 
 const PLANS = [
   {
+    tag: "STARTER",
+    name: "Ecommerce Foundations",
+    sub: "The essentials to start selling online with confidence.",
+    price: "30,000",
+    variant: "plain",
+    badge: "",
+    feats: [
+      "6-week live online cohort",
+      "Ecommerce & marketplace basics",
+      "Product research & pricing",
+      "Your first store, step by step",
+      "Starter templates + recordings",
+      "Group mentor support",
+    ],
+    href: "/academy",
+  },
+  {
     tag: "FLAGSHIP",
     name: "Shopify Master",
     sub: "Zero to a live, selling store — our complete flagship track.",
     price: "50,000",
-    featured: true,
+    variant: "accent",
     badge: "Most popular",
     feats: [
       "12-week live online cohort",
@@ -24,19 +41,19 @@ const PLANS = [
     href: "/academy/shopify-mastery",
   },
   {
-    tag: "STARTER",
-    name: "Ecommerce Foundations",
-    sub: "The essentials to start selling online with confidence.",
-    price: "30,000",
-    featured: false,
-    badge: "",
+    tag: "PREMIUM",
+    name: "Premium Gold",
+    sub: "Every marketplace, mastered — with lifetime support for life.",
+    price: "80,000",
+    variant: "gold",
+    badge: "All marketplaces",
     feats: [
-      "6-week live online cohort",
-      "Ecommerce & marketplace basics",
-      "Product research & pricing",
-      "Your first store, step by step",
-      "Starter templates + recordings",
-      "Group mentor support",
+      "Every marketplace: Shopify, Etsy, eBay, Daraz, Amazon, TikTok",
+      "Lifetime 1-on-1 mentorship & support",
+      "AI & digital marketing mastery",
+      "Priority store audits & reviews",
+      "Sourcing, ads & full store operations",
+      "Job & agency placement support",
     ],
     href: "/academy",
   },
@@ -73,10 +90,10 @@ export default function Academy() {
           </div>
         </div>
 
-        {/* Two clear plans */}
-        <div className="plans">
+        {/* Three clear plans */}
+        <div className="plans plans-3">
           {PLANS.map((p, i) => (
-            <div key={p.name} className={`plan rv d${i + 1}${p.featured ? " featured" : ""}`}>
+            <div key={p.name} className={`plan rv d${i + 1}${p.variant === "accent" ? " featured" : ""}${p.variant === "gold" ? " gold" : ""}`}>
               <div className="plan-head">
                 <span className="plan-tag mono">{p.tag}</span>
                 {p.badge && <span className="plan-badge">{p.badge}</span>}
@@ -93,7 +110,7 @@ export default function Academy() {
                   <li key={f}><span className="pf-ic"><Check /></span>{f}</li>
                 ))}
               </ul>
-              <Link className={`btn ${p.featured ? "btn-primary" : "btn-neu"} plan-cta`} href="/#contact">
+              <Link className={`btn plan-cta ${p.variant === "accent" ? "btn-primary" : p.variant === "gold" ? "btn-gold" : "btn-neu"}`} href="/#contact">
                 Enroll now
                 <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M3 8h10M9 4l4 4-4 4" />
