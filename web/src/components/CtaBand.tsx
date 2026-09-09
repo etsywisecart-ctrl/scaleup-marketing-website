@@ -21,7 +21,7 @@ export default function CtaBand() {
                 <path d="M3 8h10M9 4l4 4-4 4" />
               </svg>
             </Link>
-            <Link className="btn btn-ghost lg" href="/#work">
+            <Link className="btn btn-ghost lg" href="/work">
               See our work
             </Link>
           </div>

@@ -7,7 +7,7 @@ const { contact, social } = siteConfig;
 const COLS = [
   { h: "Solutions", links: [["Ecommerce", "/services/ecommerce"], ["Software & apps", "/services/software-development"], ["All solutions", "/#services"]] },
   { h: "Academy", links: [["All courses", "/academy"], ["Shopify Mastery", "/academy/shopify-mastery"], ["Free demo class", "/#contact"]] },
-  { h: "Company", links: [["About", "/about"], ["Work", "/#work"], ["Contact", "/#contact"], ["FAQ", "/#faq"]] },
+  { h: "Company", links: [["About", "/about"], ["Work", "/work"], ["Contact", "/#contact"], ["FAQ", "/#faq"]] },
 ];
 
 export default function Footer() {

@@ -13,8 +13,8 @@ const SERVICE_LINKS = [
 
 const MAIN_LINKS = [
   { href: "/academy", label: "Academy" },
+  { href: "/work", label: "Work" },
   { href: "/about", label: "About" },
-  { href: "/#work", label: "Work" },
   { href: "/#faq", label: "FAQ" },
 ];
 
