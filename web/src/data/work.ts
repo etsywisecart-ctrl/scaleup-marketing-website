@@ -20,6 +20,34 @@ export type Project = {
 
 export const portfolio: Project[] = [
   {
+    title: "Savora Restaurant Website",
+    cat: "Next.js Web Demo",
+    year: "2026",
+    img: "",
+    desc: "A premium restaurant website concept with menu discovery, story sections, reservations-ready CTAs and a polished responsive experience.",
+    metrics: [
+      { v: "Next.js", l: "Framework" },
+      { v: "100%", l: "Responsive" },
+      { v: "Fast", l: "UX" },
+    ],
+    tags: ["Next.js", "React", "UI/UX"],
+    url: "/demos/restaurant",
+  },
+  {
+    title: "Savora Restaurant POS",
+    cat: "Next.js POS Demo",
+    year: "2026",
+    img: "",
+    desc: "A working restaurant point-of-sale demo with menu categories, table selection, live cart, quantities, tax and checkout totals.",
+    metrics: [
+      { v: "Live", l: "Cart" },
+      { v: "POS", l: "Workflow" },
+      { v: "Ready", l: "Responsive" },
+    ],
+    tags: ["Next.js", "POS", "React"],
+    url: "/demos/restaurant-pos",
+  },
+  {
     title: "OmniChat AI",
     cat: "AI SaaS Platform",
     year: "2026",
