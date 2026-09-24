@@ -178,7 +178,11 @@ a{ color:inherit; text-decoration:none; }
 .burger{ width:46px; height:46px; border-radius:50%; border:0; cursor:pointer; background:var(--surface); box-shadow:var(--raise-sm); color:var(--ink); display:grid; place-items:center; }
 .mobile-menu{ display:none; }
 @media (max-width:940px){
-  .nav{ display:none; } .hd-mob{ display:flex; }
+  .nav{ display:none; }
+  .hd-actions{ display:none; }
+  .hd-mob{ display:flex; margin-left:auto; }
+  .hd-logo{ flex:0 1 auto; min-width:0; }
+  .logo-img{ max-width:103px; height:auto; }
   .mobile-menu{ display:block; position:fixed; inset:92px 16px auto 16px; z-index:59; padding:14px; background:var(--surface); border-radius:var(--r-lg); box-shadow:var(--raise-lg); transform:translateY(-14px) scale(.98); opacity:0; visibility:hidden; transition:.25s; }
   .mobile-menu.on{ transform:none; opacity:1; visibility:visible; }
   .mlink{ display:flex; justify-content:space-between; align-items:center; width:100%; padding:15px 16px; border-radius:var(--r-md); font-size:16px; font-weight:600; color:var(--ink); background:transparent; border:0; cursor:pointer; text-align:left; }
