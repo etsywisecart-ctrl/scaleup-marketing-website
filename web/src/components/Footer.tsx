@@ -30,6 +30,7 @@ export default function Footer() {
               <div className="footer-office">
                 <span className="footer-office-label">Australia Office</span>
                 <span>31/10 Yato Road<br />Prestons, NSW 2170, Australia</span>
+                <a href="tel:+61494389727">+61 494 389 727</a>
               </div>
             </div>
             <div className="footer-contact">
