@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Faq from "@/components/Faq";
+import AcademyTestimonials from "@/components/AcademyTestimonials";
 import JsonLd from "@/components/JsonLd";
 import { courses, results, testimonials, academyFaqs } from "@/data/content";
 import { faqSchema } from "@/lib/schema";
@@ -81,10 +82,7 @@ export default function AcademyPage() {
           <div className="showcase-stack rv d2"><div className="stack-card stack-back"><span>WEEK 04</span><b>Campaign Lab</b><small>Meta · TikTok · Creative testing</small></div><div className="stack-card stack-mid"><span>WEEK 08</span><b>Store Conversion</b><small>UX · CRO · analytics</small></div><div className="stack-card stack-front"><div className="stack-icon">✦</div><span>LIVE WORKSHOP</span><h3>Build. Test.<br /><em>Improve.</em></h3><div className="stack-line"><i style={{ width: "82%" }} /></div><small>82% workshop progress</small></div></div>
         </div></section>
 
-        <section className="sec academy-section" id="outcomes"><div className="wrap">
-          <div className="academy-section-head rv"><div><span className="eyebrow"><i className="dot" />Graduate outcomes</span><h2 className="h2">Students who <span className="accent">shipped.</span></h2></div><p>Real work, real progress. Outcomes vary with effort — no income promises, ever.</p></div>
-          <div className="academy-outcomes">{academyResults.map((r, i) => <div key={r.name} className={"academy-outcome rv d" + ((i % 3) + 1)}><span>{r.tag}</span><b>{r.delta}</b><h3>{r.name}</h3><p>{r.line}</p><div>{r.kpis.map(k => <span key={k.l}><strong>{k.v}</strong>{k.l}</span>)}</div></div>)}{academyTestimonials.map((t, i) => <figure key={t.name} className={"academy-testimonial rv d" + ((i % 3) + 1)}><span>{t.metric}</span><blockquote>“{t.q}”</blockquote><figcaption><b>{t.ini}</b><div><strong>{t.name}</strong><small>{t.role}</small></div></figcaption></figure>)}</div>
-        </div></section>
+        <AcademyTestimonials />
 
         <section className="academy-cta rv"><div className="wrap academy-cta-inner"><div><span className="academy-kicker">START WITH ZERO RISK</span><h2>Come for 3 days.<br /><span>Build before you decide.</span></h2><p>Join a free demo class, meet the mentor and see exactly how the program works.</p></div><Link href="/#contact" className="btn btn-primary lg">Reserve my demo seat <Arrow /></Link></div></section>
         <Faq items={academyFaqs} eyebrow="Before you enroll" title="Course questions, answered straight" />
