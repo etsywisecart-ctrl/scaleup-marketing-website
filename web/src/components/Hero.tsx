@@ -1,70 +1,36 @@
 import Link from "next/link";
 
+const METRICS = [
+  { label: "Revenue", value: "A$19.8K", note: "+322% YoY" },
+  { label: "Orders", value: "1,138", note: "last 90 days" },
+  { label: "Automation", value: "24/7", note: "running" },
+];
+
 export default function Hero() {
   return (
     <section className="hero" id="top">
+      <div className="hero-grid-bg" aria-hidden="true" />
       <div className="wrap hero-inner">
         <div className="hero-copy rv">
-          <span className="eyebrow">
-            <i className="dot" />
-            Digital Agency × Training Academy
-          </span>
-          <h1 className="hero-title">
-            Build. Automate.
-            <br />
-            <span className="accent">Scale.</span>
-          </h1>
-          <p className="hero-sub">
-            We engineer digital businesses through ecommerce, AI and software —
-            and train the next generation of Pakistani entrepreneurs to do the same.
-          </p>
+          <span className="eyebrow"><i className="dot" />Digital agency × training academy</span>
+          <div className="hero-kicker"><span>01</span> STRATEGY · BUILD · GROW</div>
+          <h1 className="hero-title">We build the systems<br/>that make <span className="accent">business move.</span></h1>
+          <p className="hero-sub">Ecommerce, AI, software and performance marketing — engineered as one connected growth system, not a collection of vendors.</p>
           <div className="hero-btns">
-            <Link className="btn btn-primary lg" href="/#contact">
-              Book a Strategy Call
-              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M3 8h10M9 4l4 4-4 4" />
-              </svg>
-            </Link>
-            <Link className="btn btn-neu lg" href="/#services">
-              Explore Solutions
-            </Link>
+            <Link className="btn btn-primary lg" href="/#contact">Start a project<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 8h10M9 4l4 4-4 4" /></svg></Link>
+            <Link className="btn btn-neu lg" href="/work">See our work</Link>
           </div>
-          <p className="hero-trust">
-            <span className="stars">★★★★★</span>
-            Trusted by 500+ students · 100+ projects delivered
-          </p>
+          <div className="hero-proof-row"><span><b>500+</b> students trained</span><span><b>100+</b> projects delivered</span><span><b>1 team</b> from build to scale</span></div>
         </div>
-
         <div className="hero-visual rv d2">
-          <div className="promo-card">
-            <div className="promo-top">
-              <span className="promo-badge"><i className="live-dot" />Now Enrolling</span>
-              <span className="promo-seats">Limited seats</span>
-            </div>
-            <h2 className="promo-title"><span className="accent">Free</span> 3-Day<br />Demo Class</h2>
-            <p className="promo-sub">
-              Sit in a real live cohort before you pay a rupee — online or at our Lahore campus.
-            </p>
-            <div className="promo-feats">
-              <span>Live cohorts</span>
-              <span>Every marketplace</span>
-              <span>Lifetime access</span>
-            </div>
-            <Link className="btn btn-primary promo-cta" href="/#contact">
-              Reserve your seat
-              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M3 8h10M9 4l4 4-4 4" />
-              </svg>
-            </Link>
+          <div className="hero-dashboard">
+            <div className="hdash-top"><div><span className="live-pulse" />Growth command center</div><span className="hdash-period">LIVE · 90 DAYS</span></div>
+            <div className="hdash-main"><div className="hdash-value"><small>Gross sales</small><strong>A$19,842</strong><span>↗ 322% YoY</span></div><div className="hdash-spark">{[28,34,31,44,40,55,61,58,74,70,84,96].map((h,i)=><i key={i} style={{height:h+"%"}} />)}</div></div>
+            <div className="hdash-metrics">{METRICS.map(m=><div key={m.label}><small>{m.label}</small><b>{m.value}</b><span>{m.note}</span></div>)}</div>
+            <div className="hdash-flow"><div><span className="flow-dot">01</span><p><b>Store</b><small>Conversion-ready experience</small></p></div><div className="flow-line"/><div><span className="flow-dot purple">02</span><p><b>AI</b><small>Automated operations</small></p></div><div className="flow-line"/><div><span className="flow-dot orange">03</span><p><b>Growth</b><small>Ads + analytics loop</small></p></div></div>
           </div>
-          <span className="chip float-chip fc1" aria-hidden="true">
-            <i className="dot" />
-            New batch open
-          </span>
-          <span className="chip float-chip fc2" aria-hidden="true">
-            <i className="dot v" />
-            Shopify Partner
-          </span>
+          <span className="chip float-chip fc1"><i className="dot" />AI automation live</span>
+          <span className="chip float-chip fc2"><i className="dot v" />Weekly working demos</span>
         </div>
       </div>
     </section>
