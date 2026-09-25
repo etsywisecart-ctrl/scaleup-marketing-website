@@ -1,128 +1,94 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import PageHero from "@/components/PageHero";
 import Faq from "@/components/Faq";
 import JsonLd from "@/components/JsonLd";
-import { siteConfig } from "@/config/site";
 import { courses, results, testimonials, academyFaqs } from "@/data/content";
 import { faqSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Academy — Learn to Build",
-  description:
-    "Live online and Lahore-campus training in Shopify, TikTok Shop, eBay & Etsy, Daraz, and AI & Digital Marketing — taught by the team running client stores.",
+  title: "Academy — Build Skills That Ship",
+  description: "Practical ecommerce, AI and digital marketing training from practitioners. Live online cohorts and Lahore campus sessions.",
   alternates: { canonical: "/academy" },
 };
 
 const academyResults = results.filter((r) => r.tag === "ACADEMY");
 const academyTestimonials = testimonials.filter((t) => t.role.toLowerCase().includes("graduate"));
+const platforms = ["SHOPIFY", "TIKTOK SHOP", "DARAZ", "ETSY", "eBAY", "AMAZON"];
+const principles = [
+  ["01", "Learn by building", "Every track turns lessons into a real store, campaign, workflow or portfolio asset."],
+  ["02", "Taught by operators", "Learn from people actively building ecommerce systems and running growth work."],
+  ["03", "Support beyond class", "Recordings, community, weekly Q&A and practical feedback keep momentum going."],
+];
 
-const MODELS = ["Regular Classes", "Advanced Masterclasses", "1:1 Mentorship", "Hands-on Workshops", "Weekly Q&A", "Certification", "Corporate Training"];
+function Arrow() {
+  return <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"><path d="M3 9h11M10 5l4 4-4 4" /></svg>;
+}
 
 export default function AcademyPage() {
   return (
     <>
       <JsonLd data={faqSchema(academyFaqs)} />
-      <PageHero
-        crumb="Academy"
-        eyebrow="The Academy"
-        title={<>Learn the skills we<br /><span className="accent">get paid to deliver.</span></>}
-        lead="Live cohorts — online and at our Lahore campus — taught by the same people who ship client stores and run the ad accounts. Start with a free 3-day demo."
-        primary={{ label: "Reserve a free demo seat", href: "/#contact" }}
-        ghost={{ label: "See graduate outcomes", href: "#outcomes" }}
-      />
-
-      <section className="sec" style={{ paddingTop: 0 }} id="tracks">
-        <div className="wrap">
-          <div className="stats rv" style={{ marginBottom: 60 }}>
-            <div className="stat"><b className="num" data-to="500" data-suf="+">0+</b><span>Students trained</span></div>
-            <div className="stat"><b className="num" data-to="5" data-suf="">0</b><span>Live training tracks</span></div>
-            <div className="stat"><b className="num" data-to="3" data-suf="">0</b><span>Days of free demo</span></div>
-            <div className="stat"><b>Urdu·EN</b><span>Taught the way business is spoken</span></div>
-          </div>
-
-          <div className="sec-head rv">
-            <span className="eyebrow"><i className="dot" />Choose your track</span>
-            <h2 className="h2">Same curriculum, your schedule</h2>
-          </div>
-
-          <div className="grid grid-auto" style={{ marginTop: 48 }}>
-            {courses.map((c, i) => (
-              <Link key={c.slug} href={`/academy/${c.slug}`} className={`card course-card rv d${(i % 3) + 1}`}>
-                <div className="cc-top">
-                  <span className="cc-tag mono">{c.tag}</span>
-                  {c.badge && <span className="cc-badge">{c.badge}</span>}
-                </div>
-                <h3>{c.title}</h3>
-                <p>{c.sub}</p>
-                <div className="cc-meta">
-                  <span>{c.dur}</span>
-                  <span>{c.level}</span>
-                </div>
-                <span className="card-link">View curriculum
-                  <svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 8h10M9 4l4 4-4 4" /></svg>
-                </span>
-              </Link>
-            ))}
-          </div>
-
-          <div className="models rv">
-            {MODELS.map((m) => (
-              <span className="model" key={m}><span className="mtick">✓</span>{m}</span>
-            ))}
-          </div>
-
-          {siteConfig.toggles.showDemoBanner && (
-            <div className="demo rv" id="demo">
-              <div>
-                <h3>Sit in free for 3 days before you spend a rupee.</h3>
-                <p>Every track starts with a free 3-day demo class and a 1:1 consultation — so you enroll knowing exactly what you will build.</p>
+      <main className="academy-page">
+        <section className="academy-hero">
+          <div className="wrap academy-hero-grid">
+            <div className="academy-hero-copy rv">
+              <div className="academy-kicker"><span className="academy-live-dot" /> SCALEUP ACADEMY <span>·</span> PRACTICAL TRAINING</div>
+              <h1>Turn <span>knowledge</span><br />into something<br />you can ship.</h1>
+              <p>Live ecommerce, AI and digital marketing training built around the work businesses actually need. Learn online or at our Lahore campus — then build while you learn.</p>
+              <div className="academy-actions">
+                <Link href="/#contact" className="btn btn-primary lg">Reserve a free demo <Arrow /></Link>
+                <Link href="#courses" className="academy-text-link">Explore tracks <Arrow /></Link>
               </div>
-              <Link className="btn btn-primary lg" href="/#contact">Reserve a demo seat</Link>
+              <div className="academy-proof">
+                <div><strong>500+</strong><span>students trained</span></div><i /><div><strong>5</strong><span>live tracks</span></div><i /><div><strong>3 days</strong><span>free demo</span></div>
+              </div>
             </div>
-          )}
-        </div>
-      </section>
-
-      <section className="sec" style={{ background: "var(--sunk)" }} id="outcomes">
-        <div className="wrap">
-          <div className="sec-head rv">
-            <span className="eyebrow"><i className="dot" />Graduate outcomes</span>
-            <h2 className="h2">Students who shipped</h2>
-            <p className="lead">Not certificates on a shelf — live stores, real orders, and the work each graduate did to get there.</p>
-          </div>
-          <div className="grid grid-3" style={{ marginTop: 48 }}>
-            {academyResults.map((r, i) => (
-              <div key={r.name} className={`card rv d${(i % 3) + 1}`}>
-                <div className="cc-top"><span className="cc-tag mono">{r.tag}</span><span className="cc-badge">{r.delta}</span></div>
-                <h3>{r.name}</h3>
-                <p>{r.line}</p>
-                <div className="kpis">
-                  {r.kpis.map((k) => (<div key={k.l} className="kpi"><b>{k.v}</b><span>{k.l}</span></div>))}
+            <div className="academy-hero-visual rv d2">
+              <div className="academy-orb orb-a" /><div className="academy-orb orb-b" />
+              <div className="academy-window">
+                <div className="academy-window-top"><span><i /><i /><i /></span><small>academy.scaleup · live cohort</small><b>● LIVE</b></div>
+                <div className="academy-window-body">
+                  <div className="academy-dashboard-copy"><span className="mono">TODAY'S SESSION</span><h3>Build your first<br /><em>selling store.</em></h3><p>Shopify setup · Product research · Conversion UX</p><div className="academy-progress"><span style={{ width: "72%" }} /></div><small>72% of today's workshop complete</small></div>
+                  <div className="academy-dashboard-art">
+                    <div className="dash-card dash-main"><span>STORE HEALTH</span><strong>92%</strong><div className="dash-bars"><i /><i /><i /><i /><i /></div></div>
+                    <div className="dash-card dash-float"><b>+28%</b><small>conversion lift</small></div><div className="dash-ring"><span>AI</span></div>
+                  </div>
                 </div>
+                <div className="academy-window-foot"><span>● Mentor online</span><span>12 learners active</span><span>Next: Q&amp;A · 8:00 PM</span></div>
               </div>
-            ))}
-            {academyTestimonials.map((t, i) => (
-              <figure key={t.name} className={`tcard rv d${(i % 3) + 1}`}>
-                <span className="tcard-metric">{t.metric}</span>
-                <blockquote>“{t.q}”</blockquote>
-                <figcaption><span className="tavatar">{t.ini}</span><span><b>{t.name}</b><em>{t.role}</em></span></figcaption>
-              </figure>
-            ))}
-            <div className="card invite-card rv">
-              <span className="invite-plus">+</span>
-              <h3>This spot is reserved</h3>
-              <p>Start in the free 3-day demo, ship your store, and your result goes here.</p>
-              <Link className="btn btn-primary sm" href="/#contact" style={{ marginTop: "auto" }}>Reserve a demo seat</Link>
+              <div className="academy-float float-one"><span>✦</span><div><b>Hands-on</b><small>not just theory</small></div></div>
+              <div className="academy-float float-two"><span>↗</span><div><b>Portfolio ready</b><small>build as you learn</small></div></div>
             </div>
           </div>
-          <p className="muted rv" style={{ textAlign: "center", marginTop: 32, fontSize: 13.5 }}>
-            Outcomes vary with effort — no income promises, ever.
-          </p>
-        </div>
-      </section>
+        </section>
 
-      <Faq items={academyFaqs} eyebrow="Before you enroll" title="Course questions, answered straight" />
+        <section className="academy-marquee"><div className="academy-marquee-track">{[...platforms, ...platforms].map((p, i) => <span key={i}><b>✦</b>{p}</span>)}</div></section>
+
+        <section className="sec academy-section" id="courses">
+          <div className="wrap">
+            <div className="academy-section-head rv"><div><span className="eyebrow"><i className="dot" />Choose your path</span><h2 className="h2">Courses designed around<br /><span className="accent">real work.</span></h2></div><p>Clear curriculum. Practical assignments. Mentor feedback. Pick the track that matches where you are now.</p></div>
+            <div className="academy-course-grid">
+              {courses.map((c, i) => <Link key={c.slug} href={"/academy/" + c.slug} className={"academy-course-card rv d" + ((i % 3) + 1)}><div className="course-number">0{i + 1}</div><div className="course-card-top"><span>{c.tag}</span>{c.badge && <b>{c.badge}</b>}</div><h3>{c.title}</h3><p>{c.sub}</p><div className="course-meta"><span>{c.dur}</span><span>{c.level}</span><strong>View track <Arrow /></strong></div></Link>)}
+            </div>
+            <div className="academy-principles">{principles.map(([n, t, d]) => <div className="academy-principle rv" key={n}><span>{n}</span><div><h3>{t}</h3><p>{d}</p></div></div>)}</div>
+          </div>
+        </section>
+
+        <section className="academy-showcase"><div className="wrap academy-showcase-grid">
+          <div className="showcase-copy rv"><span className="eyebrow"><i className="dot" />The learning system</span><h2>Not a classroom.<br /><span>an operating system.</span></h2><p>Each week moves from concept → build → feedback → improvement. The goal is not to finish lessons. It is to leave with work you can show.</p>
+            <div className="showcase-list">{["Live workshops with screen-sharing", "Real store & campaign assignments", "Weekly mentor review", "Recordings + templates + community"].map((x, i) => <div key={x}><b>0{i + 1}</b><span>{x}</span><i>✓</i></div>)}</div>
+          </div>
+          <div className="showcase-stack rv d2"><div className="stack-card stack-back"><span>WEEK 04</span><b>Campaign Lab</b><small>Meta · TikTok · Creative testing</small></div><div className="stack-card stack-mid"><span>WEEK 08</span><b>Store Conversion</b><small>UX · CRO · analytics</small></div><div className="stack-card stack-front"><div className="stack-icon">✦</div><span>LIVE WORKSHOP</span><h3>Build. Test.<br /><em>Improve.</em></h3><div className="stack-line"><i style={{ width: "82%" }} /></div><small>82% workshop progress</small></div></div>
+        </div></section>
+
+        <section className="sec academy-section" id="outcomes"><div className="wrap">
+          <div className="academy-section-head rv"><div><span className="eyebrow"><i className="dot" />Graduate outcomes</span><h2 className="h2">Students who <span className="accent">shipped.</span></h2></div><p>Real work, real progress. Outcomes vary with effort — no income promises, ever.</p></div>
+          <div className="academy-outcomes">{academyResults.map((r, i) => <div key={r.name} className={"academy-outcome rv d" + ((i % 3) + 1)}><span>{r.tag}</span><b>{r.delta}</b><h3>{r.name}</h3><p>{r.line}</p><div>{r.kpis.map(k => <span key={k.l}><strong>{k.v}</strong>{k.l}</span>)}</div></div>)}{academyTestimonials.map((t, i) => <figure key={t.name} className={"academy-testimonial rv d" + ((i % 3) + 1)}><span>{t.metric}</span><blockquote>“{t.q}”</blockquote><figcaption><b>{t.ini}</b><div><strong>{t.name}</strong><small>{t.role}</small></div></figcaption></figure>)}</div>
+        </div></section>
+
+        <section className="academy-cta rv"><div className="wrap academy-cta-inner"><div><span className="academy-kicker">START WITH ZERO RISK</span><h2>Come for 3 days.<br /><span>Build before you decide.</span></h2><p>Join a free demo class, meet the mentor and see exactly how the program works.</p></div><Link href="/#contact" className="btn btn-primary lg">Reserve my demo seat <Arrow /></Link></div></section>
+        <Faq items={academyFaqs} eyebrow="Before you enroll" title="Course questions, answered straight" />
+      </main>
     </>
   );
 }
