@@ -1,6 +1,7 @@
 import Hero from "@/components/Hero";
 import ClientLogos from "@/components/ClientLogos";
 import Services from "@/components/Services";
+import Process from "@/components/Process";
 import Academy from "@/components/Academy";
 import Results from "@/components/Results";
 import WhyUs from "@/components/WhyUs";
@@ -19,8 +20,9 @@ export default function Home() {
       <Hero />
       <ClientLogos />
       <Services />
-      <Academy />
+      <Process />
       <Results />
+      <Academy />
       <WhyUs />
       <Testimonials />
       <Faq />
