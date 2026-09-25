@@ -20,7 +20,22 @@ export default function Footer() {
               <Image className="logo-img logo-light" src="/uploads/logo.png" alt="ScaleUp Marketing" width={128} height={51} />
               <Image className="logo-img logo-dark" src="/uploads/logo-white.png" alt="ScaleUp Marketing" width={128} height={51} />
             </Link>
-            <p>We design, build and scale digital products for ambitious businesses.<br />{contact.addressLine1} {contact.addressLine2}<br />{contact.email}<br />{contact.phoneDisplay}</p>
+            <p>We design, build and scale digital products for ambitious businesses.</p>
+            <div className="footer-offices">
+              <div className="footer-office">
+                <span className="footer-office-label">Dubai Office</span>
+                <span>Dubai South Free Zone, Sector W6<br />Dubai, United Arab Emirates</span>
+                <a href="tel:+971569663543">+971 56 966 3543</a>
+              </div>
+              <div className="footer-office">
+                <span className="footer-office-label">Australia Office</span>
+                <span>31/10 Yato Road<br />Prestons, NSW 2170, Australia</span>
+              </div>
+            </div>
+            <div className="footer-contact">
+              <a href={`mailto:${contact.email}`}>{contact.email}</a>
+              <a href={`tel:${contact.phoneDisplay}`}>{contact.phoneDisplay}</a>
+            </div>
           </div>
           <div className="footer-cols">
             {COLS.map((c) => (
