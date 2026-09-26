@@ -20,6 +20,19 @@ export type Project = {
 
 export const portfolio: Project[] = [
   {
+    title: "TastyBite Restaurant POS",
+    cat: "Restaurant POS System",
+    year: "2026",
+    img: "/uploads/tastybite-pos.jpg",
+    desc: "A modern restaurant point-of-sale system built with Next.js and Node.js — table management, menu browsing, live orders, inventory, reporting and checkout in one streamlined interface.",
+    metrics: [
+      { v: "Next.js", l: "Frontend" },
+      { v: "Node.js", l: "Backend" },
+      { v: "POS", l: "Restaurant system" },
+    ],
+    tags: ["Next.js", "Node.js", "Restaurant POS", "Dashboard"],
+  },
+  {
     title: "Savora Restaurant Website",
     cat: "Next.js Web Demo",
     year: "2026",
