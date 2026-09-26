@@ -324,17 +324,16 @@ a{ color:inherit; text-decoration:none; }
 .ac-logos-label{ font-size:12px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-faint); }
 .ac-plat-row{ display:flex; flex-wrap:wrap; justify-content:center; gap:16px; }
 .ac-plat{ display:flex; flex-direction:column; align-items:center; gap:10px; width:96px; }
-.ac-plat-ic{ width:60px; height:60px; border-radius:18px; display:grid; place-items:center; background:var(--surface); box-shadow:var(--raise-sm); position:relative; transition:transform .3s cubic-bezier(.2,.7,.3,1), box-shadow .3s; }
-.ac-plat-ic::after{ content:""; position:absolute; inset:0; border-radius:18px; background:var(--brand); opacity:.10; }
+.ac-plat-ic{ width:62px; height:62px; border-radius:19px; display:grid; place-items:center; color:#fff; background:linear-gradient(135deg, var(--c1), var(--c2)); box-shadow:0 12px 24px -10px var(--c1), inset 0 1px 0 rgba(255,255,255,.28); position:relative; overflow:hidden; transition:box-shadow .3s; }
+.ac-plat-ic::after{ content:""; position:absolute; top:-40%; left:-60%; width:60%; height:180%; background:linear-gradient(100deg, transparent, rgba(255,255,255,.35), transparent); transform:rotate(12deg); transition:left .6s ease; }
+.ac-plat:hover .ac-plat-ic::after{ left:120%; }
 .ac-plat-ic svg{ width:28px; height:28px; position:relative; z-index:1; animation:acFloat 3.8s ease-in-out infinite; }
 .ac-plat:nth-child(2n) .ac-plat-ic svg{ animation-delay:.5s; animation-duration:4.3s; }
 .ac-plat:nth-child(3n) .ac-plat-ic svg{ animation-delay:1s; animation-duration:4s; }
-.ac-plat:hover .ac-plat-ic{ transform:translateY(-5px) scale(1.06); box-shadow:var(--raise); }
+.ac-plat:hover .ac-plat-ic{ box-shadow:0 18px 34px -10px var(--c1), inset 0 1px 0 rgba(255,255,255,.28); }
+.ac-plat{ cursor:default; }
 .ac-plat-name{ font-size:13px; font-weight:600; color:var(--ink-soft); transition:color .2s; }
 .ac-plat:hover .ac-plat-name{ color:var(--ink); }
-/* scale-pop reveal for platform tiles */
-.ac-plat.rv{ transform:translateY(16px) scale(.9); }
-.ac-plat.rv.in{ transform:none; }
 @keyframes acFloat{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-3px); } }
 @media (prefers-reduced-motion: reduce){ .ac-plat-ic svg{ animation:none; } }
 
@@ -346,7 +345,7 @@ a{ color:inherit; text-decoration:none; }
 .ac-point:hover{ transform:translateY(-3px); box-shadow:var(--raise); }
 .ac-point:hover .ac-point-ic{ transform:scale(1.08); }
 .ac-point-ic{ transition:transform .26s cubic-bezier(.2,.7,.3,1); }
-.ac-point-ic{ flex:none; width:40px; height:40px; border-radius:12px; display:grid; place-items:center; background:var(--canvas); box-shadow:var(--inset-sm); color:var(--accent); }
+.ac-point-ic{ flex:none; width:42px; height:42px; border-radius:13px; display:grid; place-items:center; color:#fff; background:linear-gradient(135deg, var(--c1), var(--c2)); box-shadow:0 10px 20px -10px var(--c1), inset 0 1px 0 rgba(255,255,255,.28); }
 .ac-point-ic svg{ width:21px; height:21px; }
 .ac-point-txt{ display:flex; flex-direction:column; gap:1px; line-height:1.3; }
 .ac-point-txt strong{ font-size:14px; font-weight:700; color:var(--ink); }
@@ -1012,3 +1011,45 @@ a{ color:inherit; text-decoration:none; }
   .footer-social-simple{grid-column:auto}
   .footer-bottom-simple{min-height:76px;align-items:flex-start;justify-content:center;flex-direction:column;gap:5px;padding:17px 0}
 }
+
+/* =====================================================================
+   Services — colourful gradient cards (Framer Motion)
+   ===================================================================== */
+.svc-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:52px; }
+@media (max-width:980px){ .svc-grid{ grid-template-columns:repeat(2,1fr); } }
+@media (max-width:640px){ .svc-grid{ grid-template-columns:1fr; } }
+.svc-card{ position:relative; border-radius:var(--r-lg); background:var(--surface); box-shadow:var(--raise); overflow:hidden; transition:box-shadow .35s; }
+.svc-card:hover{ box-shadow:var(--raise-lg), 0 22px 44px -26px var(--c1); }
+.svc-card::before{ content:""; position:absolute; inset:0 0 auto 0; height:4px; background:linear-gradient(90deg, var(--c1), var(--c2)); transform:scaleX(0); transform-origin:left; transition:transform .45s cubic-bezier(.2,.7,.3,1); z-index:2; }
+.svc-card:hover::before{ transform:scaleX(1); }
+.svc-glow{ position:absolute; top:-70px; right:-70px; width:220px; height:220px; border-radius:50%; background:radial-gradient(circle, var(--c1), transparent 68%); opacity:.13; filter:blur(6px); transition:opacity .4s, transform .6s cubic-bezier(.2,.7,.3,1); pointer-events:none; z-index:0; }
+.svc-card:hover .svc-glow{ opacity:.3; transform:scale(1.2) translate(-10px, 10px); }
+.svc-inner{ position:relative; z-index:1; display:flex; flex-direction:column; gap:13px; height:100%; padding:32px 30px 28px; color:inherit; text-decoration:none; }
+.svc-ic{ width:60px; height:60px; border-radius:18px; display:grid; place-items:center; color:#fff; background:linear-gradient(135deg, var(--c1), var(--c2)); box-shadow:0 14px 28px -12px var(--c1), inset 0 1px 0 rgba(255,255,255,.3); transition:transform .45s cubic-bezier(.2,.7,.3,1); }
+.svc-ic svg{ width:27px; height:27px; }
+.svc-card:hover .svc-ic{ transform:rotate(-8deg) scale(1.08); }
+.svc-card h3{ font-size:21px; font-weight:750; letter-spacing:-0.015em; margin:6px 0 0; color:var(--ink); }
+.svc-card p{ font-size:15px; line-height:1.55; color:var(--ink-soft); margin:0; }
+.svc-tags{ display:flex; flex-wrap:wrap; gap:7px; }
+.svc-tags span{ font-size:11.5px; font-weight:650; padding:6px 11px; border-radius:var(--r-pill); color:var(--c2); background:color-mix(in srgb, var(--c1) 13%, transparent); }
+:root[data-theme="dark"] .svc-tags span{ color:var(--c1); background:color-mix(in srgb, var(--c1) 20%, transparent); }
+.svc-cta{ margin-top:auto; padding-top:6px; display:inline-flex; align-items:center; gap:7px; font-size:14.5px; font-weight:700; color:var(--c2); }
+:root[data-theme="dark"] .svc-cta{ color:var(--c1); }
+.svc-cta svg{ transition:transform .3s cubic-bezier(.2,.7,.3,1); }
+.svc-card:hover .svc-cta svg{ transform:translateX(5px); }
+@media (prefers-reduced-motion: reduce){ .svc-card::before, .svc-glow, .svc-ic, .svc-cta svg, .ac-plat-ic::after{ transition:none !important; } }
+
+/* =====================================================================
+   Hero — colourful aurora + animated gradient headline accent
+   ===================================================================== */
+.hero-aurora{ position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+.hero-aurora i{ position:absolute; border-radius:50%; filter:blur(70px); opacity:.26; will-change:transform; }
+.hero-aurora i:nth-child(1){ width:420px; height:420px; left:-120px; top:40px; background:#12b886; animation:auroraA 16s ease-in-out infinite; }
+.hero-aurora i:nth-child(2){ width:380px; height:380px; left:38%; top:-140px; background:#8b5cf6; animation:auroraB 19s ease-in-out infinite; }
+.hero-aurora i:nth-child(3){ width:360px; height:360px; right:-100px; bottom:-120px; background:#0ea5e9; animation:auroraA 21s ease-in-out infinite reverse; }
+:root[data-theme="dark"] .hero-aurora i{ opacity:.2; }
+@keyframes auroraA{ 0%,100%{ transform:translate(0,0) scale(1); } 50%{ transform:translate(60px,40px) scale(1.12); } }
+@keyframes auroraB{ 0%,100%{ transform:translate(0,0) scale(1); } 50%{ transform:translate(-70px,50px) scale(.92); } }
+.hero-title .accent{ background:linear-gradient(90deg,#12b886,#0ea5e9,#8b5cf6,#ec4899,#12b886); background-size:300% 100%; -webkit-background-clip:text; background-clip:text; color:transparent; animation:heroGrad 9s linear infinite; }
+@keyframes heroGrad{ from{ background-position:0% 50%; } to{ background-position:300% 50%; } }
+@media (prefers-reduced-motion: reduce){ .hero-aurora i, .hero-title .accent{ animation:none; } }

@@ -1,53 +1,54 @@
-import Link from "next/link";
+"use client";
 
+import Link from "next/link";
+import type { CSSProperties } from "react";
+import { motion, useReducedMotion, type Variants } from "framer-motion";
+
+/* Each service carries its own colour pair (c1 → c2) used for the gradient
+   icon tile, glow, chips and CTA — one colourful icon system shared with the
+   Academy platform tiles. */
 const SERVICES = [
   {
-    ic: "cart",
-    tone: "",
+    ic: "cart", c1: "#10b981", c2: "#047857",
     title: "Ecommerce",
     desc: "Shopify, Daraz, TikTok Shop, eBay & Etsy stores — built, launched and scaled for you, end to end.",
-    href: "/services/ecommerce",
-    link: "Explore ecommerce",
+    tags: ["Shopify", "Daraz", "TikTok Shop"],
+    href: "/services/ecommerce", link: "Explore ecommerce",
   },
   {
-    ic: "chip",
-    tone: "v",
+    ic: "chip", c1: "#8b5cf6", c2: "#6d28d9",
     title: "AI & Software",
     desc: "Custom software, SaaS, apps and AI automations that quietly do the heavy lifting for your business.",
-    href: "/services/software-development",
-    link: "Explore software",
+    tags: ["SaaS", "Mobile apps", "AI agents"],
+    href: "/services/software-development", link: "Explore software",
   },
   {
-    ic: "chart",
-    tone: "s",
+    ic: "chart", c1: "#0ea5e9", c2: "#2563eb",
     title: "Digital Marketing",
     desc: "Meta, TikTok & marketplace ads, SEO and content — performance campaigns tied to real ROAS.",
-    href: "/#contact",
-    link: "Start a project",
+    tags: ["Meta Ads", "TikTok Ads", "SEO"],
+    href: "/#contact", link: "Start a project",
   },
   {
-    ic: "box",
-    tone: "",
+    ic: "box", c1: "#f59e0b", c2: "#ea580c",
     title: "Store Management",
     desc: "Done-for-you operations — listings, order fulfilment, inventory and customer support, handled.",
-    href: "/#contact",
-    link: "Start a project",
+    tags: ["Listings", "Fulfilment", "Support"],
+    href: "/#contact", link: "Start a project",
   },
   {
-    ic: "pen",
-    tone: "v",
+    ic: "pen", c1: "#ec4899", c2: "#be185d",
     title: "Design & Branding",
     desc: "UI/UX, product photography and brand identity that make your store and app impossible to ignore.",
-    href: "/#contact",
-    link: "Start a project",
+    tags: ["UI/UX", "Photography", "Branding"],
+    href: "/#contact", link: "Start a project",
   },
   {
-    ic: "briefcase",
-    tone: "s",
+    ic: "briefcase", c1: "#14b8a6", c2: "#0e7490",
     title: "Consulting & Systems",
     desc: "Business strategy, CRM/ERP setup and store migrations to put the right systems behind your growth.",
-    href: "/#contact",
-    link: "Start a project",
+    tags: ["CRM / ERP", "Strategy", "Migrations"],
+    href: "/#contact", link: "Start a project",
   },
 ];
 
@@ -93,6 +94,16 @@ function Icon({ name }: { name: string }) {
 }
 
 export default function Services() {
+  const reduce = useReducedMotion();
+  const grid: Variants = {
+    hidden: {},
+    show: { transition: { staggerChildren: reduce ? 0 : 0.09, delayChildren: 0.05 } },
+  };
+  const card: Variants = {
+    hidden: { opacity: 0, y: reduce ? 0 : 36, scale: reduce ? 1 : 0.97 },
+    show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6, ease: [0.2, 0.7, 0.3, 1] } },
+  };
+
   return (
     <section className="sec" id="services">
       <div className="wrap">
@@ -105,21 +116,40 @@ export default function Services() {
           </p>
         </div>
 
-        <div className="grid grid-3" style={{ marginTop: 52 }}>
-          {SERVICES.map((s, i) => (
-            <Link key={s.title} href={s.href} className={`card rv d${(i % 3) + 1}`}>
-              <span className={`card-ic ${s.tone}`}><Icon name={s.ic} /></span>
-              <h3>{s.title}</h3>
-              <p>{s.desc}</p>
-              <span className="card-link">
-                {s.link}
-                <svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M3 8h10M9 4l4 4-4 4" />
-                </svg>
-              </span>
-            </Link>
+        <motion.div
+          className="svc-grid"
+          variants={grid}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.12 }}
+        >
+          {SERVICES.map((s) => (
+            <motion.div
+              key={s.title}
+              className="svc-card"
+              variants={card}
+              whileHover={reduce ? undefined : { y: -8 }}
+              transition={{ type: "spring", stiffness: 320, damping: 24 }}
+              style={{ "--c1": s.c1, "--c2": s.c2 } as CSSProperties}
+            >
+              <span className="svc-glow" aria-hidden="true" />
+              <Link href={s.href} className="svc-inner">
+                <span className="svc-ic"><Icon name={s.ic} /></span>
+                <h3>{s.title}</h3>
+                <p>{s.desc}</p>
+                <div className="svc-tags">
+                  {s.tags.map((t) => <span key={t}>{t}</span>)}
+                </div>
+                <span className="svc-cta">
+                  {s.link}
+                  <svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M3 8h10M9 4l4 4-4 4" />
+                  </svg>
+                </span>
+              </Link>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
