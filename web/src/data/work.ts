@@ -23,7 +23,7 @@ export const portfolio: Project[] = [
     title: "TastyBite Restaurant POS",
     cat: "Restaurant POS System",
     year: "2026",
-    img: "/uploads/tastybite-pos.jpg",
+    img: "/uploads/tastybite-pos.svg",
     desc: "A modern restaurant point-of-sale system built with Next.js and Node.js — table management, menu browsing, live orders, inventory, reporting and checkout in one streamlined interface.",
     metrics: [
       { v: "Next.js", l: "Frontend" },
