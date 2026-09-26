@@ -1,5 +1,6 @@
 import Link from "next/link";
 import PlatformStrip from "./PlatformStrip";
+import AcademyLive from "./AcademyLive";
 
 /* A few headline points that make the Academy worth choosing. */
 const KEY_POINTS = [
@@ -89,29 +90,34 @@ export default function Academy() {
   return (
     <section className="sec" id="academy" style={{ background: "var(--sunk)" }}>
       <div className="wrap">
-        <div className="sec-head rv">
-          <span className="eyebrow"><i className="dot" />The Academy</span>
-          <h2 className="h2">Learn the skills we get paid to deliver</h2>
-          <p className="lead">
-            Live online cohorts taught by the same people who ship client stores and campaigns.
-            Simple, upfront pricing — start with a free 3-day demo class.
-          </p>
-        </div>
+        <div className="ac-intro">
+          <div className="ac-intro-copy rv">
+            <span className="eyebrow"><i className="dot" />The Academy</span>
+            <h2 className="h2">Learn the skills<br /><span className="accent">we get paid to deliver.</span></h2>
+            <p className="lead">
+              Sit in a live class taught by the same people who ship client stores and campaigns —
+              then build your own, step by step. Start with a free 3-day demo.
+            </p>
 
-        {/* Colourful platform icon strip (Framer Motion) */}
-        <PlatformStrip />
+            {/* Brand tiles — same gradient icon language (Framer Motion) */}
+            <PlatformStrip />
 
-        {/* Key points */}
-        <div className="ac-points">
-          {KEY_POINTS.map((k, i) => (
-            <div className="ac-point rv" key={k.t} style={{ transitionDelay: `${i * 70}ms`, ["--c1" as string]: k.c1, ["--c2" as string]: k.c2 }}>
-              <span className="ac-point-ic"><PointIcon name={k.ic} /></span>
-              <div className="ac-point-txt">
-                <strong>{k.t}</strong>
-                <span>{k.d}</span>
-              </div>
+            <div className="ac-points">
+              {KEY_POINTS.map((k, i) => (
+                <div className="ac-point rv" key={k.t} style={{ transitionDelay: `${i * 70}ms`, ["--c1" as string]: k.c1, ["--c2" as string]: k.c2 }}>
+                  <span className="ac-point-ic"><PointIcon name={k.ic} /></span>
+                  <div className="ac-point-txt">
+                    <strong>{k.t}</strong>
+                    <span>{k.d}</span>
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
+
+          <div className="ac-intro-visual rv d2">
+            <AcademyLive />
+          </div>
         </div>
 
         {/* Three clear plans */}
