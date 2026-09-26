@@ -30,6 +30,7 @@ export default function Hero() {
             <div className="hdash-metrics">{METRICS.map(m=><div key={m.label}><small>{m.label}</small><b>{m.value}</b><span>{m.note}</span></div>)}</div>
             <div className="hdash-flow"><div><span className="flow-dot">01</span><p><b>Store</b><small>Conversion-ready experience</small></p></div><div className="flow-line"/><div><span className="flow-dot purple">02</span><p><b>AI</b><small>Automated operations</small></p></div><div className="flow-line"/><div><span className="flow-dot orange">03</span><p><b>Growth</b><small>Ads + analytics loop</small></p></div></div>
           </div>
+          <div className="hero-toast" aria-hidden="true"><span className="ht-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6.5 8h11l-1 11.5H7.5L6.5 8Z" /><path d="M9 8V6.6a3 3 0 0 1 6 0V8" /></svg></span><div><b>New order · PKR 7,499</b><small>Lahore · just now</small></div></div>
           <span className="chip float-chip fc1"><i className="dot" />AI automation live</span>
           <span className="chip float-chip fc2"><i className="dot v" />Weekly working demos</span>
         </div>
