@@ -43,6 +43,7 @@ export const metadata: Metadata = {
     "AI automation agency",
   ],
   alternates: { canonical: "/" },
+  icons: { icon: "/uploads/scaleup-favicon.jpg", shortcut: "/uploads/scaleup-favicon.jpg" },
   openGraph: {
     type: "website",
     siteName: name,
