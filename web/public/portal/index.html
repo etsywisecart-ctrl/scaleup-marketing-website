@@ -5,7 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Scale Up Marketing — Project, Quotation &amp; Invoice System</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Load web fonts without blocking render or the app script: if fonts are slow
+     or unreachable, the portal still boots on its system-font fallback. -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap"></noscript>
 <link rel="stylesheet" href="/portal/styles.css">
 </head>
 <body>
@@ -22,6 +26,7 @@
     <button class="tab-btn owner-only" data-tab="form">+ New</button>
     <button class="tab-btn" data-tab="list">Documents</button>
     <button class="tab-btn owner-only" data-tab="owners">Owners</button>
+    <button class="tab-btn owner-only" data-tab="investors">Investors</button>
     <button class="tab-btn owner-only" data-tab="users">Users</button>
     <div class="user-chip" id="userChip" title="Signed in">
       <span class="uc-name" id="ucName">—</span>
@@ -241,6 +246,26 @@
     <div class="owner-cat-wrap" id="ownerCatWrap"></div>
   </section>
 
+  <!-- ========== INVESTORS (owner only) ========== -->
+  <section class="view" id="view-investors">
+    <div class="list-toolbar">
+      <h1>Investors &amp; Capital</h1>
+      <div style="display:flex; gap:10px; align-items:center;">
+        <div class="rep-currency" id="invCurrency"></div>
+        <button class="btn btn-primary" id="newInvestorBtn">+ Add Investor</button>
+      </div>
+    </div>
+    <p class="muted-note">Private to owners. Track investor capital, return plans (fixed or profit-share), accrued returns and payouts.</p>
+    <div class="dash-grid" id="invCards"></div>
+    <div class="card" style="overflow:hidden; margin-top:16px;">
+      <table class="doc-list">
+        <thead><tr><th>Investor</th><th>Company</th><th style="text-align:center;">Plans</th><th style="text-align:right;">Invested</th><th style="text-align:right;">Paid out</th><th style="text-align:right;">Due</th><th style="text-align:center;">Actions</th></tr></thead>
+        <tbody id="investorListBody"></tbody>
+      </table>
+      <div class="empty-state" id="invEmpty" style="display:none;"><div class="big">No investors yet</div><div>Add an investor to start tracking capital and returns.</div></div>
+    </div>
+  </section>
+
   <!-- ========== USERS (owner only) ========== -->
   <section class="view" id="view-users">
     <div class="list-toolbar">
@@ -375,6 +400,87 @@
   </div>
 </div>
 
+<!-- ========== INVESTOR FORM MODAL ========== -->
+<div class="modal-overlay no-print" id="investorFormOverlay">
+  <div class="modal-shell">
+    <div class="modal-head"><div class="modal-title" id="if-title">Add Investor</div><button class="modal-close" id="ifClose">✕</button></div>
+    <div class="modal-body">
+      <div class="field"><label>Name</label><input type="text" id="if-name" placeholder="Investor full name"></div>
+      <div class="mini-grid two">
+        <div class="field"><label>Company</label><input type="text" id="if-company" placeholder="Optional"></div>
+        <div class="field"><label>Phone</label><input type="text" id="if-phone" placeholder="Optional"></div>
+      </div>
+      <div class="field"><label>Email</label><input type="text" id="if-email" placeholder="Optional"></div>
+      <div class="field"><label>Notes</label><textarea id="if-notes" placeholder="Optional"></textarea></div>
+      <div class="modal-actions"><button class="btn btn-ghost" id="ifCancel">Cancel</button><button class="btn btn-primary" id="ifSave">Save Investor</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== INVESTOR DETAIL MODAL ========== -->
+<div class="modal-overlay no-print" id="investorDetailOverlay">
+  <div class="modal-shell wide">
+    <div class="modal-head">
+      <div><div class="modal-title" id="id-name">Investor</div><div class="modal-sub" id="id-sub"></div></div>
+      <button class="modal-close" id="idClose">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="pd-stats" id="id-stats"></div>
+      <div class="list-toolbar" style="margin:18px 0 10px;">
+        <div class="section-label" style="margin:0;">Investments &amp; plans</div>
+        <button class="btn btn-primary btn-sm" id="idAddInvestment">+ Add Investment</button>
+      </div>
+      <div id="id-investments"></div>
+      <div class="pd-empty" id="id-empty" style="display:none;">No investments yet for this investor.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== INVESTMENT FORM MODAL ========== -->
+<div class="modal-overlay no-print" id="investmentFormOverlay">
+  <div class="modal-shell">
+    <div class="modal-head"><div class="modal-title" id="vf-title">Add Investment</div><button class="modal-close" id="vfClose">✕</button></div>
+    <div class="modal-body">
+      <div class="field"><label>Title / label</label><input type="text" id="vf-title-in" placeholder="e.g. Seed round — fixed 20%"></div>
+      <div class="mini-grid two">
+        <div class="field"><label>Amount (capital)</label><input type="number" id="vf-amount" value="0" min="0"></div>
+        <div class="field"><label>Currency</label><select id="vf-currency"><option value="PKR">PKR</option><option value="USD">USD</option></select></div>
+      </div>
+      <div class="mini-grid two">
+        <div class="field"><label>Plan type</label><select id="vf-plan"><option value="fixed">Fixed annual return</option><option value="profit-share">Profit share</option></select></div>
+        <div class="field"><label id="vf-rate-label">Annual return %</label><input type="number" id="vf-rate" value="0" min="0" step="0.1"></div>
+      </div>
+      <div class="field"><label>Linked project <span class="muted">(profit-share uses its paid revenue)</span></label><div id="ivProjectCombo" class="combo-mount"></div></div>
+      <div class="mini-grid">
+        <div class="field"><label>Payout frequency</label><select id="vf-freq"><option>Monthly</option><option>Quarterly</option><option>Annually</option><option>On Exit</option></select></div>
+        <div class="field"><label>Status</label><select id="vf-status"><option>Active</option><option>Completed</option><option>Withdrawn</option></select></div>
+      </div>
+      <div class="mini-grid two">
+        <div class="field"><label>Start date</label><input type="date" id="vf-start"></div>
+        <div class="field"><label>End date</label><input type="date" id="vf-end"></div>
+      </div>
+      <div class="field"><label>Notes</label><textarea id="vf-notes" placeholder="Optional"></textarea></div>
+      <div class="modal-actions"><button class="btn btn-ghost" id="vfCancel">Cancel</button><button class="btn btn-primary" id="vfSave">Save Investment</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== PAYOUT FORM MODAL ========== -->
+<div class="modal-overlay no-print" id="payoutFormOverlay">
+  <div class="modal-shell">
+    <div class="modal-head"><div class="modal-title">Record Payout</div><button class="modal-close" id="pyClose">✕</button></div>
+    <div class="modal-body">
+      <div class="mini-grid two">
+        <div class="field"><label>Amount</label><input type="number" id="py-amount" value="0" min="0"></div>
+        <div class="field"><label>Date</label><input type="date" id="py-date"></div>
+      </div>
+      <div class="field"><label>Method</label><input type="text" id="py-method" placeholder="e.g. Bank transfer"></div>
+      <div class="field"><label>Note</label><input type="text" id="py-note" placeholder="Optional"></div>
+      <div class="modal-actions"><button class="btn btn-ghost" id="pyCancel">Cancel</button><button class="btn btn-primary" id="pySave">Record Payout</button></div>
+    </div>
+  </div>
+</div>
+
 <!-- ========== CONFIRM DIALOG ========== -->
 <div class="confirm-overlay no-print" id="confirmOverlay">
   <div class="confirm-box"><p id="confirmText">Are you sure?</p><div class="row"><button class="btn btn-ghost" id="confirmCancel">Cancel</button><button class="btn btn-danger" id="confirmOk" style="border-color:var(--danger);">Delete</button></div></div>
@@ -382,6 +488,6 @@
 
 <div class="toast no-print" id="toast"></div>
 
-<script src="/portal/app.js"></script>
+<script src="/portal/app.js" defer></script>
 </body>
 </html>

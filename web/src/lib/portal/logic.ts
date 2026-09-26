@@ -141,3 +141,84 @@ export function buildReports(docs: Doc[], projects: Project[], owners: BusinessO
     monthly: monthlySeries, yearly: yearlySeries,
   };
 }
+
+/* ================= INVESTOR ROLLUPS ================= */
+import type { Investor, Investment } from './store';
+
+type IMoney = { invested: number; paidOut: number; accrued: number; due: number };
+function iEmptyMoney(): IMoney { return { invested: 0, paidOut: 0, accrued: 0, due: 0 }; }
+function yearsBetween(a: number, b: number) { return Math.max(0, (b - a) / (365.25 * 24 * 3600 * 1000)); }
+
+export function investmentRollup(iv: Investment, projById: Map<string, Project>, allDocs: Doc[]) {
+  const paidOut = (iv.payouts || []).reduce((s, p) => s + (Number(p.amount) || 0), 0);
+  const amount = Number(iv.amount) || 0;
+  const start = iv.startDate ? new Date(iv.startDate + 'T00:00:00') : new Date(iv.createdAt);
+  const now = new Date();
+  const end = iv.endDate ? new Date(iv.endDate + 'T00:00:00') : now;
+  const accrualEnd = end < now ? end : now;
+  let expectedAnnual = 0, expectedAccrued = 0, profitBase = 0;
+  if (iv.planType === 'fixed') {
+    expectedAnnual = amount * (Number(iv.rate) || 0) / 100;
+    expectedAccrued = expectedAnnual * yearsBetween(+start, +accrualEnd);
+  } else {
+    // profit-share: a % of the linked project's realised (paid) invoice revenue
+    if (iv.projectId && projById.has(iv.projectId)) {
+      profitBase = allDocs
+        .filter((d) => d.projectId === iv.projectId && d.type === 'Invoice' && (d.currency === 'USD' ? 'USD' : 'PKR') === iv.currency)
+        .reduce((s, d) => s + (Number(d.amountPaid) || 0), 0);
+      expectedAccrued = profitBase * (Number(iv.rate) || 0) / 100;
+    }
+  }
+  const due = Math.max(expectedAccrued - paidOut, 0);
+  const project = iv.projectId ? projById.get(iv.projectId) : undefined;
+  return {
+    ...iv, paidOut, expectedAnnual, expectedAccrued, profitBase, due,
+    roiPct: amount > 0 ? (paidOut / amount) * 100 : 0,
+    projectName: project ? project.name : '',
+    lastPayout: (iv.payouts || []).map((p) => p.date).sort().slice(-1)[0] || '',
+  };
+}
+
+export function investorRollup(investor: Investor, rolled: ReturnType<typeof investmentRollup>[]) {
+  const mine = rolled.filter((iv) => iv.investorId === investor.id);
+  const byCurrency: Record<string, IMoney> = {};
+  mine.forEach((iv) => {
+    const c = iv.currency === 'USD' ? 'USD' : 'PKR';
+    byCurrency[c] = byCurrency[c] || iEmptyMoney();
+    byCurrency[c].invested += Number(iv.amount) || 0;
+    byCurrency[c].paidOut += iv.paidOut;
+    byCurrency[c].accrued += iv.expectedAccrued;
+    byCurrency[c].due += iv.due;
+  });
+  return {
+    ...investor,
+    investmentCount: mine.length,
+    activeCount: mine.filter((i) => i.status === 'Active').length,
+    byCurrency,
+  };
+}
+
+export function buildInvestorReport(investors: Investor[], investments: Investment[], projects: Project[], docs: Doc[]) {
+  const projById = new Map(projects.map((p) => [p.id, p]));
+  const rolled = investments.map((iv) => investmentRollup(iv, projById, docs));
+  const investorsRolled = investors.map((inv) => investorRollup(inv, rolled));
+  const byCurrency: Record<string, IMoney & { count: number }> = {};
+  rolled.forEach((iv) => {
+    const c = iv.currency === 'USD' ? 'USD' : 'PKR';
+    byCurrency[c] = byCurrency[c] || { ...iEmptyMoney(), count: 0 };
+    byCurrency[c].invested += Number(iv.amount) || 0;
+    byCurrency[c].paidOut += iv.paidOut;
+    byCurrency[c].accrued += iv.expectedAccrued;
+    byCurrency[c].due += iv.due;
+    byCurrency[c].count += 1;
+  });
+  return {
+    investorCount: investors.length,
+    investmentCount: investments.length,
+    activeCount: investments.filter((i) => i.status === 'Active').length,
+    currencies: Array.from(new Set(rolled.map((iv) => (iv.currency === 'USD' ? 'USD' : 'PKR')))).sort(),
+    byCurrency,
+    investors: investorsRolled,
+    investments: rolled,
+  };
+}

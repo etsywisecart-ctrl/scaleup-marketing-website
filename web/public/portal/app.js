@@ -152,6 +152,7 @@ document.querySelectorAll('.tab-btn[data-tab]').forEach(btn=>{
     if(tab === 'projects') renderProjects();
     if(tab === 'list') renderList();
     if(tab === 'owners') renderOwners();
+    if(tab === 'investors') renderInvestors();
     if(tab === 'users') renderUsers();
   });
 });
@@ -798,7 +799,219 @@ $('confirmOk').addEventListener('click', ()=>{ if(confirmCb) confirmCb(); $('con
 let toastTimer=null;
 function showToast(msg){ const t=$('toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(toastTimer); toastTimer=setTimeout(()=>t.classList.remove('show'),2800); }
 
+/* ================= INVESTORS ================= */
+let INVREPORT = { investors:[], byCurrency:{}, currencies:[] };
+let invCurrency = 'PKR';
+let ivProjectCombo = null;
+let investorEditingId = null;
+let investmentEditingId = null;
+let currentInvestorId = null;   // open detail
+let payoutTargetId = null;      // investment id for payout
+
+function planBadge(t){ return t==='profit-share'
+  ? '<span class="pay-badge partial">Profit share</span>'
+  : '<span class="pay-badge paid">Fixed</span>'; }
+function moneyOfCur(bc){ return (bc && bc[invCurrency]) ? bc[invCurrency] : {invested:0,paidOut:0,accrued:0,due:0}; }
+
+async function renderInvestors(){
+  try{ INVREPORT = await api('/api/portal/investors'); }catch(e){ showToast(e.message); return; }
+  const curs = (INVREPORT.currencies && INVREPORT.currencies.length) ? INVREPORT.currencies : ['PKR'];
+  if(!curs.includes(invCurrency)) invCurrency = curs.includes('PKR') ? 'PKR' : curs[0];
+  $('invCurrency').innerHTML = curs.map(c=>`<button class="cur-btn${c===invCurrency?' active':''}" data-c="${c}">${c}</button>`).join('');
+  $('invCurrency').querySelectorAll('.cur-btn').forEach(b=>b.addEventListener('click', ()=>{ invCurrency=b.dataset.c; renderInvestors(); }));
+
+  const t = moneyOfCur(INVREPORT.byCurrency);
+  const cards = [
+    { label:'Investors', value: INVREPORT.investorCount, sub:(INVREPORT.activeCount||0)+' active plans' },
+    { label:'Capital raised', value: fmtMoney(t.invested, invCurrency) },
+    { label:'Returns paid', value: fmtMoney(t.paidOut, invCurrency) },
+    { label:'Returns due', value: fmtMoney(t.due, invCurrency) },
+  ];
+  $('invCards').innerHTML = cards.map(c=>`<div class="dash-stat"><div class="ds-value" style="font-size:${typeof c.value==='string'&&c.value.length>9?'20px':'30px'};">${c.value}</div><div class="ds-label">${c.label}</div>${c.sub?`<div class="ds-sub">${c.sub}</div>`:''}</div>`).join('');
+
+  const list = INVREPORT.investors;
+  $('invEmpty').style.display = list.length ? 'none' : 'block';
+  const tbody = $('investorListBody');
+  tbody.innerHTML = list.map(inv=>{
+    const m = moneyOfCur(inv.byCurrency);
+    return `<tr data-id="${inv.id}" class="inv-row">
+      <td><b>${escapeHtml(inv.name)}</b>${inv.email?`<div class="muted" style="font-size:12px;">${escapeHtml(inv.email)}</div>`:''}</td>
+      <td>${escapeHtml(inv.company||'—')}</td>
+      <td style="text-align:center;">${inv.investmentCount}</td>
+      <td style="text-align:right; font-weight:600;">${fmtMoney(m.invested, invCurrency)}</td>
+      <td style="text-align:right; color:var(--green-500);">${fmtMoney(m.paidOut, invCurrency)}</td>
+      <td style="text-align:right; color:var(--amber);">${fmtMoney(m.due, invCurrency)}</td>
+      <td style="text-align:center;"><div class="row-actions" style="justify-content:center;">
+        <button class="icon-btn" data-act="view" title="Open">👁</button>
+        <button class="icon-btn" data-act="edit" title="Edit">✎</button>
+        <button class="icon-btn del" data-act="del" title="Delete">🗑</button>
+      </div></td></tr>`;
+  }).join('');
+  tbody.querySelectorAll('tr').forEach(tr=>{
+    const inv = list.find(x=>x.id===tr.dataset.id);
+    tr.querySelectorAll('[data-act]').forEach(b=>b.addEventListener('click', (e)=>{
+      e.stopPropagation();
+      if(b.dataset.act==='view') openInvestorDetail(inv.id);
+      if(b.dataset.act==='edit') openInvestorForm(inv);
+      if(b.dataset.act==='del') askConfirm(`Delete investor “${inv.name}” and all their investments? This can't be undone.`, ()=>deleteInvestor(inv.id));
+    }));
+    tr.addEventListener('click', ()=>openInvestorDetail(inv.id));
+  });
+}
+
+/* ---- investor add/edit ---- */
+function openInvestorForm(inv){
+  investorEditingId = inv ? inv.id : null;
+  $('if-title').textContent = inv ? 'Edit Investor' : 'Add Investor';
+  $('if-name').value = inv ? inv.name : '';
+  $('if-company').value = inv ? (inv.company||'') : '';
+  $('if-phone').value = inv ? (inv.phone||'') : '';
+  $('if-email').value = inv ? (inv.email||'') : '';
+  $('if-notes').value = inv ? (inv.notes||'') : '';
+  $('investorFormOverlay').classList.add('active');
+}
+$('newInvestorBtn').addEventListener('click', ()=>openInvestorForm(null));
+$('ifClose').addEventListener('click', ()=>$('investorFormOverlay').classList.remove('active'));
+$('ifCancel').addEventListener('click', ()=>$('investorFormOverlay').classList.remove('active'));
+$('ifSave').addEventListener('click', async ()=>{
+  const body = { name:$('if-name').value.trim(), company:$('if-company').value.trim(), phone:$('if-phone').value.trim(), email:$('if-email').value.trim(), notes:$('if-notes').value };
+  if(!body.name){ showToast('Investor name is required.'); return; }
+  try{
+    if(investorEditingId) await api('/api/portal/investors/'+investorEditingId, {method:'PUT', body:JSON.stringify(body)});
+    else await api('/api/portal/investors', {method:'POST', body:JSON.stringify(body)});
+    $('investorFormOverlay').classList.remove('active'); showToast('Investor saved.');
+    renderInvestors(); if(currentInvestorId) openInvestorDetail(currentInvestorId);
+  }catch(e){ showToast(e.message); }
+});
+async function deleteInvestor(id){
+  try{ await api('/api/portal/investors/'+id, {method:'DELETE'}); showToast('Investor deleted.'); $('investorDetailOverlay').classList.remove('active'); renderInvestors(); }
+  catch(e){ showToast(e.message); }
+}
+
+/* ---- investor detail ---- */
+async function openInvestorDetail(id){
+  currentInvestorId = id;
+  let data;
+  try{ data = await api('/api/portal/investors/'+id); }catch(e){ showToast(e.message); return; }
+  const inv = data.investor;
+  $('id-name').textContent = inv.name;
+  $('id-sub').innerHTML = [inv.company, inv.email, inv.phone].filter(Boolean).map(escapeHtml).join('  ·  ');
+  // per-currency totals
+  const byC = {};
+  data.investments.forEach(iv=>{ const c=iv.currency; byC[c]=byC[c]||{invested:0,paidOut:0,due:0,accrued:0}; byC[c].invested+=Number(iv.amount)||0; byC[c].paidOut+=iv.paidOut; byC[c].due+=iv.due; byC[c].accrued+=iv.expectedAccrued; });
+  $('id-stats').innerHTML = Object.keys(byC).length ? Object.keys(byC).map(c=>{
+    const m=byC[c];
+    return `<div class="pd-stat"><div class="pds-label">Invested (${c})</div><div class="pds-value">${fmtMoney(m.invested,c)}</div></div>
+      <div class="pd-stat"><div class="pds-label">Paid out</div><div class="pds-value green">${fmtMoney(m.paidOut,c)}</div></div>
+      <div class="pd-stat"><div class="pds-label">Accrued</div><div class="pds-value">${fmtMoney(m.accrued,c)}</div></div>
+      <div class="pd-stat"><div class="pds-label">Due</div><div class="pds-value amber">${fmtMoney(m.due,c)}</div></div>`;
+  }).join('') : '<div class="muted-note">No investments yet.</div>';
+
+  $('id-empty').style.display = data.investments.length ? 'none' : 'block';
+  $('id-investments').innerHTML = data.investments.map(iv=>{
+    const pays = (iv.payouts||[]).slice().sort((a,b)=>a.date<b.date?1:-1);
+    const roi = Math.round(iv.roiPct);
+    const rateLabel = iv.planType==='profit-share' ? `${iv.rate}% of paid revenue` : `${iv.rate}% / year`;
+    return `<div class="ivcard">
+      <div class="ivcard-top">
+        <div><div class="ivcard-title">${escapeHtml(iv.title||'Investment')} ${planBadge(iv.planType)}</div>
+          <div class="ivcard-meta">${fmtMoney(iv.amount, iv.currency)} · ${rateLabel}${iv.projectName?' · '+escapeHtml(iv.projectName):''} · ${iv.status}</div></div>
+        <div class="row-actions">
+          <button class="btn btn-sm" data-act="payout" data-id="${iv.id}">+ Payout</button>
+          <button class="icon-btn" data-act="edit" data-id="${iv.id}" title="Edit">✎</button>
+          <button class="icon-btn del" data-act="del" data-id="${iv.id}" title="Delete">🗑</button>
+        </div>
+      </div>
+      <div class="ivcard-figs">
+        <div><span>Accrued</span><b>${fmtMoney(iv.expectedAccrued, iv.currency)}</b></div>
+        <div><span>Paid out</span><b style="color:var(--green-500)">${fmtMoney(iv.paidOut, iv.currency)}</b></div>
+        <div><span>Due</span><b style="color:var(--amber)">${fmtMoney(iv.due, iv.currency)}</b></div>
+        <div><span>ROI</span><b>${roi}%</b></div>
+      </div>
+      ${pays.length?`<div class="ivpays">${pays.map(p=>`<div class="ivpay"><span>${formatDisplayDate(p.date)}</span><span>${escapeHtml(p.method||'')}${p.note?' · '+escapeHtml(p.note):''}</span><b>${fmtMoney(p.amount, iv.currency)}</b><button class="icon-btn del" data-pay="${p.id}" data-iv="${iv.id}" title="Remove">✕</button></div>`).join('')}</div>`:''}
+    </div>`;
+  }).join('');
+  // wire investment actions
+  $('id-investments').querySelectorAll('[data-act]').forEach(b=>b.addEventListener('click', ()=>{
+    const iv = data.investments.find(x=>x.id===b.dataset.id);
+    if(b.dataset.act==='payout') openPayoutForm(iv.id);
+    if(b.dataset.act==='edit') openInvestmentForm(iv);
+    if(b.dataset.act==='del') askConfirm(`Delete investment “${iv.title||''}”?`, ()=>deleteInvestment(iv.id));
+  }));
+  $('id-investments').querySelectorAll('[data-pay]').forEach(b=>b.addEventListener('click', ()=>{
+    askConfirm('Remove this payout?', ()=>deletePayout(b.dataset.iv, b.dataset.pay));
+  }));
+  $('investorDetailOverlay').classList.add('active');
+}
+$('idClose').addEventListener('click', ()=>{ $('investorDetailOverlay').classList.remove('active'); currentInvestorId=null; });
+$('idAddInvestment').addEventListener('click', ()=>{ if(currentInvestorId) openInvestmentForm(null); });
+
+/* ---- investment add/edit ---- */
+function projectComboOptions(){ return PROJECTS.map(p=>({value:p.id, label:p.name+(p.code?' ('+p.code+')':'')})); }
+function openInvestmentForm(iv){
+  investmentEditingId = iv ? iv.id : null;
+  $('vf-title').textContent = iv ? 'Edit Investment' : 'Add Investment';
+  $('vf-title-in').value = iv ? (iv.title||'') : '';
+  $('vf-amount').value = iv ? iv.amount : 0;
+  $('vf-currency').value = iv ? iv.currency : 'PKR';
+  $('vf-plan').value = iv ? iv.planType : 'fixed';
+  $('vf-rate').value = iv ? iv.rate : 0;
+  $('vf-freq').value = iv ? iv.payoutFrequency : 'Quarterly';
+  $('vf-status').value = iv ? iv.status : 'Active';
+  $('vf-start').value = iv ? (iv.startDate||'') : '';
+  $('vf-end').value = iv ? (iv.endDate||'') : '';
+  $('vf-notes').value = iv ? (iv.notes||'') : '';
+  if(ivProjectCombo){ ivProjectCombo.setOptions(projectComboOptions(), true); ivProjectCombo.setValue(iv ? (iv.projectId||'') : ''); }
+  updateVfRateLabel();
+  $('investmentFormOverlay').classList.add('active');
+}
+function updateVfRateLabel(){ $('vf-rate-label').textContent = $('vf-plan').value==='profit-share' ? 'Profit share %' : 'Annual return %'; }
+$('vf-plan').addEventListener('change', updateVfRateLabel);
+$('vfClose').addEventListener('click', ()=>$('investmentFormOverlay').classList.remove('active'));
+$('vfCancel').addEventListener('click', ()=>$('investmentFormOverlay').classList.remove('active'));
+$('vfSave').addEventListener('click', async ()=>{
+  const body = {
+    investorId: currentInvestorId, title:$('vf-title-in').value.trim(),
+    amount: parseFloat($('vf-amount').value)||0, currency:$('vf-currency').value,
+    planType:$('vf-plan').value, rate: parseFloat($('vf-rate').value)||0,
+    projectId: ivProjectCombo ? ivProjectCombo.getValue() : '',
+    payoutFrequency:$('vf-freq').value, status:$('vf-status').value,
+    startDate:$('vf-start').value, endDate:$('vf-end').value, notes:$('vf-notes').value
+  };
+  if(body.amount<=0){ showToast('Amount must be greater than zero.'); return; }
+  try{
+    if(investmentEditingId) await api('/api/portal/investments/'+investmentEditingId, {method:'PUT', body:JSON.stringify(body)});
+    else await api('/api/portal/investments', {method:'POST', body:JSON.stringify(body)});
+    $('investmentFormOverlay').classList.remove('active'); showToast('Investment saved.');
+    openInvestorDetail(currentInvestorId); renderInvestors();
+  }catch(e){ showToast(e.message); }
+});
+async function deleteInvestment(id){
+  try{ await api('/api/portal/investments/'+id, {method:'DELETE'}); showToast('Investment deleted.'); openInvestorDetail(currentInvestorId); renderInvestors(); }
+  catch(e){ showToast(e.message); }
+}
+
+/* ---- payout ---- */
+function openPayoutForm(ivId){
+  payoutTargetId = ivId;
+  $('py-amount').value = 0; $('py-date').valueAsDate = new Date(); $('py-method').value=''; $('py-note').value='';
+  $('payoutFormOverlay').classList.add('active');
+}
+$('pyClose').addEventListener('click', ()=>$('payoutFormOverlay').classList.remove('active'));
+$('pyCancel').addEventListener('click', ()=>$('payoutFormOverlay').classList.remove('active'));
+$('pySave').addEventListener('click', async ()=>{
+  const body = { amount: parseFloat($('py-amount').value)||0, date:$('py-date').value, method:$('py-method').value.trim(), note:$('py-note').value.trim() };
+  if(body.amount<=0){ showToast('Payout amount must be greater than zero.'); return; }
+  try{ await api('/api/portal/investments/'+payoutTargetId+'/payout', {method:'POST', body:JSON.stringify(body)}); showToast('Payout recorded.'); $('payoutFormOverlay').classList.remove('active'); openInvestorDetail(currentInvestorId); renderInvestors(); }
+  catch(e){ showToast(e.message); }
+});
+async function deletePayout(ivId, payId){
+  try{ await api('/api/portal/investments/'+ivId+'/payout?payoutId='+encodeURIComponent(payId), {method:'DELETE'}); showToast('Payout removed.'); openInvestorDetail(currentInvestorId); renderInvestors(); }
+  catch(e){ showToast(e.message); }
+}
+
 /* ================= INIT ================= */
+ivProjectCombo = makeCombo('ivProjectCombo', { placeholder:'— No project —', allowEmpty:true, emptyLabel:'— No project —' });
 docOwnerCombo = makeCombo('docOwnerCombo', { placeholder:'Select business unit…', allowEmpty:true, emptyLabel:'— None —', onChange: updateDocOwnerHint });
 pfOwnerCombo  = makeCombo('pf-owner-combo', { placeholder:'Select business unit…', allowEmpty:true, emptyLabel:'— None —' });
 projOwnerFilter = makeCombo('projOwnerFilter', { placeholder:'All owners', allowEmpty:true, emptyLabel:'All owners', onChange: ()=>{ projPage=1; renderProjects(); } });
