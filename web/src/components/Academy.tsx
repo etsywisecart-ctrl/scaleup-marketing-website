@@ -1,22 +1,12 @@
 import Link from "next/link";
-
-/* The marketplaces our graduates learn to build and sell on.
-   Each has a brand-coloured icon (drawn inline, no external assets). */
-const PLATFORMS = [
-  { name: "Shopify", ic: "shopify", color: "#5E8E3E" },
-  { name: "TikTok Shop", ic: "tiktok", color: "#EE1D52" },
-  { name: "Daraz", ic: "daraz", color: "#F85606" },
-  { name: "Etsy", ic: "etsy", color: "#F1641E" },
-  { name: "eBay", ic: "ebay", color: "#E53238" },
-  { name: "Amazon", ic: "amazon", color: "#FF9900" },
-];
+import PlatformStrip from "./PlatformStrip";
 
 /* A few headline points that make the Academy worth choosing. */
 const KEY_POINTS = [
-  { ic: "live", t: "Live cohorts", d: "Online & Lahore campus" },
-  { ic: "pro", t: "Real practitioners", d: "Taught by people who ship" },
-  { ic: "demo", t: "Free 3-day demo", d: "Try before you pay" },
-  { ic: "infinity", t: "Lifetime access", d: "Community & recordings" },
+  { ic: "live", t: "Live cohorts", d: "Online & Lahore campus", c1: "#f43f5e", c2: "#be123c" },
+  { ic: "pro", t: "Real practitioners", d: "Taught by people who ship", c1: "#8b5cf6", c2: "#6d28d9" },
+  { ic: "demo", t: "Free 3-day demo", d: "Try before you pay", c1: "#10b981", c2: "#047857" },
+  { ic: "infinity", t: "Lifetime access", d: "Community & recordings", c1: "#f59e0b", c2: "#ea580c" },
 ];
 
 const PLANS = [
@@ -81,25 +71,6 @@ function Check() {
   );
 }
 
-/* Brand-coloured marketplace glyphs (simplified, drawn inline). */
-function PlatformIcon({ name }: { name: string }) {
-  const s = { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.9, strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
-  switch (name) {
-    case "shopify": // shopping bag
-      return <svg {...s}><path d="M6.5 8h11l-1 11.5H7.5L6.5 8Z" /><path d="M9 8V6.6a3 3 0 0 1 6 0V8" /></svg>;
-    case "tiktok": // music note
-      return <svg {...s}><path d="M13 4v10.5a3 3 0 1 1-2.3-2.92" /><path d="M13 4.5c.4 2.1 1.9 3.5 4 3.7" /></svg>;
-    case "daraz": // cart
-      return <svg {...s}><path d="M4 5h2l1.5 9.4a1.3 1.3 0 0 0 1.3 1.1h7.4a1.3 1.3 0 0 0 1.3-1L19.6 8H6.3" /><circle cx="9.5" cy="19" r="1.15" /><circle cx="16.5" cy="19" r="1.15" /></svg>;
-    case "etsy": // storefront
-      return <svg {...s}><path d="M4.5 9 6 5h12l1.5 4" /><path d="M5.5 9.2v9.3h13V9.2" /><path d="M4.5 9a1.9 1.9 0 0 0 3.75 0 1.9 1.9 0 0 0 3.75 0 1.9 1.9 0 0 0 3.75 0 1.9 1.9 0 0 0 3.75 0" /></svg>;
-    case "ebay": // price tag
-      return <svg {...s}><path d="M4.3 12.4 11.4 5.3a1 1 0 0 1 .7-.3H18a1 1 0 0 1 1 1v5.9a1 1 0 0 1-.3.7l-7.1 7.1a1 1 0 0 1-1.4 0l-5.9-5.9a1 1 0 0 1 0-1.4Z" /><circle cx="15.2" cy="8.8" r="1.25" /></svg>;
-    default: // amazon smile
-      return <svg {...s}><path d="M5 14.5c4.2 3 9.8 3 14 0" /><path d="M16.8 13c1 .6 1.7 1.6 1.9 3" /></svg>;
-  }
-}
-
 function PointIcon({ name }: { name: string }) {
   const s = { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.9, strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
   switch (name) {
@@ -127,25 +98,13 @@ export default function Academy() {
           </p>
         </div>
 
-        {/* Colourful platform icon strip */}
-        <div className="ac-logos" aria-label="Marketplaces our graduates build and sell on">
-          <span className="ac-logos-label rv">Master every marketplace</span>
-          <div className="ac-plat-row">
-            {PLATFORMS.map((p, i) => (
-              <div className="ac-plat rv" key={p.name} style={{ transitionDelay: `${i * 55}ms` }}>
-                <span className="ac-plat-ic" style={{ color: p.color, ["--brand" as string]: p.color }}>
-                  <PlatformIcon name={p.ic} />
-                </span>
-                <span className="ac-plat-name">{p.name}</span>
-              </div>
-            ))}
-          </div>
-        </div>
+        {/* Colourful platform icon strip (Framer Motion) */}
+        <PlatformStrip />
 
         {/* Key points */}
         <div className="ac-points">
           {KEY_POINTS.map((k, i) => (
-            <div className="ac-point rv" key={k.t} style={{ transitionDelay: `${i * 70}ms` }}>
+            <div className="ac-point rv" key={k.t} style={{ transitionDelay: `${i * 70}ms`, ["--c1" as string]: k.c1, ["--c2" as string]: k.c2 }}>
               <span className="ac-point-ic"><PointIcon name={k.ic} /></span>
               <div className="ac-point-txt">
                 <strong>{k.t}</strong>

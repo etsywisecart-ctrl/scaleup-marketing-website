@@ -10,6 +10,7 @@ export default function Hero() {
   return (
     <section className="hero" id="top">
       <div className="hero-grid-bg" aria-hidden="true" />
+      <div className="hero-aurora" aria-hidden="true"><i /><i /><i /></div>
       <div className="wrap hero-inner">
         <div className="hero-copy rv">
           <span className="eyebrow"><i className="dot" />Digital agency × training academy</span>
