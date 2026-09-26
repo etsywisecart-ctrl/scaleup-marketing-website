@@ -8,7 +8,7 @@ import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
 
-const USE_PG = !!process.env.POSTGRES_URL;
+const USE_PG = !!(process.env.POSTGRES_URL || process.env.DATABASE_URL);
 
 export type Role = 'owner' | 'viewer';
 export type User = { id: string; username: string; name: string; role: Role; password: string; createdAt: string };
@@ -93,9 +93,14 @@ function fwrite(name: string, data: unknown) {
 
 /* ================= PG BACKEND ================= */
 let pgReady = false;
+let _pgPool: import('@vercel/postgres').VercelPool | null = null;
 async function pg() {
   const mod = await import('@vercel/postgres');
-  const sql = mod.sql;
+  // Accept either POSTGRES_URL (Vercel Postgres) or DATABASE_URL (Neon / others).
+  const connectionString = process.env.POSTGRES_URL || process.env.DATABASE_URL;
+  if (!connectionString) throw new Error('NO_DB');
+  if (!_pgPool) _pgPool = mod.createPool({ connectionString });
+  const sql = _pgPool.sql.bind(_pgPool);
   if (!pgReady) {
     await sql`CREATE TABLE IF NOT EXISTS portal_users (
       id text PRIMARY KEY, username text UNIQUE NOT NULL, name text, role text NOT NULL,
