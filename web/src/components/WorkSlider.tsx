@@ -12,7 +12,7 @@ function Frame({ img, title, url }: { img: string; title: string; url?: string }
     <div className="wsl-frame">
       <div className="wsl-bar">
         <i /><i /><i />
-        <span className="wsl-url">{url ? url.replace(/^https?:\/\//, "") : "scaleup.pk"}</span>
+        <span className="wsl-url">{url ? url.replace(/^https?:\/\//, "") : "wescaleupmarketing.com"}</span>
       </div>
       <div className="wsl-screen">
         {img ? (
