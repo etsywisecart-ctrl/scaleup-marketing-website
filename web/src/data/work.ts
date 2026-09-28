@@ -20,6 +20,19 @@ export type Project = {
 
 export const portfolio: Project[] = [
   {
+    title: "Wanderly Travel Planner",
+    cat: "AI Travel Planning Platform",
+    year: "2026",
+    img: "/uploads/wanderly-travel-agent.svg",
+    desc: "A beautifully focused travel planning and booking experience that turns a simple destination choice into a ready-to-go journey — matching travelers with local expertise, curated stays and guides, departure options, and a clear path from trip inspiration to booking.",
+    metrics: [
+      { v: "AI", l: "Trip planning" },
+      { v: "Local", l: "Expert matching" },
+      { v: "Booking", l: "Travel workflow" },
+    ],
+    tags: ["AI Agent", "Travel", "Trip Planning", "Booking"],
+  },
+  {
     title: "TastyBite Restaurant POS",
     cat: "Restaurant POS System",
     year: "2026",
