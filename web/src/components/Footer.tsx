@@ -44,6 +44,7 @@ const COLUMNS = [
 const OFFICES = [
   { code: "AU", city: "Sydney", tag: "Main office · Australia", tz: "Australia/Sydney", lines: ["31/10 Yato Road", "Prestons, NSW 2170, Australia"], phone: "+61 494 389 727", href: "tel:+61494389727" },
   { code: "PK", city: "Lahore", tag: "Pakistan office", tz: "Asia/Karachi", lines: [contact.addressLine1, contact.addressLine2], phone: contact.phoneDisplay, href: contact.phoneHref },
+  { code: "AE", city: "Dubai", tag: "Sub office · UAE", tz: "Asia/Dubai", lines: ["Dubai South Free Zone, Sector W6", "Dubai, United Arab Emirates"], phone: "+971 56 966 3543", href: "tel:+971569663543" },
 ];
 
 const SOCIAL_ICONS: Record<string, ReactElement> = {
@@ -154,7 +155,7 @@ export default function Footer() {
 
         {/* bottom */}
         <div className="ft-bottom">
-          <span>© {new Date().getFullYear()} ScaleUp Marketing · Sydney, Australia · Lahore, Pakistan</span>
+          <span>© {new Date().getFullYear()} ScaleUp Marketing · Sydney, Australia · Lahore, Pakistan · Dubai, UAE</span>
           <span className="ft-tag">Learn. Launch. Scale.</span>
           <a href="#top" className="ft-top">
             Back to top
